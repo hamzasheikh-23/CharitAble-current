@@ -1,0 +1,1513 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="charitable_dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tbl_Admin">
+          <Key>
+            <PropertyRef Name="AdminID" />
+          </Key>
+          <Property Name="AdminID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" />
+        </EntityType>
+        <EntityType Name="tbl_Cases">
+          <Key>
+            <PropertyRef Name="CaseID" />
+          </Key>
+          <Property Name="CaseID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NGO_ID" Type="int" />
+          <Property Name="CaseTitle" Type="varchar" MaxLength="50" />
+          <Property Name="PostedDate" Type="smalldatetime" />
+          <Property Name="Description" Type="varchar" MaxLength="500" />
+          <Property Name="Picture" Type="image" />
+        </EntityType>
+        <EntityType Name="tbl_Donations">
+          <Key>
+            <PropertyRef Name="DonationID" />
+          </Key>
+          <Property Name="DonationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DonorID" Type="int" />
+          <Property Name="DonationTitle" Type="varchar" MaxLength="50" />
+          <Property Name="Quantity" Type="smallint" />
+          <Property Name="Weight" Type="decimal" Precision="4" Scale="2" />
+          <Property Name="QuantityPerUnit" Type="tinyint" />
+          <Property Name="ExpiryDate" Type="smalldatetime" />
+          <Property Name="Description" Type="varchar" MaxLength="400" />
+          <Property Name="LocationCoordinates" Type="bigint" />
+          <Property Name="Picture" Type="image" />
+        </EntityType>
+        <EntityType Name="tbl_DonorMaster">
+          <Key>
+            <PropertyRef Name="DonorID" />
+          </Key>
+          <Property Name="DonorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="Gender" Type="varchar" MaxLength="10" />
+          <Property Name="State" Type="varchar" MaxLength="25" />
+          <Property Name="City" Type="varchar" MaxLength="25" />
+          <Property Name="Address" Type="varchar(max)" />
+          <Property Name="DOB" Type="smalldatetime" />
+          <Property Name="CNIC" Type="bigint" />
+        </EntityType>
+        <EntityType Name="tbl_Invoices">
+          <Key>
+            <PropertyRef Name="InvoiceID" />
+          </Key>
+          <Property Name="InvoiceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderID" Type="int" />
+          <Property Name="DonorID" Type="int" />
+          <Property Name="NGO_ID" Type="int" />
+          <Property Name="Date" Type="smalldatetime" />
+          <Property Name="Time" Type="time" Precision="7" />
+          <Property Name="Amount" Type="smallmoney" />
+        </EntityType>
+        <EntityType Name="tbl_MaterialGroup">
+          <Key>
+            <PropertyRef Name="MaterialGroupID" />
+          </Key>
+          <Property Name="MaterialGroupID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MaterialGroupCode" Type="varchar" MaxLength="5" />
+          <Property Name="UnitOfMeasure" Type="varchar" MaxLength="8" />
+          <Property Name="Description" Type="varchar" MaxLength="400" />
+        </EntityType>
+        <EntityType Name="tbl_MaterialMaster">
+          <Key>
+            <PropertyRef Name="MaterialID" />
+          </Key>
+          <Property Name="MaterialID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AdminID" Type="int" />
+          <Property Name="MaterialTypeID" Type="int" />
+          <Property Name="MaterialGroupID" Type="int" />
+          <Property Name="MaterialName" Type="varchar" MaxLength="50" />
+          <Property Name="MaterialDescription" Type="varchar" MaxLength="400" />
+        </EntityType>
+        <EntityType Name="tbl_MaterialType">
+          <Key>
+            <PropertyRef Name="MaterialTypeID" />
+          </Key>
+          <Property Name="MaterialTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MaterialTypeCode" Type="varchar" MaxLength="5" />
+          <Property Name="Description" Type="varchar" MaxLength="400" />
+        </EntityType>
+        <EntityType Name="tbl_NGOMaster">
+          <Key>
+            <PropertyRef Name="NGO_ID" />
+          </Key>
+          <Property Name="NGO_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="PlanID" Type="int" />
+          <Property Name="PaymentInfoID" Type="int" />
+          <Property Name="TagLine" Type="varchar" MaxLength="120" />
+          <Property Name="State" Type="varchar" MaxLength="25" />
+          <Property Name="City" Type="varchar" MaxLength="25" />
+          <Property Name="Address" Type="varchar(max)" />
+          <Property Name="LocationCoordinates" Type="bigint" />
+          <Property Name="MemorandumOfNGO" Type="image" />
+        </EntityType>
+        <EntityType Name="tbl_Orders">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NGO_ID" Type="int" />
+          <Property Name="StoryTitle" Type="varchar" MaxLength="50" />
+          <Property Name="OrderDate" Type="smalldatetime" />
+          <Property Name="OrderTime" Type="time" Precision="7" />
+          <Property Name="DeliveryAddress" Type="varchar(max)" />
+          <Property Name="OrderStatus" Type="varchar" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="tbl_PaymentInfo">
+          <Key>
+            <PropertyRef Name="PaymentInfoID" />
+          </Key>
+          <Property Name="PaymentInfoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CardNumber" Type="bigint" />
+          <Property Name="CurrentExpiryMonth" Type="tinyint" />
+          <Property Name="CurretnExpiryYear" Type="smallint" />
+        </EntityType>
+        <EntityType Name="tbl_SubscriptionPlan">
+          <Key>
+            <PropertyRef Name="PlanID" />
+          </Key>
+          <Property Name="PlanID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PlanName" Type="varchar" MaxLength="30" />
+          <Property Name="Amount" Type="smallmoney" />
+          <Property Name="Duration" Type="smallint" />
+          <Property Name="Description" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="tbl_SuccessStories">
+          <Key>
+            <PropertyRef Name="StoryID" />
+          </Key>
+          <Property Name="StoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NGO_ID" Type="int" />
+          <Property Name="StoryTitle" Type="varchar" MaxLength="50" />
+          <Property Name="PostedDate" Type="smalldatetime" />
+          <Property Name="Description" Type="varchar" MaxLength="500" />
+          <Property Name="Picture" Type="image" />
+        </EntityType>
+        <EntityType Name="tbl_Users">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserTypeID" Type="int" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="40" />
+          <Property Name="Username" Type="varchar" MaxLength="40" />
+          <Property Name="Email" Type="varchar" MaxLength="100" />
+          <Property Name="Password" Type="varchar" MaxLength="64" />
+          <Property Name="ContactNumber" Type="numeric" Precision="15" Scale="0" />
+          <Property Name="VerificationCode" Type="smallint" />
+          <Property Name="IsEmailVerified" Type="bit" />
+          <Property Name="ProfilePicture" Type="image" />
+        </EntityType>
+        <EntityType Name="tbl_UserType">
+          <Key>
+            <PropertyRef Name="UserTypeID" />
+          </Key>
+          <Property Name="UserTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserType" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Admin__UserID__2E1BDC42">
+          <End Role="tbl_Users" Type="Self.tbl_Users" Multiplicity="0..1" />
+          <End Role="tbl_Admin" Type="Self.tbl_Admin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tbl_Admin">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Donations__Donor__30F848ED">
+          <End Role="tbl_DonorMaster" Type="Self.tbl_DonorMaster" Multiplicity="0..1" />
+          <End Role="tbl_Donations" Type="Self.tbl_Donations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_DonorMaster">
+              <PropertyRef Name="DonorID" />
+            </Principal>
+            <Dependent Role="tbl_Donations">
+              <PropertyRef Name="DonorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DonorMast__UserI__267ABA7A">
+          <End Role="tbl_Users" Type="Self.tbl_Users" Multiplicity="0..1" />
+          <End Role="tbl_DonorMaster" Type="Self.tbl_DonorMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tbl_DonorMaster">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__NGOMaster__UserI__29572725">
+          <End Role="tbl_Users" Type="Self.tbl_Users" Multiplicity="0..1" />
+          <End Role="tbl_NGOMaster" Type="Self.tbl_NGOMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tbl_NGOMaster">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_Cases__NGO_I__35BCFE0A">
+          <End Role="tbl_NGOMaster" Type="Self.tbl_NGOMaster" Multiplicity="0..1" />
+          <End Role="tbl_Cases" Type="Self.tbl_Cases" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_NGOMaster">
+              <PropertyRef Name="NGO_ID" />
+            </Principal>
+            <Dependent Role="tbl_Cases">
+              <PropertyRef Name="NGO_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_Invoi__Donor__3F466844">
+          <End Role="tbl_DonorMaster" Type="Self.tbl_DonorMaster" Multiplicity="0..1" />
+          <End Role="tbl_Invoices" Type="Self.tbl_Invoices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_DonorMaster">
+              <PropertyRef Name="DonorID" />
+            </Principal>
+            <Dependent Role="tbl_Invoices">
+              <PropertyRef Name="DonorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_Invoi__NGO_I__403A8C7D">
+          <End Role="tbl_NGOMaster" Type="Self.tbl_NGOMaster" Multiplicity="0..1" />
+          <End Role="tbl_Invoices" Type="Self.tbl_Invoices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_NGOMaster">
+              <PropertyRef Name="NGO_ID" />
+            </Principal>
+            <Dependent Role="tbl_Invoices">
+              <PropertyRef Name="NGO_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_Invoi__Order__3E52440B">
+          <End Role="tbl_Orders" Type="Self.tbl_Orders" Multiplicity="0..1" />
+          <End Role="tbl_Invoices" Type="Self.tbl_Invoices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Orders">
+              <PropertyRef Name="OrderID" />
+            </Principal>
+            <Dependent Role="tbl_Invoices">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_Mater__Admin__4AB81AF0">
+          <End Role="tbl_Admin" Type="Self.tbl_Admin" Multiplicity="0..1" />
+          <End Role="tbl_MaterialMaster" Type="Self.tbl_MaterialMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Admin">
+              <PropertyRef Name="AdminID" />
+            </Principal>
+            <Dependent Role="tbl_MaterialMaster">
+              <PropertyRef Name="AdminID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_Mater__Mater__4BAC3F29">
+          <End Role="tbl_MaterialType" Type="Self.tbl_MaterialType" Multiplicity="0..1" />
+          <End Role="tbl_MaterialMaster" Type="Self.tbl_MaterialMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_MaterialType">
+              <PropertyRef Name="MaterialTypeID" />
+            </Principal>
+            <Dependent Role="tbl_MaterialMaster">
+              <PropertyRef Name="MaterialTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_Mater__Mater__4CA06362">
+          <End Role="tbl_MaterialGroup" Type="Self.tbl_MaterialGroup" Multiplicity="0..1" />
+          <End Role="tbl_MaterialMaster" Type="Self.tbl_MaterialMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_MaterialGroup">
+              <PropertyRef Name="MaterialGroupID" />
+            </Principal>
+            <Dependent Role="tbl_MaterialMaster">
+              <PropertyRef Name="MaterialGroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_Order__NGO_I__3B75D760">
+          <End Role="tbl_NGOMaster" Type="Self.tbl_NGOMaster" Multiplicity="0..1" />
+          <End Role="tbl_Orders" Type="Self.tbl_Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_NGOMaster">
+              <PropertyRef Name="NGO_ID" />
+            </Principal>
+            <Dependent Role="tbl_Orders">
+              <PropertyRef Name="NGO_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_Succe__NGO_I__38996AB5">
+          <End Role="tbl_NGOMaster" Type="Self.tbl_NGOMaster" Multiplicity="0..1" />
+          <End Role="tbl_SuccessStories" Type="Self.tbl_SuccessStories" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_NGOMaster">
+              <PropertyRef Name="NGO_ID" />
+            </Principal>
+            <Dependent Role="tbl_SuccessStories">
+              <PropertyRef Name="NGO_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_Users__UserT__5629CD9C">
+          <End Role="tbl_UserType" Type="Self.tbl_UserType" Multiplicity="1" />
+          <End Role="tbl_Users" Type="Self.tbl_Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_UserType">
+              <PropertyRef Name="UserTypeID" />
+            </Principal>
+            <Dependent Role="tbl_Users">
+              <PropertyRef Name="UserTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="SP_AddCase" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CaseTitle" Type="varchar" Mode="In" />
+          <Parameter Name="PostedDate" Type="smalldatetime" Mode="In" />
+          <Parameter Name="Description" Type="varchar" Mode="In" />
+          <Parameter Name="Picture" Type="image" Mode="In" />
+        </Function>
+        <Function Name="SP_AddDonation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DonorID" Type="int" Mode="In" />
+          <Parameter Name="DonationTitle" Type="varchar" Mode="In" />
+          <Parameter Name="Quantity" Type="smallint" Mode="In" />
+          <Parameter Name="Weight" Type="decimal" Mode="In" />
+          <Parameter Name="QuantityPerUnit" Type="tinyint" Mode="In" />
+          <Parameter Name="ExpiryDate" Type="smalldatetime" Mode="In" />
+          <Parameter Name="Description" Type="varchar" Mode="In" />
+          <Parameter Name="LocationCOD" Type="bigint" Mode="In" />
+          <Parameter Name="Picture" Type="image" Mode="In" />
+        </Function>
+        <Function Name="SP_SelectAllAdmins" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_SelectAllCases" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_SelectAllDonations" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_SelectAllDonors" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_SelectAllInvoices" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_SelectAllMaterialGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_SelectAllMaterials" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_SelectAllMaterialType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_SelectAllNgos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_SelectAllOrders" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_SelectAllSubscriptionPlans" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_SelectAllSuccessStories" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_SelectAllUsers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_SelectAllUserType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_SelectPaymentInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_UpdateCaseAgainstCaseID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CaseID" Type="int" Mode="In" />
+          <Parameter Name="CaseTitle" Type="varchar" Mode="In" />
+          <Parameter Name="PostedDate" Type="smalldatetime" Mode="In" />
+          <Parameter Name="Description" Type="varchar" Mode="In" />
+          <Parameter Name="Picture" Type="image" Mode="In" />
+        </Function>
+        <Function Name="SP_UpdateCaseAgainstNgoID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="NgoID" Type="int" Mode="In" />
+          <Parameter Name="CaseTitle" Type="varchar" Mode="In" />
+          <Parameter Name="PostedDate" Type="smalldatetime" Mode="In" />
+          <Parameter Name="Description" Type="varchar" Mode="In" />
+          <Parameter Name="Picture" Type="image" Mode="In" />
+        </Function>
+        <Function Name="SP_UpdateDonationByDonationID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DonationID" Type="int" Mode="In" />
+          <Parameter Name="DonorID" Type="int" Mode="In" />
+          <Parameter Name="DonationTitle" Type="varchar" Mode="In" />
+          <Parameter Name="Quantity" Type="smallint" Mode="In" />
+          <Parameter Name="Weight" Type="decimal" Mode="In" />
+          <Parameter Name="QuantityPerUnit" Type="tinyint" Mode="In" />
+          <Parameter Name="ExpiryDate" Type="smalldatetime" Mode="In" />
+          <Parameter Name="Description" Type="varchar" Mode="In" />
+          <Parameter Name="LocationCOD" Type="bigint" Mode="In" />
+          <Parameter Name="Picture" Type="image" Mode="In" />
+        </Function>
+        <Function Name="SP_UpdateDonationByDonorID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DonationID" Type="int" Mode="In" />
+          <Parameter Name="DonorID" Type="int" Mode="In" />
+          <Parameter Name="DonationTitle" Type="varchar" Mode="In" />
+          <Parameter Name="Quantity" Type="smallint" Mode="In" />
+          <Parameter Name="Weight" Type="decimal" Mode="In" />
+          <Parameter Name="QuantityPerUnit" Type="tinyint" Mode="In" />
+          <Parameter Name="ExpiryDate" Type="smalldatetime" Mode="In" />
+          <Parameter Name="Description" Type="varchar" Mode="In" />
+          <Parameter Name="LocationCOD" Type="bigint" Mode="In" />
+          <Parameter Name="Picture" Type="image" Mode="In" />
+        </Function>
+        <EntityContainer Name="charitable_dbModelStoreContainer">
+          <EntitySet Name="tbl_Admin" EntityType="Self.tbl_Admin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Cases" EntityType="Self.tbl_Cases" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Donations" EntityType="Self.tbl_Donations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_DonorMaster" EntityType="Self.tbl_DonorMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Invoices" EntityType="Self.tbl_Invoices" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_MaterialGroup" EntityType="Self.tbl_MaterialGroup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_MaterialMaster" EntityType="Self.tbl_MaterialMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_MaterialType" EntityType="Self.tbl_MaterialType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_NGOMaster" EntityType="Self.tbl_NGOMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Orders" EntityType="Self.tbl_Orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_PaymentInfo" EntityType="Self.tbl_PaymentInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_SubscriptionPlan" EntityType="Self.tbl_SubscriptionPlan" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_SuccessStories" EntityType="Self.tbl_SuccessStories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Users" EntityType="Self.tbl_Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_UserType" EntityType="Self.tbl_UserType" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Admin__UserID__2E1BDC42" Association="Self.FK__Admin__UserID__2E1BDC42">
+            <End Role="tbl_Users" EntitySet="tbl_Users" />
+            <End Role="tbl_Admin" EntitySet="tbl_Admin" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Donations__Donor__30F848ED" Association="Self.FK__Donations__Donor__30F848ED">
+            <End Role="tbl_DonorMaster" EntitySet="tbl_DonorMaster" />
+            <End Role="tbl_Donations" EntitySet="tbl_Donations" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DonorMast__UserI__267ABA7A" Association="Self.FK__DonorMast__UserI__267ABA7A">
+            <End Role="tbl_Users" EntitySet="tbl_Users" />
+            <End Role="tbl_DonorMaster" EntitySet="tbl_DonorMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK__NGOMaster__UserI__29572725" Association="Self.FK__NGOMaster__UserI__29572725">
+            <End Role="tbl_Users" EntitySet="tbl_Users" />
+            <End Role="tbl_NGOMaster" EntitySet="tbl_NGOMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_Cases__NGO_I__35BCFE0A" Association="Self.FK__tbl_Cases__NGO_I__35BCFE0A">
+            <End Role="tbl_NGOMaster" EntitySet="tbl_NGOMaster" />
+            <End Role="tbl_Cases" EntitySet="tbl_Cases" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_Invoi__Donor__3F466844" Association="Self.FK__tbl_Invoi__Donor__3F466844">
+            <End Role="tbl_DonorMaster" EntitySet="tbl_DonorMaster" />
+            <End Role="tbl_Invoices" EntitySet="tbl_Invoices" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_Invoi__NGO_I__403A8C7D" Association="Self.FK__tbl_Invoi__NGO_I__403A8C7D">
+            <End Role="tbl_NGOMaster" EntitySet="tbl_NGOMaster" />
+            <End Role="tbl_Invoices" EntitySet="tbl_Invoices" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_Invoi__Order__3E52440B" Association="Self.FK__tbl_Invoi__Order__3E52440B">
+            <End Role="tbl_Orders" EntitySet="tbl_Orders" />
+            <End Role="tbl_Invoices" EntitySet="tbl_Invoices" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_Mater__Admin__4AB81AF0" Association="Self.FK__tbl_Mater__Admin__4AB81AF0">
+            <End Role="tbl_Admin" EntitySet="tbl_Admin" />
+            <End Role="tbl_MaterialMaster" EntitySet="tbl_MaterialMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_Mater__Mater__4BAC3F29" Association="Self.FK__tbl_Mater__Mater__4BAC3F29">
+            <End Role="tbl_MaterialType" EntitySet="tbl_MaterialType" />
+            <End Role="tbl_MaterialMaster" EntitySet="tbl_MaterialMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_Mater__Mater__4CA06362" Association="Self.FK__tbl_Mater__Mater__4CA06362">
+            <End Role="tbl_MaterialGroup" EntitySet="tbl_MaterialGroup" />
+            <End Role="tbl_MaterialMaster" EntitySet="tbl_MaterialMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_Order__NGO_I__3B75D760" Association="Self.FK__tbl_Order__NGO_I__3B75D760">
+            <End Role="tbl_NGOMaster" EntitySet="tbl_NGOMaster" />
+            <End Role="tbl_Orders" EntitySet="tbl_Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_Succe__NGO_I__38996AB5" Association="Self.FK__tbl_Succe__NGO_I__38996AB5">
+            <End Role="tbl_NGOMaster" EntitySet="tbl_NGOMaster" />
+            <End Role="tbl_SuccessStories" EntitySet="tbl_SuccessStories" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_Users__UserT__5629CD9C" Association="Self.FK__tbl_Users__UserT__5629CD9C">
+            <End Role="tbl_UserType" EntitySet="tbl_UserType" />
+            <End Role="tbl_Users" EntitySet="tbl_Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="charitable_dbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tbl_Admin">
+          <Key>
+            <PropertyRef Name="AdminID" />
+          </Key>
+          <Property Name="AdminID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" />
+          <NavigationProperty Name="tbl_Users" Relationship="Self.FK__Admin__UserID__2E1BDC42" FromRole="tbl_Admin" ToRole="tbl_Users" />
+          <NavigationProperty Name="tbl_MaterialMaster" Relationship="Self.FK__tbl_Mater__Admin__4AB81AF0" FromRole="tbl_Admin" ToRole="tbl_MaterialMaster" />
+        </EntityType>
+        <EntityType Name="tbl_Cases">
+          <Key>
+            <PropertyRef Name="CaseID" />
+          </Key>
+          <Property Name="CaseID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NGO_ID" Type="Int32" />
+          <Property Name="CaseTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PostedDate" Type="DateTime" Precision="0" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Picture" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="tbl_NGOMaster" Relationship="Self.FK__tbl_Cases__NGO_I__35BCFE0A" FromRole="tbl_Cases" ToRole="tbl_NGOMaster" />
+        </EntityType>
+        <EntityType Name="tbl_Donations">
+          <Key>
+            <PropertyRef Name="DonationID" />
+          </Key>
+          <Property Name="DonationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DonorID" Type="Int32" />
+          <Property Name="DonationTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Quantity" Type="Int16" />
+          <Property Name="Weight" Type="Decimal" Precision="4" Scale="2" />
+          <Property Name="QuantityPerUnit" Type="Byte" />
+          <Property Name="ExpiryDate" Type="DateTime" Precision="0" />
+          <Property Name="Description" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+          <Property Name="LocationCoordinates" Type="Int64" />
+          <Property Name="Picture" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="tbl_DonorMaster" Relationship="Self.FK__Donations__Donor__30F848ED" FromRole="tbl_Donations" ToRole="tbl_DonorMaster" />
+        </EntityType>
+        <EntityType Name="tbl_DonorMaster">
+          <Key>
+            <PropertyRef Name="DonorID" />
+          </Key>
+          <Property Name="DonorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="Gender" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="State" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="DOB" Type="DateTime" Precision="0" />
+          <Property Name="CNIC" Type="Int64" />
+          <NavigationProperty Name="tbl_Donations" Relationship="Self.FK__Donations__Donor__30F848ED" FromRole="tbl_DonorMaster" ToRole="tbl_Donations" />
+          <NavigationProperty Name="tbl_Users" Relationship="Self.FK__DonorMast__UserI__267ABA7A" FromRole="tbl_DonorMaster" ToRole="tbl_Users" />
+          <NavigationProperty Name="tbl_Invoices" Relationship="Self.FK__tbl_Invoi__Donor__3F466844" FromRole="tbl_DonorMaster" ToRole="tbl_Invoices" />
+        </EntityType>
+        <EntityType Name="tbl_Invoices">
+          <Key>
+            <PropertyRef Name="InvoiceID" />
+          </Key>
+          <Property Name="InvoiceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderID" Type="Int32" />
+          <Property Name="DonorID" Type="Int32" />
+          <Property Name="NGO_ID" Type="Int32" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="Time" Type="Time" Precision="7" />
+          <Property Name="Amount" Type="Decimal" Precision="10" Scale="4" />
+          <NavigationProperty Name="tbl_DonorMaster" Relationship="Self.FK__tbl_Invoi__Donor__3F466844" FromRole="tbl_Invoices" ToRole="tbl_DonorMaster" />
+          <NavigationProperty Name="tbl_NGOMaster" Relationship="Self.FK__tbl_Invoi__NGO_I__403A8C7D" FromRole="tbl_Invoices" ToRole="tbl_NGOMaster" />
+          <NavigationProperty Name="tbl_Orders" Relationship="Self.FK__tbl_Invoi__Order__3E52440B" FromRole="tbl_Invoices" ToRole="tbl_Orders" />
+        </EntityType>
+        <EntityType Name="tbl_MaterialGroup">
+          <Key>
+            <PropertyRef Name="MaterialGroupID" />
+          </Key>
+          <Property Name="MaterialGroupID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MaterialGroupCode" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="UnitOfMeasure" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tbl_MaterialMaster" Relationship="Self.FK__tbl_Mater__Mater__4CA06362" FromRole="tbl_MaterialGroup" ToRole="tbl_MaterialMaster" />
+        </EntityType>
+        <EntityType Name="tbl_MaterialMaster">
+          <Key>
+            <PropertyRef Name="MaterialID" />
+          </Key>
+          <Property Name="MaterialID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AdminID" Type="Int32" />
+          <Property Name="MaterialTypeID" Type="Int32" />
+          <Property Name="MaterialGroupID" Type="Int32" />
+          <Property Name="MaterialName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MaterialDescription" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tbl_Admin" Relationship="Self.FK__tbl_Mater__Admin__4AB81AF0" FromRole="tbl_MaterialMaster" ToRole="tbl_Admin" />
+          <NavigationProperty Name="tbl_MaterialGroup" Relationship="Self.FK__tbl_Mater__Mater__4CA06362" FromRole="tbl_MaterialMaster" ToRole="tbl_MaterialGroup" />
+          <NavigationProperty Name="tbl_MaterialType" Relationship="Self.FK__tbl_Mater__Mater__4BAC3F29" FromRole="tbl_MaterialMaster" ToRole="tbl_MaterialType" />
+        </EntityType>
+        <EntityType Name="tbl_MaterialType">
+          <Key>
+            <PropertyRef Name="MaterialTypeID" />
+          </Key>
+          <Property Name="MaterialTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MaterialTypeCode" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tbl_MaterialMaster" Relationship="Self.FK__tbl_Mater__Mater__4BAC3F29" FromRole="tbl_MaterialType" ToRole="tbl_MaterialMaster" />
+        </EntityType>
+        <EntityType Name="tbl_NGOMaster">
+          <Key>
+            <PropertyRef Name="NGO_ID" />
+          </Key>
+          <Property Name="NGO_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="PlanID" Type="Int32" />
+          <Property Name="PaymentInfoID" Type="Int32" />
+          <Property Name="TagLine" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="State" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="LocationCoordinates" Type="Int64" />
+          <Property Name="MemorandumOfNGO" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="tbl_Cases" Relationship="Self.FK__tbl_Cases__NGO_I__35BCFE0A" FromRole="tbl_NGOMaster" ToRole="tbl_Cases" />
+          <NavigationProperty Name="tbl_Invoices" Relationship="Self.FK__tbl_Invoi__NGO_I__403A8C7D" FromRole="tbl_NGOMaster" ToRole="tbl_Invoices" />
+          <NavigationProperty Name="tbl_Users" Relationship="Self.FK__NGOMaster__UserI__29572725" FromRole="tbl_NGOMaster" ToRole="tbl_Users" />
+          <NavigationProperty Name="tbl_Orders" Relationship="Self.FK__tbl_Order__NGO_I__3B75D760" FromRole="tbl_NGOMaster" ToRole="tbl_Orders" />
+          <NavigationProperty Name="tbl_SuccessStories" Relationship="Self.FK__tbl_Succe__NGO_I__38996AB5" FromRole="tbl_NGOMaster" ToRole="tbl_SuccessStories" />
+        </EntityType>
+        <EntityType Name="tbl_Orders">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NGO_ID" Type="Int32" />
+          <Property Name="StoryTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OrderDate" Type="DateTime" Precision="0" />
+          <Property Name="OrderTime" Type="Time" Precision="7" />
+          <Property Name="DeliveryAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="OrderStatus" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tbl_Invoices" Relationship="Self.FK__tbl_Invoi__Order__3E52440B" FromRole="tbl_Orders" ToRole="tbl_Invoices" />
+          <NavigationProperty Name="tbl_NGOMaster" Relationship="Self.FK__tbl_Order__NGO_I__3B75D760" FromRole="tbl_Orders" ToRole="tbl_NGOMaster" />
+        </EntityType>
+        <EntityType Name="tbl_PaymentInfo">
+          <Key>
+            <PropertyRef Name="PaymentInfoID" />
+          </Key>
+          <Property Name="PaymentInfoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CardNumber" Type="Int64" />
+          <Property Name="CurrentExpiryMonth" Type="Byte" />
+          <Property Name="CurretnExpiryYear" Type="Int16" />
+        </EntityType>
+        <EntityType Name="tbl_SubscriptionPlan">
+          <Key>
+            <PropertyRef Name="PlanID" />
+          </Key>
+          <Property Name="PlanID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PlanName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Amount" Type="Decimal" Precision="10" Scale="4" />
+          <Property Name="Duration" Type="Int16" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tbl_SuccessStories">
+          <Key>
+            <PropertyRef Name="StoryID" />
+          </Key>
+          <Property Name="StoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NGO_ID" Type="Int32" />
+          <Property Name="StoryTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PostedDate" Type="DateTime" Precision="0" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Picture" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="tbl_NGOMaster" Relationship="Self.FK__tbl_Succe__NGO_I__38996AB5" FromRole="tbl_SuccessStories" ToRole="tbl_NGOMaster" />
+        </EntityType>
+        <EntityType Name="tbl_Users">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserTypeID" Type="Int32" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="Username" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="ContactNumber" Type="Decimal" Precision="15" Scale="0" />
+          <Property Name="VerificationCode" Type="Int16" />
+          <Property Name="IsEmailVerified" Type="Boolean" />
+          <Property Name="ProfilePicture" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="tbl_Admin" Relationship="Self.FK__Admin__UserID__2E1BDC42" FromRole="tbl_Users" ToRole="tbl_Admin" />
+          <NavigationProperty Name="tbl_DonorMaster" Relationship="Self.FK__DonorMast__UserI__267ABA7A" FromRole="tbl_Users" ToRole="tbl_DonorMaster" />
+          <NavigationProperty Name="tbl_NGOMaster" Relationship="Self.FK__NGOMaster__UserI__29572725" FromRole="tbl_Users" ToRole="tbl_NGOMaster" />
+          <NavigationProperty Name="tbl_UserType" Relationship="Self.FK__tbl_Users__UserT__5629CD9C" FromRole="tbl_Users" ToRole="tbl_UserType" />
+        </EntityType>
+        <EntityType Name="tbl_UserType">
+          <Key>
+            <PropertyRef Name="UserTypeID" />
+          </Key>
+          <Property Name="UserTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserType" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tbl_Users" Relationship="Self.FK__tbl_Users__UserT__5629CD9C" FromRole="tbl_UserType" ToRole="tbl_Users" />
+        </EntityType>
+        <Association Name="FK__Admin__UserID__2E1BDC42">
+          <End Role="tbl_Users" Type="Self.tbl_Users" Multiplicity="0..1" />
+          <End Role="tbl_Admin" Type="Self.tbl_Admin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tbl_Admin">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_Mater__Admin__4AB81AF0">
+          <End Role="tbl_Admin" Type="Self.tbl_Admin" Multiplicity="0..1" />
+          <End Role="tbl_MaterialMaster" Type="Self.tbl_MaterialMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Admin">
+              <PropertyRef Name="AdminID" />
+            </Principal>
+            <Dependent Role="tbl_MaterialMaster">
+              <PropertyRef Name="AdminID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_Cases__NGO_I__35BCFE0A">
+          <End Role="tbl_NGOMaster" Type="Self.tbl_NGOMaster" Multiplicity="0..1" />
+          <End Role="tbl_Cases" Type="Self.tbl_Cases" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_NGOMaster">
+              <PropertyRef Name="NGO_ID" />
+            </Principal>
+            <Dependent Role="tbl_Cases">
+              <PropertyRef Name="NGO_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Donations__Donor__30F848ED">
+          <End Role="tbl_DonorMaster" Type="Self.tbl_DonorMaster" Multiplicity="0..1" />
+          <End Role="tbl_Donations" Type="Self.tbl_Donations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_DonorMaster">
+              <PropertyRef Name="DonorID" />
+            </Principal>
+            <Dependent Role="tbl_Donations">
+              <PropertyRef Name="DonorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DonorMast__UserI__267ABA7A">
+          <End Role="tbl_Users" Type="Self.tbl_Users" Multiplicity="0..1" />
+          <End Role="tbl_DonorMaster" Type="Self.tbl_DonorMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tbl_DonorMaster">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_Invoi__Donor__3F466844">
+          <End Role="tbl_DonorMaster" Type="Self.tbl_DonorMaster" Multiplicity="0..1" />
+          <End Role="tbl_Invoices" Type="Self.tbl_Invoices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_DonorMaster">
+              <PropertyRef Name="DonorID" />
+            </Principal>
+            <Dependent Role="tbl_Invoices">
+              <PropertyRef Name="DonorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_Invoi__NGO_I__403A8C7D">
+          <End Role="tbl_NGOMaster" Type="Self.tbl_NGOMaster" Multiplicity="0..1" />
+          <End Role="tbl_Invoices" Type="Self.tbl_Invoices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_NGOMaster">
+              <PropertyRef Name="NGO_ID" />
+            </Principal>
+            <Dependent Role="tbl_Invoices">
+              <PropertyRef Name="NGO_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_Invoi__Order__3E52440B">
+          <End Role="tbl_Orders" Type="Self.tbl_Orders" Multiplicity="0..1" />
+          <End Role="tbl_Invoices" Type="Self.tbl_Invoices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Orders">
+              <PropertyRef Name="OrderID" />
+            </Principal>
+            <Dependent Role="tbl_Invoices">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_Mater__Mater__4CA06362">
+          <End Role="tbl_MaterialGroup" Type="Self.tbl_MaterialGroup" Multiplicity="0..1" />
+          <End Role="tbl_MaterialMaster" Type="Self.tbl_MaterialMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_MaterialGroup">
+              <PropertyRef Name="MaterialGroupID" />
+            </Principal>
+            <Dependent Role="tbl_MaterialMaster">
+              <PropertyRef Name="MaterialGroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_Mater__Mater__4BAC3F29">
+          <End Role="tbl_MaterialType" Type="Self.tbl_MaterialType" Multiplicity="0..1" />
+          <End Role="tbl_MaterialMaster" Type="Self.tbl_MaterialMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_MaterialType">
+              <PropertyRef Name="MaterialTypeID" />
+            </Principal>
+            <Dependent Role="tbl_MaterialMaster">
+              <PropertyRef Name="MaterialTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__NGOMaster__UserI__29572725">
+          <End Role="tbl_Users" Type="Self.tbl_Users" Multiplicity="0..1" />
+          <End Role="tbl_NGOMaster" Type="Self.tbl_NGOMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tbl_NGOMaster">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_Order__NGO_I__3B75D760">
+          <End Role="tbl_NGOMaster" Type="Self.tbl_NGOMaster" Multiplicity="0..1" />
+          <End Role="tbl_Orders" Type="Self.tbl_Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_NGOMaster">
+              <PropertyRef Name="NGO_ID" />
+            </Principal>
+            <Dependent Role="tbl_Orders">
+              <PropertyRef Name="NGO_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_Succe__NGO_I__38996AB5">
+          <End Role="tbl_NGOMaster" Type="Self.tbl_NGOMaster" Multiplicity="0..1" />
+          <End Role="tbl_SuccessStories" Type="Self.tbl_SuccessStories" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_NGOMaster">
+              <PropertyRef Name="NGO_ID" />
+            </Principal>
+            <Dependent Role="tbl_SuccessStories">
+              <PropertyRef Name="NGO_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_Users__UserT__5629CD9C">
+          <End Role="tbl_UserType" Type="Self.tbl_UserType" Multiplicity="1" />
+          <End Role="tbl_Users" Type="Self.tbl_Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_UserType">
+              <PropertyRef Name="UserTypeID" />
+            </Principal>
+            <Dependent Role="tbl_Users">
+              <PropertyRef Name="UserTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="charitable_dbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tbl_Admin" EntityType="Self.tbl_Admin" />
+          <EntitySet Name="tbl_Cases" EntityType="Self.tbl_Cases" />
+          <EntitySet Name="tbl_Donations" EntityType="Self.tbl_Donations" />
+          <EntitySet Name="tbl_DonorMaster" EntityType="Self.tbl_DonorMaster" />
+          <EntitySet Name="tbl_Invoices" EntityType="Self.tbl_Invoices" />
+          <EntitySet Name="tbl_MaterialGroup" EntityType="Self.tbl_MaterialGroup" />
+          <EntitySet Name="tbl_MaterialMaster" EntityType="Self.tbl_MaterialMaster" />
+          <EntitySet Name="tbl_MaterialType" EntityType="Self.tbl_MaterialType" />
+          <EntitySet Name="tbl_NGOMaster" EntityType="Self.tbl_NGOMaster" />
+          <EntitySet Name="tbl_Orders" EntityType="Self.tbl_Orders" />
+          <EntitySet Name="tbl_PaymentInfo" EntityType="Self.tbl_PaymentInfo" />
+          <EntitySet Name="tbl_SubscriptionPlan" EntityType="Self.tbl_SubscriptionPlan" />
+          <EntitySet Name="tbl_SuccessStories" EntityType="Self.tbl_SuccessStories" />
+          <EntitySet Name="tbl_Users" EntityType="Self.tbl_Users" />
+          <EntitySet Name="tbl_UserType" EntityType="Self.tbl_UserType" />
+          <AssociationSet Name="FK__Admin__UserID__2E1BDC42" Association="Self.FK__Admin__UserID__2E1BDC42">
+            <End Role="tbl_Users" EntitySet="tbl_Users" />
+            <End Role="tbl_Admin" EntitySet="tbl_Admin" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_Mater__Admin__4AB81AF0" Association="Self.FK__tbl_Mater__Admin__4AB81AF0">
+            <End Role="tbl_Admin" EntitySet="tbl_Admin" />
+            <End Role="tbl_MaterialMaster" EntitySet="tbl_MaterialMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_Cases__NGO_I__35BCFE0A" Association="Self.FK__tbl_Cases__NGO_I__35BCFE0A">
+            <End Role="tbl_NGOMaster" EntitySet="tbl_NGOMaster" />
+            <End Role="tbl_Cases" EntitySet="tbl_Cases" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Donations__Donor__30F848ED" Association="Self.FK__Donations__Donor__30F848ED">
+            <End Role="tbl_DonorMaster" EntitySet="tbl_DonorMaster" />
+            <End Role="tbl_Donations" EntitySet="tbl_Donations" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DonorMast__UserI__267ABA7A" Association="Self.FK__DonorMast__UserI__267ABA7A">
+            <End Role="tbl_Users" EntitySet="tbl_Users" />
+            <End Role="tbl_DonorMaster" EntitySet="tbl_DonorMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_Invoi__Donor__3F466844" Association="Self.FK__tbl_Invoi__Donor__3F466844">
+            <End Role="tbl_DonorMaster" EntitySet="tbl_DonorMaster" />
+            <End Role="tbl_Invoices" EntitySet="tbl_Invoices" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_Invoi__NGO_I__403A8C7D" Association="Self.FK__tbl_Invoi__NGO_I__403A8C7D">
+            <End Role="tbl_NGOMaster" EntitySet="tbl_NGOMaster" />
+            <End Role="tbl_Invoices" EntitySet="tbl_Invoices" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_Invoi__Order__3E52440B" Association="Self.FK__tbl_Invoi__Order__3E52440B">
+            <End Role="tbl_Orders" EntitySet="tbl_Orders" />
+            <End Role="tbl_Invoices" EntitySet="tbl_Invoices" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_Mater__Mater__4CA06362" Association="Self.FK__tbl_Mater__Mater__4CA06362">
+            <End Role="tbl_MaterialGroup" EntitySet="tbl_MaterialGroup" />
+            <End Role="tbl_MaterialMaster" EntitySet="tbl_MaterialMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_Mater__Mater__4BAC3F29" Association="Self.FK__tbl_Mater__Mater__4BAC3F29">
+            <End Role="tbl_MaterialType" EntitySet="tbl_MaterialType" />
+            <End Role="tbl_MaterialMaster" EntitySet="tbl_MaterialMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK__NGOMaster__UserI__29572725" Association="Self.FK__NGOMaster__UserI__29572725">
+            <End Role="tbl_Users" EntitySet="tbl_Users" />
+            <End Role="tbl_NGOMaster" EntitySet="tbl_NGOMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_Order__NGO_I__3B75D760" Association="Self.FK__tbl_Order__NGO_I__3B75D760">
+            <End Role="tbl_NGOMaster" EntitySet="tbl_NGOMaster" />
+            <End Role="tbl_Orders" EntitySet="tbl_Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_Succe__NGO_I__38996AB5" Association="Self.FK__tbl_Succe__NGO_I__38996AB5">
+            <End Role="tbl_NGOMaster" EntitySet="tbl_NGOMaster" />
+            <End Role="tbl_SuccessStories" EntitySet="tbl_SuccessStories" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_Users__UserT__5629CD9C" Association="Self.FK__tbl_Users__UserT__5629CD9C">
+            <End Role="tbl_UserType" EntitySet="tbl_UserType" />
+            <End Role="tbl_Users" EntitySet="tbl_Users" />
+          </AssociationSet>
+          <FunctionImport Name="SP_AddCase">
+            <Parameter Name="CaseTitle" Mode="In" Type="String" />
+            <Parameter Name="PostedDate" Mode="In" Type="DateTime" />
+            <Parameter Name="Description" Mode="In" Type="String" />
+            <Parameter Name="Picture" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="SP_AddDonation">
+            <Parameter Name="DonorID" Mode="In" Type="Int32" />
+            <Parameter Name="DonationTitle" Mode="In" Type="String" />
+            <Parameter Name="Quantity" Mode="In" Type="Int16" />
+            <Parameter Name="Weight" Mode="In" Type="Decimal" />
+            <Parameter Name="QuantityPerUnit" Mode="In" Type="Byte" />
+            <Parameter Name="ExpiryDate" Mode="In" Type="DateTime" />
+            <Parameter Name="Description" Mode="In" Type="String" />
+            <Parameter Name="LocationCOD" Mode="In" Type="Int64" />
+            <Parameter Name="Picture" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="SP_SelectAllAdmins" ReturnType="Collection(charitable_dbModel.SP_SelectAllAdmins_Result)" />
+          <FunctionImport Name="SP_SelectAllCases" ReturnType="Collection(charitable_dbModel.SP_SelectAllCases_Result)" />
+          <FunctionImport Name="SP_SelectAllDonations" ReturnType="Collection(charitable_dbModel.SP_SelectAllDonations_Result)" />
+          <FunctionImport Name="SP_SelectAllDonors" ReturnType="Collection(charitable_dbModel.SP_SelectAllDonors_Result)" />
+          <FunctionImport Name="SP_SelectAllInvoices" ReturnType="Collection(charitable_dbModel.SP_SelectAllInvoices_Result)" />
+          <FunctionImport Name="SP_SelectAllMaterialGroup" ReturnType="Collection(charitable_dbModel.SP_SelectAllMaterialGroup_Result)" />
+          <FunctionImport Name="SP_SelectAllMaterials" ReturnType="Collection(charitable_dbModel.SP_SelectAllMaterials_Result)" />
+          <FunctionImport Name="SP_SelectAllMaterialType" ReturnType="Collection(charitable_dbModel.SP_SelectAllMaterialType_Result)" />
+          <FunctionImport Name="SP_SelectAllNgos" ReturnType="Collection(charitable_dbModel.SP_SelectAllNgos_Result)" />
+          <FunctionImport Name="SP_SelectAllOrders" ReturnType="Collection(charitable_dbModel.SP_SelectAllOrders_Result)" />
+          <FunctionImport Name="SP_SelectAllSubscriptionPlans" ReturnType="Collection(charitable_dbModel.SP_SelectAllSubscriptionPlans_Result)" />
+          <FunctionImport Name="SP_SelectAllSuccessStories" ReturnType="Collection(charitable_dbModel.SP_SelectAllSuccessStories_Result)" />
+          <FunctionImport Name="SP_SelectAllUsers" ReturnType="Collection(charitable_dbModel.SP_SelectAllUsers_Result)" />
+          <FunctionImport Name="SP_SelectAllUserType" ReturnType="Collection(charitable_dbModel.SP_SelectAllUserType_Result)" />
+          <FunctionImport Name="SP_SelectPaymentInfo" ReturnType="Collection(charitable_dbModel.SP_SelectPaymentInfo_Result)" />
+          <FunctionImport Name="SP_UpdateCaseAgainstCaseID">
+            <Parameter Name="CaseID" Mode="In" Type="Int32" />
+            <Parameter Name="CaseTitle" Mode="In" Type="String" />
+            <Parameter Name="PostedDate" Mode="In" Type="DateTime" />
+            <Parameter Name="Description" Mode="In" Type="String" />
+            <Parameter Name="Picture" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="SP_UpdateCaseAgainstNgoID">
+            <Parameter Name="NgoID" Mode="In" Type="Int32" />
+            <Parameter Name="CaseTitle" Mode="In" Type="String" />
+            <Parameter Name="PostedDate" Mode="In" Type="DateTime" />
+            <Parameter Name="Description" Mode="In" Type="String" />
+            <Parameter Name="Picture" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="SP_UpdateDonationByDonationID">
+            <Parameter Name="DonationID" Mode="In" Type="Int32" />
+            <Parameter Name="DonorID" Mode="In" Type="Int32" />
+            <Parameter Name="DonationTitle" Mode="In" Type="String" />
+            <Parameter Name="Quantity" Mode="In" Type="Int16" />
+            <Parameter Name="Weight" Mode="In" Type="Decimal" />
+            <Parameter Name="QuantityPerUnit" Mode="In" Type="Byte" />
+            <Parameter Name="ExpiryDate" Mode="In" Type="DateTime" />
+            <Parameter Name="Description" Mode="In" Type="String" />
+            <Parameter Name="LocationCOD" Mode="In" Type="Int64" />
+            <Parameter Name="Picture" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="SP_UpdateDonationByDonorID">
+            <Parameter Name="DonationID" Mode="In" Type="Int32" />
+            <Parameter Name="DonorID" Mode="In" Type="Int32" />
+            <Parameter Name="DonationTitle" Mode="In" Type="String" />
+            <Parameter Name="Quantity" Mode="In" Type="Int16" />
+            <Parameter Name="Weight" Mode="In" Type="Decimal" />
+            <Parameter Name="QuantityPerUnit" Mode="In" Type="Byte" />
+            <Parameter Name="ExpiryDate" Mode="In" Type="DateTime" />
+            <Parameter Name="Description" Mode="In" Type="String" />
+            <Parameter Name="LocationCOD" Mode="In" Type="Int64" />
+            <Parameter Name="Picture" Mode="In" Type="Binary" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="SP_SelectAllAdmins_Result">
+          <Property Type="Int32" Name="AdminID" Nullable="false" />
+          <Property Type="Int32" Name="UserID" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SP_SelectAllCases_Result">
+          <Property Type="Int32" Name="CaseID" Nullable="false" />
+          <Property Type="Int32" Name="NGO_ID" Nullable="true" />
+          <Property Type="String" Name="CaseTitle" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="PostedDate" Nullable="true" Precision="16" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="500" />
+          <Property Type="Binary" Name="Picture" Nullable="true" MaxLength="Max" />
+        </ComplexType>
+        <ComplexType Name="SP_SelectAllDonations_Result">
+          <Property Type="Int32" Name="DonationID" Nullable="false" />
+          <Property Type="Int32" Name="DonorID" Nullable="true" />
+          <Property Type="String" Name="DonationTitle" Nullable="true" MaxLength="50" />
+          <Property Type="Int16" Name="Quantity" Nullable="true" />
+          <Property Type="Decimal" Name="Weight" Nullable="true" Precision="4" Scale="2" />
+          <Property Type="Byte" Name="QuantityPerUnit" Nullable="true" />
+          <Property Type="DateTime" Name="ExpiryDate" Nullable="true" Precision="16" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="400" />
+          <Property Type="Int64" Name="LocationCoordinates" Nullable="true" />
+          <Property Type="Binary" Name="Picture" Nullable="true" MaxLength="Max" />
+        </ComplexType>
+        <ComplexType Name="SP_SelectAllDonors_Result">
+          <Property Type="Int32" Name="DonorID" Nullable="false" />
+          <Property Type="Int32" Name="UserID" Nullable="true" />
+          <Property Type="String" Name="Gender" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="State" Nullable="true" MaxLength="25" />
+          <Property Type="String" Name="City" Nullable="true" MaxLength="25" />
+          <Property Type="String" Name="Address" Nullable="true" />
+          <Property Type="DateTime" Name="DOB" Nullable="true" Precision="16" />
+          <Property Type="Int64" Name="CNIC" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SP_SelectAllInvoices_Result">
+          <Property Type="Int32" Name="InvoiceID" Nullable="false" />
+          <Property Type="Int32" Name="OrderID" Nullable="true" />
+          <Property Type="Int32" Name="DonorID" Nullable="true" />
+          <Property Type="Int32" Name="NGO_ID" Nullable="true" />
+          <Property Type="DateTime" Name="Date" Nullable="true" Precision="16" />
+          <Property Type="Time" Name="Time" Nullable="true" />
+          <Property Type="Decimal" Name="Amount" Nullable="true" Precision="10" />
+        </ComplexType>
+        <ComplexType Name="SP_SelectAllMaterialGroup_Result">
+          <Property Type="Int32" Name="MaterialGroupID" Nullable="false" />
+          <Property Type="String" Name="MaterialGroupCode" Nullable="true" MaxLength="5" />
+          <Property Type="String" Name="UnitOfMeasure" Nullable="true" MaxLength="8" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="400" />
+        </ComplexType>
+        <ComplexType Name="SP_SelectAllMaterials_Result">
+          <Property Type="Int32" Name="MaterialID" Nullable="false" />
+          <Property Type="Int32" Name="AdminID" Nullable="true" />
+          <Property Type="Int32" Name="MaterialTypeID" Nullable="true" />
+          <Property Type="Int32" Name="MaterialGroupID" Nullable="true" />
+          <Property Type="String" Name="MaterialName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="MaterialDescription" Nullable="true" MaxLength="400" />
+        </ComplexType>
+        <ComplexType Name="SP_SelectAllMaterialType_Result">
+          <Property Type="Int32" Name="MaterialTypeID" Nullable="false" />
+          <Property Type="String" Name="MaterialTypeCode" Nullable="true" MaxLength="5" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="400" />
+        </ComplexType>
+        <ComplexType Name="SP_SelectAllNgos_Result">
+          <Property Type="Int32" Name="NGO_ID" Nullable="false" />
+          <Property Type="Int32" Name="UserID" Nullable="true" />
+          <Property Type="Int32" Name="PlanID" Nullable="true" />
+          <Property Type="Int32" Name="PaymentInfoID" Nullable="true" />
+          <Property Type="String" Name="TagLine" Nullable="true" MaxLength="120" />
+          <Property Type="String" Name="State" Nullable="true" MaxLength="25" />
+          <Property Type="String" Name="City" Nullable="true" MaxLength="25" />
+          <Property Type="String" Name="Address" Nullable="true" />
+          <Property Type="Int64" Name="LocationCoordinates" Nullable="true" />
+          <Property Type="Binary" Name="MemorandumOfNGO" Nullable="true" MaxLength="Max" />
+        </ComplexType>
+        <ComplexType Name="SP_SelectAllOrders_Result">
+          <Property Type="Int32" Name="OrderID" Nullable="false" />
+          <Property Type="Int32" Name="NGO_ID" Nullable="true" />
+          <Property Type="String" Name="StoryTitle" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="OrderDate" Nullable="true" Precision="16" />
+          <Property Type="Time" Name="OrderTime" Nullable="true" />
+          <Property Type="String" Name="DeliveryAddress" Nullable="true" />
+          <Property Type="String" Name="OrderStatus" Nullable="true" MaxLength="15" />
+        </ComplexType>
+        <ComplexType Name="SP_SelectAllSubscriptionPlans_Result">
+          <Property Type="Int32" Name="PlanID" Nullable="false" />
+          <Property Type="String" Name="PlanName" Nullable="true" MaxLength="30" />
+          <Property Type="Decimal" Name="Amount" Nullable="true" Precision="10" />
+          <Property Type="Int16" Name="Duration" Nullable="true" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="SP_SelectAllSuccessStories_Result">
+          <Property Type="Int32" Name="StoryID" Nullable="false" />
+          <Property Type="Int32" Name="NGO_ID" Nullable="true" />
+          <Property Type="String" Name="StoryTitle" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="PostedDate" Nullable="true" Precision="16" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="500" />
+          <Property Type="Binary" Name="Picture" Nullable="true" MaxLength="Max" />
+        </ComplexType>
+        <ComplexType Name="SP_SelectAllUsers_Result">
+          <Property Type="Int32" Name="UserID" Nullable="false" />
+          <Property Type="Int32" Name="UserTypeID" Nullable="false" />
+          <Property Type="String" Name="FirstName" Nullable="false" MaxLength="40" />
+          <Property Type="String" Name="LastName" Nullable="true" MaxLength="40" />
+          <Property Type="String" Name="Username" Nullable="true" MaxLength="40" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Password" Nullable="true" MaxLength="64" />
+          <Property Type="Decimal" Name="ContactNumber" Nullable="true" Precision="15" Scale="0" />
+          <Property Type="Int16" Name="VerificationCode" Nullable="true" />
+          <Property Type="Boolean" Name="IsEmailVerified" Nullable="true" />
+          <Property Type="Binary" Name="ProfilePicture" Nullable="true" MaxLength="Max" />
+        </ComplexType>
+        <ComplexType Name="SP_SelectAllUserType_Result">
+          <Property Type="Int32" Name="UserTypeID" Nullable="false" />
+          <Property Type="String" Name="UserType" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="SP_SelectPaymentInfo_Result">
+          <Property Type="Int32" Name="PaymentInfoID" Nullable="false" />
+          <Property Type="Int64" Name="CardNumber" Nullable="true" />
+          <Property Type="Byte" Name="CurrentExpiryMonth" Nullable="true" />
+          <Property Type="Int16" Name="CurretnExpiryYear" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="charitable_dbModelStoreContainer" CdmEntityContainer="charitable_dbEntities">
+          <EntitySetMapping Name="tbl_Admin">
+            <EntityTypeMapping TypeName="charitable_dbModel.tbl_Admin">
+              <MappingFragment StoreEntitySet="tbl_Admin">
+                <ScalarProperty Name="AdminID" ColumnName="AdminID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Cases">
+            <EntityTypeMapping TypeName="charitable_dbModel.tbl_Cases">
+              <MappingFragment StoreEntitySet="tbl_Cases">
+                <ScalarProperty Name="CaseID" ColumnName="CaseID" />
+                <ScalarProperty Name="NGO_ID" ColumnName="NGO_ID" />
+                <ScalarProperty Name="CaseTitle" ColumnName="CaseTitle" />
+                <ScalarProperty Name="PostedDate" ColumnName="PostedDate" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Picture" ColumnName="Picture" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Donations">
+            <EntityTypeMapping TypeName="charitable_dbModel.tbl_Donations">
+              <MappingFragment StoreEntitySet="tbl_Donations">
+                <ScalarProperty Name="DonationID" ColumnName="DonationID" />
+                <ScalarProperty Name="DonorID" ColumnName="DonorID" />
+                <ScalarProperty Name="DonationTitle" ColumnName="DonationTitle" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="QuantityPerUnit" ColumnName="QuantityPerUnit" />
+                <ScalarProperty Name="ExpiryDate" ColumnName="ExpiryDate" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="LocationCoordinates" ColumnName="LocationCoordinates" />
+                <ScalarProperty Name="Picture" ColumnName="Picture" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_DonorMaster">
+            <EntityTypeMapping TypeName="charitable_dbModel.tbl_DonorMaster">
+              <MappingFragment StoreEntitySet="tbl_DonorMaster">
+                <ScalarProperty Name="DonorID" ColumnName="DonorID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="CNIC" ColumnName="CNIC" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Invoices">
+            <EntityTypeMapping TypeName="charitable_dbModel.tbl_Invoices">
+              <MappingFragment StoreEntitySet="tbl_Invoices">
+                <ScalarProperty Name="InvoiceID" ColumnName="InvoiceID" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="DonorID" ColumnName="DonorID" />
+                <ScalarProperty Name="NGO_ID" ColumnName="NGO_ID" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_MaterialGroup">
+            <EntityTypeMapping TypeName="charitable_dbModel.tbl_MaterialGroup">
+              <MappingFragment StoreEntitySet="tbl_MaterialGroup">
+                <ScalarProperty Name="MaterialGroupID" ColumnName="MaterialGroupID" />
+                <ScalarProperty Name="MaterialGroupCode" ColumnName="MaterialGroupCode" />
+                <ScalarProperty Name="UnitOfMeasure" ColumnName="UnitOfMeasure" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_MaterialMaster">
+            <EntityTypeMapping TypeName="charitable_dbModel.tbl_MaterialMaster">
+              <MappingFragment StoreEntitySet="tbl_MaterialMaster">
+                <ScalarProperty Name="MaterialID" ColumnName="MaterialID" />
+                <ScalarProperty Name="AdminID" ColumnName="AdminID" />
+                <ScalarProperty Name="MaterialTypeID" ColumnName="MaterialTypeID" />
+                <ScalarProperty Name="MaterialGroupID" ColumnName="MaterialGroupID" />
+                <ScalarProperty Name="MaterialName" ColumnName="MaterialName" />
+                <ScalarProperty Name="MaterialDescription" ColumnName="MaterialDescription" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_MaterialType">
+            <EntityTypeMapping TypeName="charitable_dbModel.tbl_MaterialType">
+              <MappingFragment StoreEntitySet="tbl_MaterialType">
+                <ScalarProperty Name="MaterialTypeID" ColumnName="MaterialTypeID" />
+                <ScalarProperty Name="MaterialTypeCode" ColumnName="MaterialTypeCode" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_NGOMaster">
+            <EntityTypeMapping TypeName="charitable_dbModel.tbl_NGOMaster">
+              <MappingFragment StoreEntitySet="tbl_NGOMaster">
+                <ScalarProperty Name="NGO_ID" ColumnName="NGO_ID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="PlanID" ColumnName="PlanID" />
+                <ScalarProperty Name="PaymentInfoID" ColumnName="PaymentInfoID" />
+                <ScalarProperty Name="TagLine" ColumnName="TagLine" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="LocationCoordinates" ColumnName="LocationCoordinates" />
+                <ScalarProperty Name="MemorandumOfNGO" ColumnName="MemorandumOfNGO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Orders">
+            <EntityTypeMapping TypeName="charitable_dbModel.tbl_Orders">
+              <MappingFragment StoreEntitySet="tbl_Orders">
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="NGO_ID" ColumnName="NGO_ID" />
+                <ScalarProperty Name="StoryTitle" ColumnName="StoryTitle" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="OrderTime" ColumnName="OrderTime" />
+                <ScalarProperty Name="DeliveryAddress" ColumnName="DeliveryAddress" />
+                <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_PaymentInfo">
+            <EntityTypeMapping TypeName="charitable_dbModel.tbl_PaymentInfo">
+              <MappingFragment StoreEntitySet="tbl_PaymentInfo">
+                <ScalarProperty Name="PaymentInfoID" ColumnName="PaymentInfoID" />
+                <ScalarProperty Name="CardNumber" ColumnName="CardNumber" />
+                <ScalarProperty Name="CurrentExpiryMonth" ColumnName="CurrentExpiryMonth" />
+                <ScalarProperty Name="CurretnExpiryYear" ColumnName="CurretnExpiryYear" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_SubscriptionPlan">
+            <EntityTypeMapping TypeName="charitable_dbModel.tbl_SubscriptionPlan">
+              <MappingFragment StoreEntitySet="tbl_SubscriptionPlan">
+                <ScalarProperty Name="PlanID" ColumnName="PlanID" />
+                <ScalarProperty Name="PlanName" ColumnName="PlanName" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_SuccessStories">
+            <EntityTypeMapping TypeName="charitable_dbModel.tbl_SuccessStories">
+              <MappingFragment StoreEntitySet="tbl_SuccessStories">
+                <ScalarProperty Name="StoryID" ColumnName="StoryID" />
+                <ScalarProperty Name="NGO_ID" ColumnName="NGO_ID" />
+                <ScalarProperty Name="StoryTitle" ColumnName="StoryTitle" />
+                <ScalarProperty Name="PostedDate" ColumnName="PostedDate" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Picture" ColumnName="Picture" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Users">
+            <EntityTypeMapping TypeName="charitable_dbModel.tbl_Users">
+              <MappingFragment StoreEntitySet="tbl_Users">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="UserTypeID" ColumnName="UserTypeID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
+                <ScalarProperty Name="VerificationCode" ColumnName="VerificationCode" />
+                <ScalarProperty Name="IsEmailVerified" ColumnName="IsEmailVerified" />
+                <ScalarProperty Name="ProfilePicture" ColumnName="ProfilePicture" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_UserType">
+            <EntityTypeMapping TypeName="charitable_dbModel.tbl_UserType">
+              <MappingFragment StoreEntitySet="tbl_UserType">
+                <ScalarProperty Name="UserTypeID" ColumnName="UserTypeID" />
+                <ScalarProperty Name="UserType" ColumnName="UserType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SP_AddCase" FunctionName="charitable_dbModel.Store.SP_AddCase" />
+          <FunctionImportMapping FunctionImportName="SP_AddDonation" FunctionName="charitable_dbModel.Store.SP_AddDonation" />
+          <FunctionImportMapping FunctionImportName="SP_SelectAllAdmins" FunctionName="charitable_dbModel.Store.SP_SelectAllAdmins">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="charitable_dbModel.SP_SelectAllAdmins_Result">
+                <ScalarProperty Name="AdminID" ColumnName="AdminID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_SelectAllCases" FunctionName="charitable_dbModel.Store.SP_SelectAllCases">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="charitable_dbModel.SP_SelectAllCases_Result">
+                <ScalarProperty Name="CaseID" ColumnName="CaseID" />
+                <ScalarProperty Name="NGO_ID" ColumnName="NGO_ID" />
+                <ScalarProperty Name="CaseTitle" ColumnName="CaseTitle" />
+                <ScalarProperty Name="PostedDate" ColumnName="PostedDate" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Picture" ColumnName="Picture" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_SelectAllDonations" FunctionName="charitable_dbModel.Store.SP_SelectAllDonations">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="charitable_dbModel.SP_SelectAllDonations_Result">
+                <ScalarProperty Name="DonationID" ColumnName="DonationID" />
+                <ScalarProperty Name="DonorID" ColumnName="DonorID" />
+                <ScalarProperty Name="DonationTitle" ColumnName="DonationTitle" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="QuantityPerUnit" ColumnName="QuantityPerUnit" />
+                <ScalarProperty Name="ExpiryDate" ColumnName="ExpiryDate" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="LocationCoordinates" ColumnName="LocationCoordinates" />
+                <ScalarProperty Name="Picture" ColumnName="Picture" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_SelectAllDonors" FunctionName="charitable_dbModel.Store.SP_SelectAllDonors">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="charitable_dbModel.SP_SelectAllDonors_Result">
+                <ScalarProperty Name="DonorID" ColumnName="DonorID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="CNIC" ColumnName="CNIC" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_SelectAllInvoices" FunctionName="charitable_dbModel.Store.SP_SelectAllInvoices">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="charitable_dbModel.SP_SelectAllInvoices_Result">
+                <ScalarProperty Name="InvoiceID" ColumnName="InvoiceID" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="DonorID" ColumnName="DonorID" />
+                <ScalarProperty Name="NGO_ID" ColumnName="NGO_ID" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_SelectAllMaterialGroup" FunctionName="charitable_dbModel.Store.SP_SelectAllMaterialGroup">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="charitable_dbModel.SP_SelectAllMaterialGroup_Result">
+                <ScalarProperty Name="MaterialGroupID" ColumnName="MaterialGroupID" />
+                <ScalarProperty Name="MaterialGroupCode" ColumnName="MaterialGroupCode" />
+                <ScalarProperty Name="UnitOfMeasure" ColumnName="UnitOfMeasure" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_SelectAllMaterials" FunctionName="charitable_dbModel.Store.SP_SelectAllMaterials">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="charitable_dbModel.SP_SelectAllMaterials_Result">
+                <ScalarProperty Name="MaterialID" ColumnName="MaterialID" />
+                <ScalarProperty Name="AdminID" ColumnName="AdminID" />
+                <ScalarProperty Name="MaterialTypeID" ColumnName="MaterialTypeID" />
+                <ScalarProperty Name="MaterialGroupID" ColumnName="MaterialGroupID" />
+                <ScalarProperty Name="MaterialName" ColumnName="MaterialName" />
+                <ScalarProperty Name="MaterialDescription" ColumnName="MaterialDescription" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_SelectAllMaterialType" FunctionName="charitable_dbModel.Store.SP_SelectAllMaterialType">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="charitable_dbModel.SP_SelectAllMaterialType_Result">
+                <ScalarProperty Name="MaterialTypeID" ColumnName="MaterialTypeID" />
+                <ScalarProperty Name="MaterialTypeCode" ColumnName="MaterialTypeCode" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_SelectAllNgos" FunctionName="charitable_dbModel.Store.SP_SelectAllNgos">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="charitable_dbModel.SP_SelectAllNgos_Result">
+                <ScalarProperty Name="NGO_ID" ColumnName="NGO_ID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="PlanID" ColumnName="PlanID" />
+                <ScalarProperty Name="PaymentInfoID" ColumnName="PaymentInfoID" />
+                <ScalarProperty Name="TagLine" ColumnName="TagLine" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="LocationCoordinates" ColumnName="LocationCoordinates" />
+                <ScalarProperty Name="MemorandumOfNGO" ColumnName="MemorandumOfNGO" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_SelectAllOrders" FunctionName="charitable_dbModel.Store.SP_SelectAllOrders">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="charitable_dbModel.SP_SelectAllOrders_Result">
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="NGO_ID" ColumnName="NGO_ID" />
+                <ScalarProperty Name="StoryTitle" ColumnName="StoryTitle" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="OrderTime" ColumnName="OrderTime" />
+                <ScalarProperty Name="DeliveryAddress" ColumnName="DeliveryAddress" />
+                <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_SelectAllSubscriptionPlans" FunctionName="charitable_dbModel.Store.SP_SelectAllSubscriptionPlans">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="charitable_dbModel.SP_SelectAllSubscriptionPlans_Result">
+                <ScalarProperty Name="PlanID" ColumnName="PlanID" />
+                <ScalarProperty Name="PlanName" ColumnName="PlanName" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_SelectAllSuccessStories" FunctionName="charitable_dbModel.Store.SP_SelectAllSuccessStories">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="charitable_dbModel.SP_SelectAllSuccessStories_Result">
+                <ScalarProperty Name="StoryID" ColumnName="StoryID" />
+                <ScalarProperty Name="NGO_ID" ColumnName="NGO_ID" />
+                <ScalarProperty Name="StoryTitle" ColumnName="StoryTitle" />
+                <ScalarProperty Name="PostedDate" ColumnName="PostedDate" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Picture" ColumnName="Picture" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_SelectAllUsers" FunctionName="charitable_dbModel.Store.SP_SelectAllUsers">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="charitable_dbModel.SP_SelectAllUsers_Result">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="UserTypeID" ColumnName="UserTypeID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
+                <ScalarProperty Name="VerificationCode" ColumnName="VerificationCode" />
+                <ScalarProperty Name="IsEmailVerified" ColumnName="IsEmailVerified" />
+                <ScalarProperty Name="ProfilePicture" ColumnName="ProfilePicture" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_SelectAllUserType" FunctionName="charitable_dbModel.Store.SP_SelectAllUserType">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="charitable_dbModel.SP_SelectAllUserType_Result">
+                <ScalarProperty Name="UserTypeID" ColumnName="UserTypeID" />
+                <ScalarProperty Name="UserType" ColumnName="UserType" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_SelectPaymentInfo" FunctionName="charitable_dbModel.Store.SP_SelectPaymentInfo">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="charitable_dbModel.SP_SelectPaymentInfo_Result">
+                <ScalarProperty Name="PaymentInfoID" ColumnName="PaymentInfoID" />
+                <ScalarProperty Name="CardNumber" ColumnName="CardNumber" />
+                <ScalarProperty Name="CurrentExpiryMonth" ColumnName="CurrentExpiryMonth" />
+                <ScalarProperty Name="CurretnExpiryYear" ColumnName="CurretnExpiryYear" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_UpdateCaseAgainstCaseID" FunctionName="charitable_dbModel.Store.SP_UpdateCaseAgainstCaseID" />
+          <FunctionImportMapping FunctionImportName="SP_UpdateCaseAgainstNgoID" FunctionName="charitable_dbModel.Store.SP_UpdateCaseAgainstNgoID" />
+          <FunctionImportMapping FunctionImportName="SP_UpdateDonationByDonationID" FunctionName="charitable_dbModel.Store.SP_UpdateDonationByDonationID" />
+          <FunctionImportMapping FunctionImportName="SP_UpdateDonationByDonorID" FunctionName="charitable_dbModel.Store.SP_UpdateDonationByDonorID" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
