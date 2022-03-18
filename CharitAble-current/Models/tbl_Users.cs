@@ -29,7 +29,7 @@ namespace CharitAble_current.Models
         public string Username { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public Nullable<double> ContactNumber { get; set; }
+        public Nullable<long> ContactNumber { get; set; }
         public Nullable<short> VerificationCode { get; set; }
         public Nullable<bool> IsEmailVerified { get; set; }
         public byte[] ProfilePicture { get; set; }

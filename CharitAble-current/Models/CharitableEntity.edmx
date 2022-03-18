@@ -159,7 +159,7 @@
           <Property Name="Username" Type="varchar" MaxLength="40" />
           <Property Name="Email" Type="varchar" MaxLength="100" />
           <Property Name="Password" Type="varchar" MaxLength="64" />
-          <Property Name="ContactNumber" Type="numeric" Precision="15" Scale="0" />
+          <Property Name="ContactNumber" Type="bigint" />
           <Property Name="VerificationCode" Type="smallint" />
           <Property Name="IsEmailVerified" Type="bit" />
           <Property Name="ProfilePicture" Type="image" />
@@ -664,7 +664,7 @@
           <Property Name="Username" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
           <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Password" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
-          <Property Name="ContactNumber" Type="Decimal" Precision="15" Scale="0" />
+          <Property Name="ContactNumber" Type="Int64" />
           <Property Name="VerificationCode" Type="Int16" />
           <Property Name="IsEmailVerified" Type="Boolean" />
           <Property Name="ProfilePicture" Type="Binary" MaxLength="Max" FixedLength="false" />
@@ -849,7 +849,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="charitable_dbEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="charitable_dbEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="tbl_Admin" EntityType="Self.tbl_Admin" />
           <EntitySet Name="tbl_Cases" EntityType="Self.tbl_Cases" />
           <EntitySet Name="tbl_Donations" EntityType="Self.tbl_Donations" />
@@ -1098,7 +1098,7 @@
           <Property Type="String" Name="Username" Nullable="true" MaxLength="40" />
           <Property Type="String" Name="Email" Nullable="true" MaxLength="100" />
           <Property Type="String" Name="Password" Nullable="true" MaxLength="64" />
-          <Property Type="Decimal" Name="ContactNumber" Nullable="true" Precision="15" Scale="0" />
+          <Property Type="Int64" Name="ContactNumber" Nullable="true" />
           <Property Type="Int16" Name="VerificationCode" Nullable="true" />
           <Property Type="Boolean" Name="IsEmailVerified" Nullable="true" />
           <Property Type="Binary" Name="ProfilePicture" Nullable="true" MaxLength="Max" />
@@ -1118,7 +1118,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="charitable_dbModelStoreContainer" CdmEntityContainer="charitable_dbEntities">
+        <EntityContainerMapping StorageEntityContainer="charitable_dbModelStoreContainer" CdmEntityContainer="charitable_dbEntities1">
           <EntitySetMapping Name="tbl_Admin">
             <EntityTypeMapping TypeName="charitable_dbModel.tbl_Admin">
               <MappingFragment StoreEntitySet="tbl_Admin">

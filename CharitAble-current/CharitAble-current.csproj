@@ -168,121 +168,120 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
-    <Compile Include="Controllers\Employee_LoginController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Controllers\DonationController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\DataModel.Context.cs">
+    <Compile Include="Models\CharitableEntity.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DataModel.Context.tt</DependentUpon>
+      <DependentUpon>CharitableEntity.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DataModel.cs">
+    <Compile Include="Models\CharitableEntity.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DataModel.tt</DependentUpon>
+      <DependentUpon>CharitableEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DataModel.Designer.cs">
+    <Compile Include="Models\CharitableEntity.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DataModel.edmx</DependentUpon>
+      <DependentUpon>CharitableEntity.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\Login.cs" />
-    <Compile Include="Models\Register.cs" />
-    <Compile Include="Models\Response.cs" />
     <Compile Include="Models\SP_SelectAllAdmins_Result.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
+      <DependentUpon>CharitableEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SP_SelectAllCases_Result.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
+      <DependentUpon>CharitableEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SP_SelectAllDonations_Result.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
+      <DependentUpon>CharitableEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SP_SelectAllDonors_Result.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
+      <DependentUpon>CharitableEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SP_SelectAllInvoices_Result.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
+      <DependentUpon>CharitableEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SP_SelectAllMaterialGroup_Result.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
+      <DependentUpon>CharitableEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SP_SelectAllMaterials_Result.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
+      <DependentUpon>CharitableEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SP_SelectAllMaterialType_Result.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
+      <DependentUpon>CharitableEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SP_SelectAllNgos_Result.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
+      <DependentUpon>CharitableEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SP_SelectAllOrders_Result.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
+      <DependentUpon>CharitableEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SP_SelectAllSubscriptionPlans_Result.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
+      <DependentUpon>CharitableEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SP_SelectAllSuccessStories_Result.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
+      <DependentUpon>CharitableEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SP_SelectAllUsers_Result.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
+      <DependentUpon>CharitableEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SP_SelectAllUserType_Result.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
+      <DependentUpon>CharitableEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SP_SelectPaymentInfo_Result.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
+      <DependentUpon>CharitableEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_Admin.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
+      <DependentUpon>CharitableEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_Cases.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
+      <DependentUpon>CharitableEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_Donations.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
+      <DependentUpon>CharitableEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_DonorMaster.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
+      <DependentUpon>CharitableEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_Invoices.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
+      <DependentUpon>CharitableEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_MaterialGroup.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
+      <DependentUpon>CharitableEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_MaterialMaster.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
+      <DependentUpon>CharitableEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_MaterialType.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
+      <DependentUpon>CharitableEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_NGOMaster.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
+      <DependentUpon>CharitableEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_Orders.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
+      <DependentUpon>CharitableEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_PaymentInfo.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
+      <DependentUpon>CharitableEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_SubscriptionPlan.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
+      <DependentUpon>CharitableEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_SuccessStories.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
+      <DependentUpon>CharitableEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_Users.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
+      <DependentUpon>CharitableEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_UserType.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
+      <DependentUpon>CharitableEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Requests\DonationRequest.cs" />
+    <Compile Include="Requests\LoginRequest.cs" />
+    <Compile Include="Requests\RegisterRequest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
@@ -293,15 +292,15 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Models\DataModel.Context.tt">
+    <Content Include="Models\CharitableEntity.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>DataModel.Context.cs</LastGenOutput>
-      <DependentUpon>DataModel.edmx</DependentUpon>
+      <DependentUpon>CharitableEntity.edmx</DependentUpon>
+      <LastGenOutput>CharitableEntity.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\DataModel.tt">
+    <Content Include="Models\CharitableEntity.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DataModel.edmx</DependentUpon>
-      <LastGenOutput>DataModel.cs</LastGenOutput>
+      <DependentUpon>CharitableEntity.edmx</DependentUpon>
+      <LastGenOutput>CharitableEntity.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -324,12 +323,12 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\CollectionModelDescription.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
-    <EntityDeploy Include="Models\DataModel.edmx">
+    <EntityDeploy Include="Models\CharitableEntity.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>DataModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>CharitableEntity.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\DataModel.edmx.diagram">
-      <DependentUpon>DataModel.edmx</DependentUpon>
+    <Content Include="Models\CharitableEntity.edmx.diagram">
+      <DependentUpon>CharitableEntity.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -354,6 +353,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Donation\" />
+    <Folder Include="Views\Donor\" />
     <Folder Include="Views\Employee_Login\" />
   </ItemGroup>
   <ItemGroup>

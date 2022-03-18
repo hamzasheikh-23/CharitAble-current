@@ -15,10 +15,10 @@ namespace CharitAble_current.Models
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class charitable_dbEntities : DbContext
+    public partial class charitable_dbEntities1 : DbContext
     {
-        public charitable_dbEntities()
-            : base("name=charitable_dbEntities")
+        public charitable_dbEntities1()
+            : base("name=charitable_dbEntities1")
         {
         }
     
