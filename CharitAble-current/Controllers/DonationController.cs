@@ -35,12 +35,14 @@ namespace CharitAble_current.Controllers
             donation.DonationTitle = value.Title;
             donation.Quantity = value.Quantity;
             donation.Weight = value.Weight;
-            donation.QuantityPerUnit = value.QuantityPerUnit;
+            donation.QuantityPerUnit = 1;
             donation.ExpiryDate = value.ExpiryDate = DateTime.Now;
             donation.Description = value.Description;
 
             dbx.tbl_Donations.AddOrUpdate(donation);
             var result = dbx.SaveChanges();
+
+
 
             if (result != 0)
             {
@@ -53,7 +55,11 @@ namespace CharitAble_current.Controllers
             return Json(ret);
         }
 
+        public IHttpActionResult GetAllDonations(DonationRequest value)
+        {
 
+            return Json("ssss");
+        }
     }
 
 }

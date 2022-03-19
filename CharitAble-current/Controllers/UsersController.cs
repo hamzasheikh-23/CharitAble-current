@@ -38,12 +38,21 @@ namespace CharitAble_current.Controllers
 
             if (result != null)
             {
+                var userID =
+                    (from x in dbx.tbl_Users
+                     where x.Username == value.usernameOrEmail || x.Email == value.usernameOrEmail
+                     select x.UserID).SingleOrDefault();
+                var donorID =
+                    (from x in dbx.tbl_DonorMaster
+                        where x.UserID == userID select x.DonorID).SingleOrDefault();
+
                 switch (result.UserTypeID)
                 {
                     case 1:
                         {
                             ret = new
                             {
+                                userID,
                                 code = "1",
                                 msg = "Login Successful as Admin"
                             };
@@ -54,6 +63,8 @@ namespace CharitAble_current.Controllers
                         {
                             ret = new
                             {
+                                donorID,
+                                userID,
                                 code = "2",
                                 msg = "Login Successful as Donor"
                             };
@@ -64,6 +75,7 @@ namespace CharitAble_current.Controllers
                         {
                             ret = new
                             {
+                                userID,
                                 code = "3",
                                 msg = "Login Successful as NGO"
                             };
@@ -107,7 +119,7 @@ namespace CharitAble_current.Controllers
             user.Password = value.Password;
             user.ContactNumber = value.Contact;
             user.UserTypeID = value.UserTypeId;
-            user.RegistrationDateTime = value.RegistrationDate;
+            user.RegistrationDateTime = value.RegistrationDate = DateTime.Now;
 
             dbx.tbl_Users.AddOrUpdate(user);
 
