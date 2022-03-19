@@ -20,8 +20,8 @@ namespace CharitAble_current.Controllers
         private charitable_dbEntities1 dbx = new charitable_dbEntities1();
 
         // POST donation/add
-        [HttpPost] 
-        [Route("post")] 
+        [HttpPost]
+        [Route("post")]
         public IHttpActionResult AddDonation(DonationRequest value)
         {
             object ret = new
@@ -52,6 +52,7 @@ namespace CharitAble_current.Controllers
             }
             return Json(ret);
         }
+
 
     }
 

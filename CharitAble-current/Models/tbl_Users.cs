@@ -33,6 +33,8 @@ namespace CharitAble_current.Models
         public Nullable<short> VerificationCode { get; set; }
         public Nullable<bool> IsEmailVerified { get; set; }
         public byte[] ProfilePicture { get; set; }
+        public Nullable<System.DateTime> RegistrationDateTime { get; set; }
+        public Nullable<System.DateTime> UpdateDateTime { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_Admin> tbl_Admin { get; set; }

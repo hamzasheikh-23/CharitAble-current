@@ -11,7 +11,7 @@ namespace CharitAble_current
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
-            
+
             EnableCorsAttribute cors = new EnableCorsAttribute("*", "*", "*");
             config.EnableCors(cors);
 
@@ -20,11 +20,11 @@ namespace CharitAble_current
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
+                routeTemplate: "{controller}/{action}",
+                defaults: new { controller = "Users", action = "LoginResult" }
             );
 
-            
+
         }
     }
 }

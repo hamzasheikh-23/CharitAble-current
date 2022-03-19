@@ -17,7 +17,7 @@ namespace CharitAble_current.Controllers
     {
 
         // POST user/login
-        
+
 
         charitable_dbEntities1 dbx = new charitable_dbEntities1();
         [HttpPost]
@@ -35,51 +35,51 @@ namespace CharitAble_current.Controllers
                 (x.Username.Equals(value.usernameOrEmail) && x.Password.Equals(value.password)) ||
                 (x.Email.Equals(value.usernameOrEmail) && x.Password.Equals(value.password))).FirstOrDefault();
 
-            
-            if (result != null )
+
+            if (result != null)
             {
                 switch (result.UserTypeID)
                 {
                     case 1:
-                    {
-                        ret = new
                         {
-                            code = "1",
-                            msg = "Login Successful as Admin"
-                        };
-                        
-                        break;
-                    }
+                            ret = new
+                            {
+                                code = "1",
+                                msg = "Login Successful as Admin"
+                            };
+
+                            break;
+                        }
                     case 2:
-                    {
-                        ret = new
                         {
-                            code = "2",
-                            msg = "Login Successful as Donor"
-                        };
+                            ret = new
+                            {
+                                code = "2",
+                                msg = "Login Successful as Donor"
+                            };
 
-                        break;
-                    }
+                            break;
+                        }
                     case 3:
-                    {
-                        ret = new
                         {
-                            code = "3",
-                            msg = "Login Successful as NGO"
-                        };
+                            ret = new
+                            {
+                                code = "3",
+                                msg = "Login Successful as NGO"
+                            };
 
-                        break;
-                    }
+                            break;
+                        }
                     default:
-                    {
-                        ret = new
                         {
-                            code = "unspecified",
-                            msg = "UserType not defined, False Login"
-                        };
-                       
-                        break;
-                    }
+                            ret = new
+                            {
+                                code = "unspecified",
+                                msg = "UserType not defined, False Login"
+                            };
+
+                            break;
+                        }
                 }
             }
 
@@ -107,10 +107,11 @@ namespace CharitAble_current.Controllers
             user.Password = value.Password;
             user.ContactNumber = value.Contact;
             user.UserTypeID = value.UserTypeId;
+            user.RegistrationDateTime = value.RegistrationDate;
 
-             dbx.tbl_Users.AddOrUpdate(user);
+            dbx.tbl_Users.AddOrUpdate(user);
 
-             var result = dbx.SaveChanges();
+            var result = dbx.SaveChanges();
 
 
             if (result != 0)
@@ -126,6 +127,6 @@ namespace CharitAble_current.Controllers
 
         }
 
-}
+    }
 
 }

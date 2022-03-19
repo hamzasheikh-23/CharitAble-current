@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="charitable_dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="charitable_dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="tbl_Admin">
           <Key>
             <PropertyRef Name="AdminID" />
@@ -163,6 +163,8 @@
           <Property Name="VerificationCode" Type="smallint" />
           <Property Name="IsEmailVerified" Type="bit" />
           <Property Name="ProfilePicture" Type="image" />
+          <Property Name="RegistrationDateTime" Type="smalldatetime" />
+          <Property Name="UpdateDateTime" Type="smalldatetime" />
         </EntityType>
         <EntityType Name="tbl_UserType">
           <Key>
@@ -482,8 +484,7 @@
             <End Role="tbl_Users" EntitySet="tbl_Users" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="charitable_dbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -672,6 +673,8 @@
           <NavigationProperty Name="tbl_DonorMaster" Relationship="Self.FK__DonorMast__UserI__267ABA7A" FromRole="tbl_Users" ToRole="tbl_DonorMaster" />
           <NavigationProperty Name="tbl_NGOMaster" Relationship="Self.FK__NGOMaster__UserI__29572725" FromRole="tbl_Users" ToRole="tbl_NGOMaster" />
           <NavigationProperty Name="tbl_UserType" Relationship="Self.FK__tbl_Users__UserT__5629CD9C" FromRole="tbl_Users" ToRole="tbl_UserType" />
+          <Property Name="RegistrationDateTime" Type="DateTime" Precision="0" />
+          <Property Name="UpdateDateTime" Type="DateTime" Precision="0" />
         </EntityType>
         <EntityType Name="tbl_UserType">
           <Key>
@@ -1278,6 +1281,8 @@
           <EntitySetMapping Name="tbl_Users">
             <EntityTypeMapping TypeName="charitable_dbModel.tbl_Users">
               <MappingFragment StoreEntitySet="tbl_Users">
+                <ScalarProperty Name="UpdateDateTime" ColumnName="UpdateDateTime" />
+                <ScalarProperty Name="RegistrationDateTime" ColumnName="RegistrationDateTime" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="UserTypeID" ColumnName="UserTypeID" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />

@@ -31,5 +31,7 @@ namespace CharitAble_current.Requests
         public string Password { get; set; }
         public long Contact { get; set; }
         public int UserTypeId { get; set; }
+        public DateTime RegistrationDate { get; set; }
+        public DateTime UpdateDate { get; set; }
     }
 }
