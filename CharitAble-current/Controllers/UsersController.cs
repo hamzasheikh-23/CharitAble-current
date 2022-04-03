@@ -22,7 +22,7 @@ namespace CharitAble_current.Controllers
         charitable_dbEntities1 dbx = new charitable_dbEntities1();
         [HttpPost]
         [Route("login")]
-        public IHttpActionResult LoginResult(LoginRequest value)
+        public IHttpActionResult LoginResult(UserRequest value)
         {
 
             object ret = new
@@ -32,19 +32,19 @@ namespace CharitAble_current.Controllers
             };
 
             var result = dbx.tbl_Users.Where(x =>
-                (x.Username.Equals(value.usernameOrEmail) && x.Password.Equals(value.password)) ||
-                (x.Email.Equals(value.usernameOrEmail) && x.Password.Equals(value.password))).FirstOrDefault();
+                x.Username.Equals(value.Username) && x.Password.Equals(value.Password)).FirstOrDefault();
 
 
             if (result != null)
             {
                 var userID =
                     (from x in dbx.tbl_Users
-                     where x.Username == value.usernameOrEmail || x.Email == value.usernameOrEmail
+                     where x.Username == value.Username
                      select x.UserID).SingleOrDefault();
                 var donorID =
                     (from x in dbx.tbl_DonorMaster
-                        where x.UserID == userID select x.DonorID).SingleOrDefault();
+                     where x.UserID == userID
+                     select x.DonorID).SingleOrDefault();
 
                 switch (result.UserTypeID)
                 {
@@ -102,7 +102,7 @@ namespace CharitAble_current.Controllers
 
         [HttpPost]
         [Route("register")]
-        public IHttpActionResult RegisterResult(RegisterRequest value)
+        public IHttpActionResult RegisterResult(UserRequest value)
         {
             object ret = new
             {
@@ -136,7 +136,24 @@ namespace CharitAble_current.Controllers
             }
 
             return Json(ret);
+        }
 
+        [HttpGet]
+        [Route("get")]
+        public IHttpActionResult GetUsers()
+        {
+            var userList = dbx.tbl_Users.Select(x =>
+                new UserRequest()
+                {
+                    FirstName = x.FirstName,
+                    LastName = x.LastName,
+                    Username = x.Username,
+                    Email = x.Email,
+                    Contact = (long)x.ContactNumber,
+                    UserTypeId = x.UserTypeID,
+                    // RegistrationDate = (DateTime)x.RegistrationDateTime
+                }).ToList();
+            return Json(userList);
         }
 
     }

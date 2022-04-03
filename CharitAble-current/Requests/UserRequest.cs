@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 
 namespace CharitAble_current.Requests
 {
-    public class RegisterRequest
+    public class UserRequest
     {
         [Required]
         public string FirstName { get; set; }

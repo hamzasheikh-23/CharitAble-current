@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.Data.SqlTypes;
 using System.Linq;
@@ -55,11 +56,43 @@ namespace CharitAble_current.Controllers
             return Json(ret);
         }
 
-        public IHttpActionResult GetAllDonations(DonationRequest value)
+        [HttpGet]
+        [Route("get/{id}")]
+        public IHttpActionResult GetDonation(int id)
         {
+            var donations = dbx.tbl_Donations.Select(x =>
+                new DonationRequest()
+                {
+                    DonorId = x.DonorID,
+                    Title = x.DonationTitle,
+                    Quantity = x.Quantity,
+                    Weight = x.Weight,
+                    QuantityPerUnit = x.QuantityPerUnit,
+                    ExpiryDate = x.ExpiryDate,
+                    Description = x.Description
+                }).Where(x => x.DonorId == id).ToList();
 
-            return Json("ssss");
+            return Json(donations);
         }
-    }
 
+        //[HttpGet]
+        //[Route("get/{id}")]
+        //public IHttpActionResult GetDonations(int id)
+        //{
+        //    var donations = (from x in dbx.tbl_Donations 
+        //                                          where  x.DonorID == id select x).ToList();
+        //    new DonationRequest()
+        //        {
+        //            DonorId = x.DonorID,
+        //            Title = x.DonationTitle,
+        //            Quantity = x.Quantity,
+        //            Weight = x.Weight,
+        //            QuantityPerUnit = x.QuantityPerUnit,
+        //            ExpiryDate = x.ExpiryDate,
+        //            Description = x.Description
+        //        }).ToList();
+
+        //    return Json(donations);
+        //}
+    }
 }
