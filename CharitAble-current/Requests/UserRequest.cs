@@ -10,6 +10,7 @@ namespace CharitAble_current.Requests
 {
     public class UserRequest
     {
+        public int UserId { get; set; }
         [Required]
         public string FirstName { get; set; }
         [Required]
@@ -31,7 +32,7 @@ namespace CharitAble_current.Requests
         public string Password { get; set; }
         public long Contact { get; set; }
         public int UserTypeId { get; set; }
-        public DateTime RegistrationDate { get; set; }
-        public DateTime UpdateDate { get; set; }
+        public DateTime? RegistrationDate { get; set; }
+        public DateTime? UpdateDate { get; set; }
     }
 }

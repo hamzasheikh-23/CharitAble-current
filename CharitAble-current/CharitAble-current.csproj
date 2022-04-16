@@ -242,6 +242,12 @@
     <Compile Include="Models\tbl_Cases.cs">
       <DependentUpon>CharitableEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tbl_DonationCategory.cs">
+      <DependentUpon>CharitableEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbl_DonationCondition.cs">
+      <DependentUpon>CharitableEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tbl_Donations.cs">
       <DependentUpon>CharitableEntity.tt</DependentUpon>
     </Compile>

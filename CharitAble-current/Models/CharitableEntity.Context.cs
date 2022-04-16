@@ -42,6 +42,8 @@ namespace CharitAble_current.Models
         public virtual DbSet<tbl_SuccessStories> tbl_SuccessStories { get; set; }
         public virtual DbSet<tbl_Users> tbl_Users { get; set; }
         public virtual DbSet<tbl_UserType> tbl_UserType { get; set; }
+        public virtual DbSet<tbl_DonationCategory> tbl_DonationCategory { get; set; }
+        public virtual DbSet<tbl_DonationCondition> tbl_DonationCondition { get; set; }
     
         public virtual int SP_AddCase(string caseTitle, Nullable<System.DateTime> postedDate, string description, byte[] picture)
         {

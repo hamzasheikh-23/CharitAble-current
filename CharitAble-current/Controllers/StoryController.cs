@@ -17,7 +17,7 @@ namespace CharitAble_current.Controllers
         // GET: Story
         [HttpGet]
         [Route("get")]
-        public IHttpActionResult Index()
+        public IHttpActionResult GetStory()
         {
             var storyList = dbx.tbl_SuccessStories.Select(x =>
                 new StoryRequest()

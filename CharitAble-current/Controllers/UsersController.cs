@@ -41,10 +41,7 @@ namespace CharitAble_current.Controllers
                     (from x in dbx.tbl_Users
                      where x.Username == value.Username
                      select x.UserID).SingleOrDefault();
-                var donorID =
-                    (from x in dbx.tbl_DonorMaster
-                     where x.UserID == userID
-                     select x.DonorID).SingleOrDefault();
+
 
                 switch (result.UserTypeID)
                 {
@@ -61,6 +58,11 @@ namespace CharitAble_current.Controllers
                         }
                     case 2:
                         {
+                            var donorID =
+                                (from x in dbx.tbl_DonorMaster
+                                 where x.UserID == userID
+                                 select x.DonorID).SingleOrDefault();
+
                             ret = new
                             {
                                 donorID,
@@ -73,8 +75,14 @@ namespace CharitAble_current.Controllers
                         }
                     case 3:
                         {
+                            var ngoID =
+                                (from x in dbx.tbl_NGOMaster
+                                 where x.UserID == userID
+                                 select x.NGO_ID).SingleOrDefault();
+
                             ret = new
                             {
+                                ngoID,
                                 userID,
                                 code = "3",
                                 msg = "Login Successful as NGO"
@@ -104,39 +112,94 @@ namespace CharitAble_current.Controllers
         [Route("register")]
         public IHttpActionResult RegisterResult(UserRequest value)
         {
-            object ret = new
+
+            try
             {
-                code = "0",
-                status = "User not registered"
-            };
 
-            tbl_Users user = new tbl_Users();
-
-            user.FirstName = value.FirstName;
-            user.LastName = value.LastName;
-            user.Username = value.Username;
-            user.Email = value.Email;
-            user.Password = value.Password;
-            user.ContactNumber = value.Contact;
-            user.UserTypeID = value.UserTypeId;
-            user.RegistrationDateTime = value.RegistrationDate = DateTime.Now;
-
-            dbx.tbl_Users.AddOrUpdate(user);
-
-            var result = dbx.SaveChanges();
-
-
-            if (result != 0)
-            {
-                ret = new
+                object ret = new
                 {
-                    code = "1",
-                    status = "success",
+                    code = "0",
+                    status = "User not registered"
                 };
-            }
 
-            return Json(ret);
+                tbl_Users user = new tbl_Users();
+
+                user.FirstName = value.FirstName;
+                user.LastName = value.LastName;
+                user.Username = value.Username;
+                user.Email = value.Email;
+                user.Password = value.Password;
+                user.ContactNumber = value.Contact;
+                user.UserTypeID = value.UserTypeId;
+                user.RegistrationDateTime = value.RegistrationDate = DateTime.Now;
+
+                dbx.tbl_Users.AddOrUpdate(user);
+
+                var result = dbx.SaveChanges();
+
+
+                if (result != 0)
+                {
+                    var userTypeID =
+                        (from x in dbx.tbl_Users
+                         where x.Username == value.Username
+                         select x.UserTypeID).SingleOrDefault();
+
+                    if (userTypeID == 1)
+                    {
+                        var userID = (from x in dbx.tbl_Users where x.Username == value.Username select x.UserID)
+                            .SingleOrDefault();
+
+                        tbl_Admin admin = new tbl_Admin();
+
+                        admin.UserID = userID;
+
+                        dbx.tbl_Admin.AddOrUpdate(admin);
+                        dbx.SaveChanges();
+                    }
+
+                    if (userTypeID == 2)
+                    {
+                        var userID = (from x in dbx.tbl_Users where x.Username == value.Username select x.UserID)
+                            .SingleOrDefault();
+
+                        tbl_DonorMaster donor = new tbl_DonorMaster();
+
+                        donor.UserID = userID;
+
+                        dbx.tbl_DonorMaster.AddOrUpdate(donor);
+                        dbx.SaveChanges();
+                    }
+
+                    if (userTypeID == 3)
+                    {
+                        var userID = (from x in dbx.tbl_Users where x.Username == value.Username select x.UserID)
+                            .SingleOrDefault();
+
+                        tbl_NGOMaster ngo = new tbl_NGOMaster();
+
+                        ngo.UserID = userID;
+
+                        dbx.tbl_NGOMaster.AddOrUpdate(ngo);
+                        dbx.SaveChanges();
+                    }
+
+                    ret = new
+                    {
+                        code = "1",
+                        status = "success",
+                    };
+                }
+
+                return Json(ret);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
+
+        // GET user/get
 
         [HttpGet]
         [Route("get")]
@@ -145,16 +208,63 @@ namespace CharitAble_current.Controllers
             var userList = dbx.tbl_Users.Select(x =>
                 new UserRequest()
                 {
+                    UserId = x.UserID,
                     FirstName = x.FirstName,
                     LastName = x.LastName,
                     Username = x.Username,
                     Email = x.Email,
                     Contact = (long)x.ContactNumber,
                     UserTypeId = x.UserTypeID,
-                    // RegistrationDate = (DateTime)x.RegistrationDateTime
-                }).ToList();
+                    RegistrationDate = (DateTime)x.RegistrationDateTime,
+                    UpdateDate = (DateTime)x.UpdateDateTime
+                });
             return Json(userList);
         }
+
+        // GET user/get/id/{id}
+
+        [HttpGet]
+        [Route("get/id/{id}")]
+        public IHttpActionResult GetUsers(int id)
+        {
+            var userList = dbx.tbl_Users.Select(x =>
+                new UserRequest()
+                {
+                    UserId = x.UserID,
+                    FirstName = x.FirstName,
+                    LastName = x.LastName,
+                    Username = x.Username,
+                    Email = x.Email,
+                    Contact = (long)x.ContactNumber,
+                    UserTypeId = x.UserTypeID,
+                    RegistrationDate = (DateTime)x.RegistrationDateTime,
+                    UpdateDate = (DateTime)x.UpdateDateTime
+                }).Where(x => x.UserId == id);
+            return Json(userList);
+        }
+
+        // GET user/get/usertype/{userType}
+
+        [HttpGet]
+        [Route("get/usertype/{userTypeId}")]
+        public IHttpActionResult GetUsersByUserType(int userTypeId)
+        {
+            var userList = dbx.tbl_Users.Select(x =>
+                new UserRequest()
+                {
+                    UserId = x.UserID,
+                    FirstName = x.FirstName,
+                    LastName = x.LastName,
+                    Username = x.Username,
+                    Email = x.Email,
+                    Contact = (long)x.ContactNumber,
+                    UserTypeId = x.UserTypeID,
+                    RegistrationDate = (DateTime)x.RegistrationDateTime,
+                    UpdateDate = (DateTime)x.UpdateDateTime
+                }).Where(x => x.UserTypeId == userTypeId);
+            return Json(userList);
+        }
+
 
     }
 

@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.Security.Permissions;
+
 namespace CharitAble_current.Models
 {
     using System;
     using System.Collections.Generic;
-    
+
     public partial class tbl_Donations
     {
         public int DonationID { get; set; }
@@ -23,8 +25,15 @@ namespace CharitAble_current.Models
         public Nullable<System.DateTime> ExpiryDate { get; set; }
         public string Description { get; set; }
         public Nullable<long> LocationCoordinates { get; set; }
-        public byte[] Picture { get; set; }
-    
+        public Nullable<int> Condition { get; set; }
+        public Nullable<int> Rating { get; set; }
+        public Nullable<int> Category { get; set; }
+        public string Image1 { get; set; }
+        public string Image2 { get; set; }
+        public string Image3 { get; set; }
+
         public virtual tbl_DonorMaster tbl_DonorMaster { get; set; }
+        public virtual tbl_DonationCategory tbl_DonationCategory { get; set; }
+        public virtual tbl_DonationCondition tbl_DonationCondition { get; set; }
     }
 }

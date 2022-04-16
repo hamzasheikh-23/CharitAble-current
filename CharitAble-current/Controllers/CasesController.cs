@@ -17,7 +17,7 @@ namespace CharitAble_current.Controllers
         //POST: case/post
         [HttpPost]
         [Route("post")]
-        public IHttpActionResult AddDonation(CaseRequest value)
+        public IHttpActionResult AddCase(CaseRequest value)
         {
             object ret = new
             {
@@ -49,12 +49,12 @@ namespace CharitAble_current.Controllers
             return Json(ret);
         }
 
-        // GET: Cases
+        // GET: case/get
         [HttpGet]
         [Route("get")]
         public IHttpActionResult GetCase()
         {
-            var donations = dbx.tbl_Cases.Select(x =>
+            var cases = dbx.tbl_Cases.Select(x =>
                 new CaseRequest()
                 {
                     CaseId = x.CaseID,
@@ -64,7 +64,26 @@ namespace CharitAble_current.Controllers
                     Description = x.Description
                 }).ToList();
 
-            return Json(donations);
+            return Json(cases);
+        }
+
+        //GET: case/get/{id}
+
+        [HttpGet]
+        [Route("get/{id}")]
+        public IHttpActionResult GetCase(int id)
+        {
+            var cases = dbx.tbl_Cases.Select(x =>
+                new CaseRequest()
+                {
+                    CaseId = x.CaseID,
+                    NGOId = (int)x.NGO_ID,
+                    CaseTitle = x.CaseTitle,
+                    PostedDate = (DateTime)x.PostedDate,
+                    Description = x.Description
+                }).Where(x => x.NGOId == id).ToList();
+
+            return Json(cases);
         }
     }
 }

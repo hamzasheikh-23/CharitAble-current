@@ -37,8 +37,15 @@ namespace CharitAble_current.Controllers
             donation.Quantity = value.Quantity;
             donation.Weight = value.Weight;
             donation.QuantityPerUnit = 1;
+            donation.Rating = value.Rating;
+            donation.Condition = value.ConditionId;
+            donation.Category = value.CategoryId;
             donation.ExpiryDate = value.ExpiryDate = DateTime.Now;
             donation.Description = value.Description;
+            donation.Image1 = value.Image1;
+            donation.Image2 = value.Image2;
+            donation.Image3 = value.Image3;
+
 
             dbx.tbl_Donations.AddOrUpdate(donation);
             var result = dbx.SaveChanges();
@@ -55,6 +62,8 @@ namespace CharitAble_current.Controllers
             }
             return Json(ret);
         }
+
+        //GET donation/get/{id}
 
         [HttpGet]
         [Route("get/{id}")]
@@ -75,24 +84,25 @@ namespace CharitAble_current.Controllers
             return Json(donations);
         }
 
-        //[HttpGet]
-        //[Route("get/{id}")]
-        //public IHttpActionResult GetDonations(int id)
-        //{
-        //    var donations = (from x in dbx.tbl_Donations 
-        //                                          where  x.DonorID == id select x).ToList();
-        //    new DonationRequest()
-        //        {
-        //            DonorId = x.DonorID,
-        //            Title = x.DonationTitle,
-        //            Quantity = x.Quantity,
-        //            Weight = x.Weight,
-        //            QuantityPerUnit = x.QuantityPerUnit,
-        //            ExpiryDate = x.ExpiryDate,
-        //            Description = x.Description
-        //        }).ToList();
+        //GET donation/get
 
-        //    return Json(donations);
-        //}
+        [HttpGet]
+        [Route("get")]
+        public IHttpActionResult GetDonation()
+        {
+            var donations = dbx.tbl_Donations.Select(x =>
+                new DonationRequest()
+                {
+                    DonorId = x.DonorID,
+                    Title = x.DonationTitle,
+                    Quantity = x.Quantity,
+                    Weight = x.Weight,
+                    QuantityPerUnit = x.QuantityPerUnit,
+                    ExpiryDate = x.ExpiryDate,
+                    Description = x.Description
+                }).ToList();
+
+            return Json(donations);
+        }
     }
 }

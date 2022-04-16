@@ -14,8 +14,13 @@ namespace CharitAble_current.Requests
         public byte? QuantityPerUnit { get; set; }
         public DateTime? ExpiryDate { get; set; }
         public string Description { get; set; }
+        public int Rating { get; set; }
+        public int ConditionId { get; set; }
+        public int CategoryId { get; set; }
         public long LocationCo { get; set; }
-        public byte[] Picture { get; set; }
+        public string Image1 { get; set; }
+        public string Image2 { get; set; }
+        public string Image3 { get; set; }
 
     }
 }
