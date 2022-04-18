@@ -275,6 +275,9 @@
     <Compile Include="Models\tbl_PaymentInfo.cs">
       <DependentUpon>CharitableEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tbl_Status.cs">
+      <DependentUpon>CharitableEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tbl_SubscriptionPlan.cs">
       <DependentUpon>CharitableEntity.tt</DependentUpon>
     </Compile>
@@ -289,6 +292,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Requests\CaseRequest.cs" />
+    <Compile Include="Requests\DonationCategoryRequest.cs" />
     <Compile Include="Requests\DonationRequest.cs" />
     <Compile Include="Requests\StoryRequest.cs" />
     <Compile Include="Requests\UserRequest.cs" />

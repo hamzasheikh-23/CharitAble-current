@@ -22,6 +22,7 @@
           <Property Name="PostedDate" Type="smalldatetime" />
           <Property Name="Description" Type="varchar" MaxLength="500" />
           <Property Name="Picture" Type="image" />
+          <Property Name="StatusID" Type="int" />
         </EntityType>
         <EntityType Name="tbl_DonationCategory">
           <Key>
@@ -146,6 +147,13 @@
           <Property Name="CurrentExpiryMonth" Type="tinyint" />
           <Property Name="CurretnExpiryYear" Type="smallint" />
         </EntityType>
+        <EntityType Name="tbl_Status">
+          <Key>
+            <PropertyRef Name="StatusID" />
+          </Key>
+          <Property Name="StatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Status" Type="nchar" MaxLength="10" />
+        </EntityType>
         <EntityType Name="tbl_SubscriptionPlan">
           <Key>
             <PropertyRef Name="PlanID" />
@@ -192,18 +200,6 @@
           <Property Name="UserTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserType" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
-        <Association Name="FK__Admin__UserID__2E1BDC42">
-          <End Role="tbl_Users" Type="Self.tbl_Users" Multiplicity="0..1" />
-          <End Role="tbl_Admin" Type="Self.tbl_Admin" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_Users">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="tbl_Admin">
-              <PropertyRef Name="UserID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__Donations__Donor__30F848ED">
           <End Role="tbl_DonorMaster" Type="Self.tbl_DonorMaster" Multiplicity="0..1" />
           <End Role="tbl_Donations" Type="Self.tbl_Donations" Multiplicity="*" />
@@ -216,26 +212,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__DonorMast__UserI__267ABA7A">
+        <Association Name="FK__tbl_Admin__UserI__123EB7A3">
           <End Role="tbl_Users" Type="Self.tbl_Users" Multiplicity="0..1" />
-          <End Role="tbl_DonorMaster" Type="Self.tbl_DonorMaster" Multiplicity="*" />
+          <End Role="tbl_Admin" Type="Self.tbl_Admin" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tbl_Users">
               <PropertyRef Name="UserID" />
             </Principal>
-            <Dependent Role="tbl_DonorMaster">
-              <PropertyRef Name="UserID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__NGOMaster__UserI__29572725">
-          <End Role="tbl_Users" Type="Self.tbl_Users" Multiplicity="0..1" />
-          <End Role="tbl_NGOMaster" Type="Self.tbl_NGOMaster" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_Users">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="tbl_NGOMaster">
+            <Dependent Role="tbl_Admin">
               <PropertyRef Name="UserID" />
             </Dependent>
           </ReferentialConstraint>
@@ -252,6 +236,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__tbl_Cases__Statu__18EBB532">
+          <End Role="tbl_Status" Type="Self.tbl_Status" Multiplicity="0..1" />
+          <End Role="tbl_Cases" Type="Self.tbl_Cases" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Status">
+              <PropertyRef Name="StatusID" />
+            </Principal>
+            <Dependent Role="tbl_Cases">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__tbl_Donat__Condi__06CD04F7">
           <End Role="tbl_DonationCondition" Type="Self.tbl_DonationCondition" Multiplicity="0..1" />
           <End Role="tbl_Donations" Type="Self.tbl_Donations" Multiplicity="*" />
@@ -261,6 +257,18 @@
             </Principal>
             <Dependent Role="tbl_Donations">
               <PropertyRef Name="Condition" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_Donor__UserI__1332DBDC">
+          <End Role="tbl_Users" Type="Self.tbl_Users" Multiplicity="0..1" />
+          <End Role="tbl_DonorMaster" Type="Self.tbl_DonorMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tbl_DonorMaster">
+              <PropertyRef Name="UserID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -336,6 +344,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__tbl_NGOMa__UserI__14270015">
+          <End Role="tbl_Users" Type="Self.tbl_Users" Multiplicity="0..1" />
+          <End Role="tbl_NGOMaster" Type="Self.tbl_NGOMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tbl_NGOMaster">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__tbl_Order__NGO_I__3B75D760">
           <End Role="tbl_NGOMaster" Type="Self.tbl_NGOMaster" Multiplicity="0..1" />
           <End Role="tbl_Orders" Type="Self.tbl_Orders" Multiplicity="*" />
@@ -360,7 +380,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tbl_Users__UserT__5629CD9C">
+        <Association Name="FK__tbl_Users__UserT__160F4887">
           <End Role="tbl_UserType" Type="Self.tbl_UserType" Multiplicity="1" />
           <End Role="tbl_Users" Type="Self.tbl_Users" Multiplicity="*" />
           <ReferentialConstraint>
@@ -456,33 +476,34 @@
           <EntitySet Name="tbl_NGOMaster" EntityType="Self.tbl_NGOMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Orders" EntityType="Self.tbl_Orders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_PaymentInfo" EntityType="Self.tbl_PaymentInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Status" EntityType="Self.tbl_Status" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_SubscriptionPlan" EntityType="Self.tbl_SubscriptionPlan" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_SuccessStories" EntityType="Self.tbl_SuccessStories" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Users" EntityType="Self.tbl_Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_UserType" EntityType="Self.tbl_UserType" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Admin__UserID__2E1BDC42" Association="Self.FK__Admin__UserID__2E1BDC42">
-            <End Role="tbl_Users" EntitySet="tbl_Users" />
-            <End Role="tbl_Admin" EntitySet="tbl_Admin" />
-          </AssociationSet>
           <AssociationSet Name="FK__Donations__Donor__30F848ED" Association="Self.FK__Donations__Donor__30F848ED">
             <End Role="tbl_DonorMaster" EntitySet="tbl_DonorMaster" />
             <End Role="tbl_Donations" EntitySet="tbl_Donations" />
           </AssociationSet>
-          <AssociationSet Name="FK__DonorMast__UserI__267ABA7A" Association="Self.FK__DonorMast__UserI__267ABA7A">
+          <AssociationSet Name="FK__tbl_Admin__UserI__123EB7A3" Association="Self.FK__tbl_Admin__UserI__123EB7A3">
             <End Role="tbl_Users" EntitySet="tbl_Users" />
-            <End Role="tbl_DonorMaster" EntitySet="tbl_DonorMaster" />
-          </AssociationSet>
-          <AssociationSet Name="FK__NGOMaster__UserI__29572725" Association="Self.FK__NGOMaster__UserI__29572725">
-            <End Role="tbl_Users" EntitySet="tbl_Users" />
-            <End Role="tbl_NGOMaster" EntitySet="tbl_NGOMaster" />
+            <End Role="tbl_Admin" EntitySet="tbl_Admin" />
           </AssociationSet>
           <AssociationSet Name="FK__tbl_Cases__NGO_I__35BCFE0A" Association="Self.FK__tbl_Cases__NGO_I__35BCFE0A">
             <End Role="tbl_NGOMaster" EntitySet="tbl_NGOMaster" />
             <End Role="tbl_Cases" EntitySet="tbl_Cases" />
           </AssociationSet>
+          <AssociationSet Name="FK__tbl_Cases__Statu__18EBB532" Association="Self.FK__tbl_Cases__Statu__18EBB532">
+            <End Role="tbl_Status" EntitySet="tbl_Status" />
+            <End Role="tbl_Cases" EntitySet="tbl_Cases" />
+          </AssociationSet>
           <AssociationSet Name="FK__tbl_Donat__Condi__06CD04F7" Association="Self.FK__tbl_Donat__Condi__06CD04F7">
             <End Role="tbl_DonationCondition" EntitySet="tbl_DonationCondition" />
             <End Role="tbl_Donations" EntitySet="tbl_Donations" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_Donor__UserI__1332DBDC" Association="Self.FK__tbl_Donor__UserI__1332DBDC">
+            <End Role="tbl_Users" EntitySet="tbl_Users" />
+            <End Role="tbl_DonorMaster" EntitySet="tbl_DonorMaster" />
           </AssociationSet>
           <AssociationSet Name="FK__tbl_Invoi__Donor__3F466844" Association="Self.FK__tbl_Invoi__Donor__3F466844">
             <End Role="tbl_DonorMaster" EntitySet="tbl_DonorMaster" />
@@ -508,6 +529,10 @@
             <End Role="tbl_MaterialGroup" EntitySet="tbl_MaterialGroup" />
             <End Role="tbl_MaterialMaster" EntitySet="tbl_MaterialMaster" />
           </AssociationSet>
+          <AssociationSet Name="FK__tbl_NGOMa__UserI__14270015" Association="Self.FK__tbl_NGOMa__UserI__14270015">
+            <End Role="tbl_Users" EntitySet="tbl_Users" />
+            <End Role="tbl_NGOMaster" EntitySet="tbl_NGOMaster" />
+          </AssociationSet>
           <AssociationSet Name="FK__tbl_Order__NGO_I__3B75D760" Association="Self.FK__tbl_Order__NGO_I__3B75D760">
             <End Role="tbl_NGOMaster" EntitySet="tbl_NGOMaster" />
             <End Role="tbl_Orders" EntitySet="tbl_Orders" />
@@ -516,7 +541,7 @@
             <End Role="tbl_NGOMaster" EntitySet="tbl_NGOMaster" />
             <End Role="tbl_SuccessStories" EntitySet="tbl_SuccessStories" />
           </AssociationSet>
-          <AssociationSet Name="FK__tbl_Users__UserT__5629CD9C" Association="Self.FK__tbl_Users__UserT__5629CD9C">
+          <AssociationSet Name="FK__tbl_Users__UserT__160F4887" Association="Self.FK__tbl_Users__UserT__160F4887">
             <End Role="tbl_UserType" EntitySet="tbl_UserType" />
             <End Role="tbl_Users" EntitySet="tbl_Users" />
           </AssociationSet>
@@ -545,6 +570,8 @@
           <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="Picture" Type="Binary" MaxLength="Max" FixedLength="false" />
           <NavigationProperty Name="tbl_NGOMaster" Relationship="Self.FK__tbl_Cases__NGO_I__35BCFE0A" FromRole="tbl_Cases" ToRole="tbl_NGOMaster" />
+          <Property Name="StatusID" Type="Int32" />
+          <NavigationProperty Name="tbl_Status" Relationship="charitable_dbModel.FK__tbl_Cases__Statu__18EBB532" FromRole="tbl_Cases" ToRole="tbl_Status" />
         </EntityType>
         <EntityType Name="tbl_Donations">
           <Key>
@@ -1048,6 +1075,11 @@
             <End Role="tbl_DonationCondition" EntitySet="tbl_DonationCondition" />
             <End Role="tbl_Donations" EntitySet="tbl_Donations" />
           </AssociationSet>
+          <EntitySet Name="tbl_Status" EntityType="charitable_dbModel.tbl_Status" />
+          <AssociationSet Name="FK__tbl_Cases__Statu__18EBB532" Association="charitable_dbModel.FK__tbl_Cases__Statu__18EBB532">
+            <End Role="tbl_Status" EntitySet="tbl_Status" />
+            <End Role="tbl_Cases" EntitySet="tbl_Cases" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="SP_SelectAllAdmins_Result">
           <Property Type="Int32" Name="AdminID" Nullable="false" />
@@ -1210,6 +1242,26 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="tbl_Status">
+          <Key>
+            <PropertyRef Name="StatusID" />
+          </Key>
+          <Property Name="StatusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Status" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="tbl_Cases" Relationship="charitable_dbModel.FK__tbl_Cases__Statu__18EBB532" FromRole="tbl_Status" ToRole="tbl_Cases" />
+        </EntityType>
+        <Association Name="FK__tbl_Cases__Statu__18EBB532">
+          <End Type="charitable_dbModel.tbl_Status" Role="tbl_Status" Multiplicity="0..1" />
+          <End Type="charitable_dbModel.tbl_Cases" Role="tbl_Cases" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Status">
+              <PropertyRef Name="StatusID" />
+            </Principal>
+            <Dependent Role="tbl_Cases">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1227,6 +1279,7 @@
           <EntitySetMapping Name="tbl_Cases">
             <EntityTypeMapping TypeName="charitable_dbModel.tbl_Cases">
               <MappingFragment StoreEntitySet="tbl_Cases">
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
                 <ScalarProperty Name="CaseID" ColumnName="CaseID" />
                 <ScalarProperty Name="NGO_ID" ColumnName="NGO_ID" />
                 <ScalarProperty Name="CaseTitle" ColumnName="CaseTitle" />
@@ -1604,6 +1657,14 @@
               <MappingFragment StoreEntitySet="tbl_DonationCondition">
                 <ScalarProperty Name="Condition" ColumnName="Condition" />
                 <ScalarProperty Name="ConditionID" ColumnName="ConditionID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Status">
+            <EntityTypeMapping TypeName="charitable_dbModel.tbl_Status">
+              <MappingFragment StoreEntitySet="tbl_Status">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

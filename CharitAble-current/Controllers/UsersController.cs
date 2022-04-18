@@ -24,9 +24,10 @@ namespace CharitAble_current.Controllers
         [Route("login")]
         public IHttpActionResult LoginResult(UserRequest value)
         {
-
+            bool isSuccess;
             object ret = new
             {
+                isSucces = false,
                 code = "0",
                 msg = "Login Failed"
             };
@@ -37,18 +38,29 @@ namespace CharitAble_current.Controllers
 
             if (result != null)
             {
+
                 var userID =
                     (from x in dbx.tbl_Users
                      where x.Username == value.Username
                      select x.UserID).SingleOrDefault();
 
 
+                var userTypeId = result.UserTypeID;
+
+
                 switch (result.UserTypeID)
                 {
                     case 1:
-                        {
+                    {
+                        var adminID = (from x in dbx.tbl_Admin
+                            where x.UserID == userID
+                            select x.AdminID).SingleOrDefault();
+                           
                             ret = new
                             {
+                                isSuccess = true,
+                                userTypeId,
+                                adminID,
                                 userID,
                                 code = "1",
                                 msg = "Login Successful as Admin"
@@ -65,6 +77,8 @@ namespace CharitAble_current.Controllers
 
                             ret = new
                             {
+                                isSuccess = true,
+                                userTypeId,
                                 donorID,
                                 userID,
                                 code = "2",
@@ -82,6 +96,8 @@ namespace CharitAble_current.Controllers
 
                             ret = new
                             {
+                                isSuccess = true,
+                                userTypeId,
                                 ngoID,
                                 userID,
                                 code = "3",
@@ -94,6 +110,7 @@ namespace CharitAble_current.Controllers
                         {
                             ret = new
                             {
+                                isSuccess = false,
                                 code = "unspecified",
                                 msg = "UserType not defined, False Login"
                             };

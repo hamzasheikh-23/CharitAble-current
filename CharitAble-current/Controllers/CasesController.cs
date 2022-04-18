@@ -31,6 +31,7 @@ namespace CharitAble_current.Controllers
             cases.CaseTitle = value.CaseTitle;
             cases.PostedDate = value.PostedDate = DateTime.Now;
             cases.Description = value.Description;
+
             //cases.Picture = value.Picture;
 
             dbx.tbl_Cases.AddOrUpdate(cases);
