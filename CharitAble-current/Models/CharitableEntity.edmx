@@ -43,20 +43,31 @@
             <PropertyRef Name="DonationID" />
           </Key>
           <Property Name="DonationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CaseID" Type="int" />
           <Property Name="DonorID" Type="int" />
           <Property Name="DonationTitle" Type="varchar" MaxLength="50" />
           <Property Name="Condition" Type="int" />
           <Property Name="Quantity" Type="smallint" />
           <Property Name="Weight" Type="decimal" Precision="4" Scale="2" />
-          <Property Name="QuantityPerUnit" Type="tinyint" />
+          <Property Name="QuantityPerUnit" Type="smallint" />
           <Property Name="Rating" Type="int" />
           <Property Name="Category" Type="int" />
           <Property Name="ExpiryDate" Type="smalldatetime" />
           <Property Name="Description" Type="varchar" MaxLength="400" />
           <Property Name="LocationCoordinates" Type="bigint" />
+          <Property Name="Status" Type="int" />
+          <Property Name="PostedDateTime" Type="smalldatetime" />
+          <Property Name="isActive" Type="varchar" MaxLength="6" />
           <Property Name="Image1" Type="varchar" MaxLength="200" />
           <Property Name="Image2" Type="varchar" MaxLength="200" />
           <Property Name="Image3" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="tbl_DonationStatus">
+          <Key>
+            <PropertyRef Name="StatusID" />
+          </Key>
+          <Property Name="StatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Status" Type="nchar" MaxLength="15" Nullable="false" />
         </EntityType>
         <EntityType Name="tbl_DonorMaster">
           <Key>
@@ -147,13 +158,6 @@
           <Property Name="CurrentExpiryMonth" Type="tinyint" />
           <Property Name="CurretnExpiryYear" Type="smallint" />
         </EntityType>
-        <EntityType Name="tbl_Status">
-          <Key>
-            <PropertyRef Name="StatusID" />
-          </Key>
-          <Property Name="StatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Status" Type="nchar" MaxLength="10" />
-        </EntityType>
         <EntityType Name="tbl_SubscriptionPlan">
           <Key>
             <PropertyRef Name="PlanID" />
@@ -161,7 +165,6 @@
           <Property Name="PlanID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="PlanName" Type="varchar" MaxLength="30" />
           <Property Name="Amount" Type="smallmoney" />
-          <Property Name="Duration" Type="smallint" />
           <Property Name="Description" Type="varchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="tbl_SuccessStories">
@@ -236,15 +239,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tbl_Cases__Statu__18EBB532">
-          <End Role="tbl_Status" Type="Self.tbl_Status" Multiplicity="0..1" />
-          <End Role="tbl_Cases" Type="Self.tbl_Cases" Multiplicity="*" />
+        <Association Name="FK__tbl_Donat__CaseI__30C33EC3">
+          <End Role="tbl_Cases" Type="Self.tbl_Cases" Multiplicity="0..1" />
+          <End Role="tbl_Donations" Type="Self.tbl_Donations" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="tbl_Status">
-              <PropertyRef Name="StatusID" />
+            <Principal Role="tbl_Cases">
+              <PropertyRef Name="CaseID" />
             </Principal>
-            <Dependent Role="tbl_Cases">
-              <PropertyRef Name="StatusID" />
+            <Dependent Role="tbl_Donations">
+              <PropertyRef Name="CaseID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -257,6 +260,18 @@
             </Principal>
             <Dependent Role="tbl_Donations">
               <PropertyRef Name="Condition" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_Donat__Statu__208CD6FA">
+          <End Role="tbl_DonationStatus" Type="Self.tbl_DonationStatus" Multiplicity="0..1" />
+          <End Role="tbl_Donations" Type="Self.tbl_Donations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_DonationStatus">
+              <PropertyRef Name="StatusID" />
+            </Principal>
+            <Dependent Role="tbl_Donations">
+              <PropertyRef Name="Status" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -468,6 +483,7 @@
           <EntitySet Name="tbl_DonationCategory" EntityType="Self.tbl_DonationCategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_DonationCondition" EntityType="Self.tbl_DonationCondition" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Donations" EntityType="Self.tbl_Donations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_DonationStatus" EntityType="Self.tbl_DonationStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_DonorMaster" EntityType="Self.tbl_DonorMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Invoices" EntityType="Self.tbl_Invoices" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_MaterialGroup" EntityType="Self.tbl_MaterialGroup" Schema="dbo" store:Type="Tables" />
@@ -476,7 +492,6 @@
           <EntitySet Name="tbl_NGOMaster" EntityType="Self.tbl_NGOMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Orders" EntityType="Self.tbl_Orders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_PaymentInfo" EntityType="Self.tbl_PaymentInfo" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tbl_Status" EntityType="Self.tbl_Status" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_SubscriptionPlan" EntityType="Self.tbl_SubscriptionPlan" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_SuccessStories" EntityType="Self.tbl_SuccessStories" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Users" EntityType="Self.tbl_Users" Schema="dbo" store:Type="Tables" />
@@ -493,12 +508,16 @@
             <End Role="tbl_NGOMaster" EntitySet="tbl_NGOMaster" />
             <End Role="tbl_Cases" EntitySet="tbl_Cases" />
           </AssociationSet>
-          <AssociationSet Name="FK__tbl_Cases__Statu__18EBB532" Association="Self.FK__tbl_Cases__Statu__18EBB532">
-            <End Role="tbl_Status" EntitySet="tbl_Status" />
+          <AssociationSet Name="FK__tbl_Donat__CaseI__30C33EC3" Association="Self.FK__tbl_Donat__CaseI__30C33EC3">
             <End Role="tbl_Cases" EntitySet="tbl_Cases" />
+            <End Role="tbl_Donations" EntitySet="tbl_Donations" />
           </AssociationSet>
           <AssociationSet Name="FK__tbl_Donat__Condi__06CD04F7" Association="Self.FK__tbl_Donat__Condi__06CD04F7">
             <End Role="tbl_DonationCondition" EntitySet="tbl_DonationCondition" />
+            <End Role="tbl_Donations" EntitySet="tbl_Donations" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_Donat__Statu__208CD6FA" Association="Self.FK__tbl_Donat__Statu__208CD6FA">
+            <End Role="tbl_DonationStatus" EntitySet="tbl_DonationStatus" />
             <End Role="tbl_Donations" EntitySet="tbl_Donations" />
           </AssociationSet>
           <AssociationSet Name="FK__tbl_Donor__UserI__1332DBDC" Association="Self.FK__tbl_Donor__UserI__1332DBDC">
@@ -571,7 +590,7 @@
           <Property Name="Picture" Type="Binary" MaxLength="Max" FixedLength="false" />
           <NavigationProperty Name="tbl_NGOMaster" Relationship="Self.FK__tbl_Cases__NGO_I__35BCFE0A" FromRole="tbl_Cases" ToRole="tbl_NGOMaster" />
           <Property Name="StatusID" Type="Int32" />
-          <NavigationProperty Name="tbl_Status" Relationship="charitable_dbModel.FK__tbl_Cases__Statu__18EBB532" FromRole="tbl_Cases" ToRole="tbl_Status" />
+          <NavigationProperty Name="tbl_Donations" Relationship="charitable_dbModel.FK__tbl_Donat__CaseI__30C33EC3" FromRole="tbl_Cases" ToRole="tbl_Donations" />
         </EntityType>
         <EntityType Name="tbl_Donations">
           <Key>
@@ -582,7 +601,7 @@
           <Property Name="DonationTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Quantity" Type="Int16" />
           <Property Name="Weight" Type="Decimal" Precision="4" Scale="2" />
-          <Property Name="QuantityPerUnit" Type="Byte" />
+          <Property Name="QuantityPerUnit" Type="Int16" />
           <Property Name="ExpiryDate" Type="DateTime" Precision="0" />
           <Property Name="Description" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
           <Property Name="LocationCoordinates" Type="Int64" />
@@ -595,6 +614,12 @@
           <Property Name="Image1" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="Image2" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="Image3" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="isActive" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tbl_DonationStatus" Relationship="charitable_dbModel.FK__tbl_Donat__Statu__208CD6FA" FromRole="tbl_Donations" ToRole="tbl_DonationStatus" />
+          <Property Name="PostedDateTime" Type="DateTime" Precision="0" />
+          <Property Name="CaseID" Type="Int32" />
+          <NavigationProperty Name="tbl_Cases" Relationship="charitable_dbModel.FK__tbl_Donat__CaseI__30C33EC3" FromRole="tbl_Donations" ToRole="tbl_Cases" />
         </EntityType>
         <EntityType Name="tbl_DonorMaster">
           <Key>
@@ -710,7 +735,6 @@
           <Property Name="PlanID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="PlanName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="Amount" Type="Decimal" Precision="10" Scale="4" />
-          <Property Name="Duration" Type="Int16" />
           <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="tbl_SuccessStories">
@@ -1075,10 +1099,14 @@
             <End Role="tbl_DonationCondition" EntitySet="tbl_DonationCondition" />
             <End Role="tbl_Donations" EntitySet="tbl_Donations" />
           </AssociationSet>
-          <EntitySet Name="tbl_Status" EntityType="charitable_dbModel.tbl_Status" />
-          <AssociationSet Name="FK__tbl_Cases__Statu__18EBB532" Association="charitable_dbModel.FK__tbl_Cases__Statu__18EBB532">
-            <End Role="tbl_Status" EntitySet="tbl_Status" />
+          <EntitySet Name="tbl_DonationStatus" EntityType="charitable_dbModel.tbl_DonationStatus" />
+          <AssociationSet Name="FK__tbl_Donat__Statu__208CD6FA" Association="charitable_dbModel.FK__tbl_Donat__Statu__208CD6FA">
+            <End Role="tbl_DonationStatus" EntitySet="tbl_DonationStatus" />
+            <End Role="tbl_Donations" EntitySet="tbl_Donations" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_Donat__CaseI__30C33EC3" Association="charitable_dbModel.FK__tbl_Donat__CaseI__30C33EC3">
             <End Role="tbl_Cases" EntitySet="tbl_Cases" />
+            <End Role="tbl_Donations" EntitySet="tbl_Donations" />
           </AssociationSet>
         </EntityContainer>
         <ComplexType Name="SP_SelectAllAdmins_Result">
@@ -1242,23 +1270,35 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="tbl_Status">
+        <EntityType Name="tbl_DonationStatus">
           <Key>
             <PropertyRef Name="StatusID" />
           </Key>
           <Property Name="StatusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Status" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <NavigationProperty Name="tbl_Cases" Relationship="charitable_dbModel.FK__tbl_Cases__Statu__18EBB532" FromRole="tbl_Status" ToRole="tbl_Cases" />
+          <Property Name="Status" Type="String" Nullable="false" MaxLength="15" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="tbl_Donations" Relationship="charitable_dbModel.FK__tbl_Donat__Statu__208CD6FA" FromRole="tbl_DonationStatus" ToRole="tbl_Donations" />
         </EntityType>
-        <Association Name="FK__tbl_Cases__Statu__18EBB532">
-          <End Type="charitable_dbModel.tbl_Status" Role="tbl_Status" Multiplicity="0..1" />
-          <End Type="charitable_dbModel.tbl_Cases" Role="tbl_Cases" Multiplicity="*" />
+        <Association Name="FK__tbl_Donat__Statu__208CD6FA">
+          <End Type="charitable_dbModel.tbl_DonationStatus" Role="tbl_DonationStatus" Multiplicity="0..1" />
+          <End Type="charitable_dbModel.tbl_Donations" Role="tbl_Donations" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="tbl_Status">
+            <Principal Role="tbl_DonationStatus">
               <PropertyRef Name="StatusID" />
             </Principal>
-            <Dependent Role="tbl_Cases">
-              <PropertyRef Name="StatusID" />
+            <Dependent Role="tbl_Donations">
+              <PropertyRef Name="Status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_Donat__CaseI__30C33EC3">
+          <End Type="charitable_dbModel.tbl_Cases" Role="tbl_Cases" Multiplicity="0..1" />
+          <End Type="charitable_dbModel.tbl_Donations" Role="tbl_Donations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Cases">
+              <PropertyRef Name="CaseID" />
+            </Principal>
+            <Dependent Role="tbl_Donations">
+              <PropertyRef Name="CaseID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1292,6 +1332,10 @@
           <EntitySetMapping Name="tbl_Donations">
             <EntityTypeMapping TypeName="charitable_dbModel.tbl_Donations">
               <MappingFragment StoreEntitySet="tbl_Donations">
+                <ScalarProperty Name="CaseID" ColumnName="CaseID" />
+                <ScalarProperty Name="PostedDateTime" ColumnName="PostedDateTime" />
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="Image3" ColumnName="Image3" />
                 <ScalarProperty Name="Image2" ColumnName="Image2" />
                 <ScalarProperty Name="Image1" ColumnName="Image1" />
@@ -1413,7 +1457,6 @@
                 <ScalarProperty Name="PlanID" ColumnName="PlanID" />
                 <ScalarProperty Name="PlanName" ColumnName="PlanName" />
                 <ScalarProperty Name="Amount" ColumnName="Amount" />
-                <ScalarProperty Name="Duration" ColumnName="Duration" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1660,9 +1703,9 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tbl_Status">
-            <EntityTypeMapping TypeName="charitable_dbModel.tbl_Status">
-              <MappingFragment StoreEntitySet="tbl_Status">
+          <EntitySetMapping Name="tbl_DonationStatus">
+            <EntityTypeMapping TypeName="charitable_dbModel.tbl_DonationStatus">
+              <MappingFragment StoreEntitySet="tbl_DonationStatus">
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="StatusID" ColumnName="StatusID" />
               </MappingFragment>

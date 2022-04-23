@@ -21,7 +21,7 @@ namespace CharitAble_current
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "{controller}/{action}",
-                defaults: new { controller = "Users", action = "LoginResult" }
+                defaults: new { controller = "Home", action = "Index" }
             );
 
 

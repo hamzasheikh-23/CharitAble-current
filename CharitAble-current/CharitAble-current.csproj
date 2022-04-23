@@ -171,6 +171,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\CasesController.cs" />
     <Compile Include="Controllers\DonationController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\StoryController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
@@ -251,6 +252,9 @@
     <Compile Include="Models\tbl_Donations.cs">
       <DependentUpon>CharitableEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tbl_DonationStatus.cs">
+      <DependentUpon>CharitableEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tbl_DonorMaster.cs">
       <DependentUpon>CharitableEntity.tt</DependentUpon>
     </Compile>
@@ -273,9 +277,6 @@
       <DependentUpon>CharitableEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_PaymentInfo.cs">
-      <DependentUpon>CharitableEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\tbl_Status.cs">
       <DependentUpon>CharitableEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_SubscriptionPlan.cs">

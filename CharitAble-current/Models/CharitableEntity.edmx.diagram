@@ -38,8 +38,9 @@
         <EntityTypeShape EntityType="charitable_dbModel.tbl_DonationCondition" Width="1.5" PointX="0.75" PointY="6.875" />
         <AssociationConnector Association="charitable_dbModel.FK__tbl_Donat__Categ__0E6E26BF" />
         <AssociationConnector Association="charitable_dbModel.FK__tbl_Donat__Condi__06CD04F7" />
-        <EntityTypeShape EntityType="charitable_dbModel.tbl_Status" Width="1.5" PointX="10.375" PointY="0.875" />
-        <AssociationConnector Association="charitable_dbModel.FK__tbl_Cases__Statu__18EBB532" />
+        <EntityTypeShape EntityType="charitable_dbModel.tbl_DonationStatus" Width="1.5" PointX="10.375" PointY="3.875" />
+        <AssociationConnector Association="charitable_dbModel.FK__tbl_Donat__Statu__208CD6FA" />
+        <AssociationConnector Association="charitable_dbModel.FK__tbl_Donat__CaseI__30C33EC3" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

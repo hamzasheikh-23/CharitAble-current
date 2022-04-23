@@ -14,6 +14,12 @@ namespace CharitAble_current.Models
     
     public partial class tbl_Cases
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public tbl_Cases()
+        {
+            this.tbl_Donations = new HashSet<tbl_Donations>();
+        }
+    
         public int CaseID { get; set; }
         public Nullable<int> NGO_ID { get; set; }
         public string CaseTitle { get; set; }
@@ -23,6 +29,7 @@ namespace CharitAble_current.Models
         public Nullable<int> StatusID { get; set; }
     
         public virtual tbl_NGOMaster tbl_NGOMaster { get; set; }
-        public virtual tbl_Status tbl_Status { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbl_Donations> tbl_Donations { get; set; }
     }
 }

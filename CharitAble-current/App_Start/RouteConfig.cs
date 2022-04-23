@@ -16,7 +16,7 @@ namespace CharitAble_current
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}",
-                defaults: new { controller = "Users", action = "LoginResult" }
+                defaults: new { controller = "Home", action = "Index" }
             );
         }
     }

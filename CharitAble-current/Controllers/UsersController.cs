@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Net;
 using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
 using System.Web.Http;
+using System.Xml.Schema;
 using CharitAble_current.Models;
 using CharitAble_current.Requests;
 
@@ -20,107 +22,117 @@ namespace CharitAble_current.Controllers
 
 
         charitable_dbEntities1 dbx = new charitable_dbEntities1();
+
         [HttpPost]
         [Route("login")]
         public IHttpActionResult LoginResult(UserRequest value)
         {
-            bool isSuccess;
-            object ret = new
+
+            try
             {
-                isSucces = false,
-                code = "0",
-                msg = "Login Failed"
-            };
-
-            var result = dbx.tbl_Users.Where(x =>
-                x.Username.Equals(value.Username) && x.Password.Equals(value.Password)).FirstOrDefault();
-
-
-            if (result != null)
-            {
-
-                var userID =
-                    (from x in dbx.tbl_Users
-                     where x.Username == value.Username
-                     select x.UserID).SingleOrDefault();
-
-
-                var userTypeId = result.UserTypeID;
-
-
-                switch (result.UserTypeID)
+                bool isSuccess = false;
+                object ret = new
                 {
-                    case 1:
+                    isSucces = isSuccess,
+                    code = "0",
+                    msg = "Login Failed"
+                };
+
+                var result = dbx.tbl_Users.Where(x =>
+                    x.Username.Equals(value.Username) && x.Password.Equals(value.Password)).FirstOrDefault();
+
+
+                if (result != null)
+                {
+
+                    var userID =
+                        (from x in dbx.tbl_Users
+                         where x.Username == value.Username
+                         select x.UserID).SingleOrDefault();
+
+
+                    var userTypeId = result.UserTypeID;
+
+                    isSuccess = true;
+
+                    switch (result.UserTypeID)
                     {
-                        var adminID = (from x in dbx.tbl_Admin
-                            where x.UserID == userID
-                            select x.AdminID).SingleOrDefault();
-                           
-                            ret = new
+                        case 1:
                             {
-                                isSuccess = true,
-                                userTypeId,
-                                adminID,
-                                userID,
-                                code = "1",
-                                msg = "Login Successful as Admin"
-                            };
+                                var adminID = (from x in dbx.tbl_Admin
+                                               where x.UserID == userID
+                                               select x.AdminID).SingleOrDefault();
 
-                            break;
-                        }
-                    case 2:
-                        {
-                            var donorID =
-                                (from x in dbx.tbl_DonorMaster
-                                 where x.UserID == userID
-                                 select x.DonorID).SingleOrDefault();
+                                ret = new
+                                {
+                                    isSuccess,
+                                    userTypeId,
+                                    adminID,
+                                    userID,
+                                    code = "1",
+                                    msg = "Login Successful as Admin"
+                                };
 
-                            ret = new
+                                break;
+                            }
+                        case 2:
                             {
-                                isSuccess = true,
-                                userTypeId,
-                                donorID,
-                                userID,
-                                code = "2",
-                                msg = "Login Successful as Donor"
-                            };
+                                var donorID =
+                                    (from x in dbx.tbl_DonorMaster
+                                     where x.UserID == userID
+                                     select x.DonorID).SingleOrDefault();
 
-                            break;
-                        }
-                    case 3:
-                        {
-                            var ngoID =
-                                (from x in dbx.tbl_NGOMaster
-                                 where x.UserID == userID
-                                 select x.NGO_ID).SingleOrDefault();
+                                ret = new
+                                {
+                                    isSuccess,
+                                    userTypeId,
+                                    donorID,
+                                    userID,
+                                    code = "2",
+                                    msg = "Login Successful as Donor"
+                                };
 
-                            ret = new
+                                break;
+                            }
+                        case 3:
                             {
-                                isSuccess = true,
-                                userTypeId,
-                                ngoID,
-                                userID,
-                                code = "3",
-                                msg = "Login Successful as NGO"
-                            };
+                                var ngoID =
+                                    (from x in dbx.tbl_NGOMaster
+                                     where x.UserID == userID
+                                     select x.NGO_ID).SingleOrDefault();
 
-                            break;
-                        }
-                    default:
-                        {
-                            ret = new
+                                ret = new
+                                {
+                                    isSuccess,
+                                    userTypeId,
+                                    ngoID,
+                                    userID,
+                                    code = "3",
+                                    msg = "Login Successful as NGO"
+                                };
+
+                                break;
+                            }
+                        default:
                             {
-                                isSuccess = false,
-                                code = "unspecified",
-                                msg = "UserType not defined, False Login"
-                            };
+                                ret = new
+                                {
+                                    isSuccess = false,
+                                    code = "unspecified",
+                                    msg = "UserType not defined, False Login"
+                                };
 
-                            break;
-                        }
+                                break;
+                            }
+                    }
                 }
-            }
 
-            return Json(ret);
+                return Json(ret);
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message);
+            }
         }
 
         //POST user/register
@@ -129,15 +141,50 @@ namespace CharitAble_current.Controllers
         [Route("register")]
         public IHttpActionResult RegisterResult(UserRequest value)
         {
+            bool isSuccess = false;
 
             try
             {
-
                 object ret = new
                 {
+                    isSuccess,
                     code = "0",
                     status = "User not registered"
                 };
+
+                var isUsernameExist = (from x in dbx.tbl_Users
+                                       where x.Username == value.Username
+                                       select x.Username).SingleOrDefault();
+
+                var isEmailExist = (from x in dbx.tbl_Users
+                                    where x.Email == value.Email
+                                    select x.Email).SingleOrDefault();
+
+                if (!string.IsNullOrEmpty(isUsernameExist))
+                {
+                    ret = new
+                    {
+                        isSuccess,
+                        code = "2",
+                        status = "User not registered",
+                        errMessage = "'" + isUsernameExist + "' already exist, try choosing a different username"
+                    };
+
+                    return Json(ret);
+                }
+
+                else if (!string.IsNullOrEmpty(isEmailExist))
+                {
+                    ret = new
+                    {
+                        isSuccess,
+                        code = "2",
+                        status = "User not registered",
+                        errMessage = "Email address already registered"
+                    };
+
+                    return Json(ret);
+                }
 
                 tbl_Users user = new tbl_Users();
 
@@ -161,6 +208,8 @@ namespace CharitAble_current.Controllers
                         (from x in dbx.tbl_Users
                          where x.Username == value.Username
                          select x.UserTypeID).SingleOrDefault();
+
+                    isSuccess = true;
 
                     if (userTypeID == 1)
                     {
@@ -203,6 +252,7 @@ namespace CharitAble_current.Controllers
 
                     ret = new
                     {
+                        isSuccess,
                         code = "1",
                         status = "success",
                     };
@@ -212,7 +262,7 @@ namespace CharitAble_current.Controllers
             }
             catch (Exception ex)
             {
-                throw ex;
+                return Json(ex.Message);
             }
         }
 
@@ -222,20 +272,41 @@ namespace CharitAble_current.Controllers
         [Route("get")]
         public IHttpActionResult GetUsers()
         {
-            var userList = dbx.tbl_Users.Select(x =>
-                new UserRequest()
+            bool isSuccess = false;
+
+            try
+            {
+                var userList = dbx.tbl_Users.Select(x =>
+                    new UserRequest()
+                    {
+                        UserId = x.UserID,
+                        FirstName = x.FirstName,
+                        LastName = x.LastName,
+                        Username = x.Username,
+                        Email = x.Email,
+                        Contact = (long)x.ContactNumber,
+                        UserTypeId = x.UserTypeID,
+                        RegistrationDate = (DateTime)x.RegistrationDateTime,
+                        UpdateDate = (DateTime)x.UpdateDateTime
+                    });
+
+                if (userList.Any())
                 {
-                    UserId = x.UserID,
-                    FirstName = x.FirstName,
-                    LastName = x.LastName,
-                    Username = x.Username,
-                    Email = x.Email,
-                    Contact = (long)x.ContactNumber,
-                    UserTypeId = x.UserTypeID,
-                    RegistrationDate = (DateTime)x.RegistrationDateTime,
-                    UpdateDate = (DateTime)x.UpdateDateTime
-                });
-            return Json(userList);
+                    return Json(userList);
+                }
+
+                object ret = new
+                {
+                    isSuccess,
+                    code = "1",
+                    status = "Failed"
+                };
+                return Json(ret);
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message);
+            }
         }
 
         // GET user/get/id/{id}
@@ -244,21 +315,29 @@ namespace CharitAble_current.Controllers
         [Route("get/id/{id}")]
         public IHttpActionResult GetUsers(int id)
         {
-            var userList = dbx.tbl_Users.Select(x =>
-                new UserRequest()
-                {
-                    UserId = x.UserID,
-                    FirstName = x.FirstName,
-                    LastName = x.LastName,
-                    Username = x.Username,
-                    Email = x.Email,
-                    Contact = (long)x.ContactNumber,
-                    UserTypeId = x.UserTypeID,
-                    RegistrationDate = (DateTime)x.RegistrationDateTime,
-                    UpdateDate = (DateTime)x.UpdateDateTime
-                }).Where(x => x.UserId == id);
-            return Json(userList);
+            try
+            {
+                var userList = dbx.tbl_Users.Select(x =>
+                    new UserRequest()
+                    {
+                        UserId = x.UserID,
+                        FirstName = x.FirstName,
+                        LastName = x.LastName,
+                        Username = x.Username,
+                        Email = x.Email,
+                        Contact = (long)x.ContactNumber,
+                        UserTypeId = x.UserTypeID,
+                        RegistrationDate = (DateTime)x.RegistrationDateTime,
+                        UpdateDate = (DateTime)x.UpdateDateTime
+                    }).Where(x => x.UserId == id);
+                return Json(userList);
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message);
+            }
         }
+
 
         // GET user/get/usertype/{userType}
 
@@ -266,21 +345,31 @@ namespace CharitAble_current.Controllers
         [Route("get/usertype/{userTypeId}")]
         public IHttpActionResult GetUsersByUserType(int userTypeId)
         {
-            var userList = dbx.tbl_Users.Select(x =>
-                new UserRequest()
-                {
-                    UserId = x.UserID,
-                    FirstName = x.FirstName,
-                    LastName = x.LastName,
-                    Username = x.Username,
-                    Email = x.Email,
-                    Contact = (long)x.ContactNumber,
-                    UserTypeId = x.UserTypeID,
-                    RegistrationDate = (DateTime)x.RegistrationDateTime,
-                    UpdateDate = (DateTime)x.UpdateDateTime
-                }).Where(x => x.UserTypeId == userTypeId);
-            return Json(userList);
+            try
+            {
+                var userList = dbx.tbl_Users.Select(x =>
+                    new UserRequest()
+                    {
+                        UserId = x.UserID,
+                        FirstName = x.FirstName,
+                        LastName = x.LastName,
+                        Username = x.Username,
+                        Email = x.Email,
+                        Contact = (long)x.ContactNumber,
+                        UserTypeId = x.UserTypeID,
+                        RegistrationDate = (DateTime)x.RegistrationDateTime,
+                        UpdateDate = (DateTime)x.UpdateDateTime
+                    }).Where(x => x.UserTypeId == userTypeId);
+
+                return Json(userList);
+
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message);
+            }
         }
+
 
 
     }

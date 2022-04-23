@@ -11,9 +11,12 @@ namespace CharitAble_current.Requests
         public int CaseId { get; set; }
         public int NGOId { get; set; }
         public string CaseTitle { get; set; }
+        public int Quantity { get; set; }
+        public string Unit { get; set; }
         public DateTime PostedDate { get; set; }
         public string Description { get; set; }
-        public Image Picture { get; set; }
+        public string ImageBase64 { get; set; }
+        public string ImageName { get; set; }
 
     }
 }

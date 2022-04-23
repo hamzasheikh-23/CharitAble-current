@@ -17,7 +17,6 @@ namespace CharitAble_current.Models
         public int PlanID { get; set; }
         public string PlanName { get; set; }
         public Nullable<decimal> Amount { get; set; }
-        public Nullable<short> Duration { get; set; }
         public string Description { get; set; }
     }
 }
