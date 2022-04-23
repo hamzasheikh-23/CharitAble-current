@@ -35,10 +35,6 @@ namespace CharitAble_current.Controllers
                 };
 
 
-                var conditionId = (from x in dbx.tbl_DonationCondition
-                                   where x.Condition == value.Condition
-                                   select x.ConditionID).SingleOrDefault();
-
                 var statusId = (from x in dbx.tbl_DonationStatus
                                 where x.Status == "Pending" || x.Status == "pending"
                                 select x.StatusID).SingleOrDefault();
@@ -46,17 +42,18 @@ namespace CharitAble_current.Controllers
                 var isActive = "true";
 
                 tbl_Donations donation = new tbl_Donations();
-                donation.DonorID = value.DonorId;
+                donation.DonorID = (int?)value.DonorId;
                 donation.DonationTitle = value.Title;
                 donation.Quantity = value.Quantity;
                 donation.Weight = value.Weight;
                 donation.QuantityPerUnit = value.QuantityPerUnit;
                 donation.Rating = value.Rating;
-                donation.Condition = value.ConditionId = conditionId;
+                donation.Condition = value.ConditionId;
                 donation.Category = value.CategoryId;
                 donation.PostedDateTime = DateTime.Now;
                 donation.Status = value.StatusId = statusId;
                 donation.isActive = value.IsActive = isActive;
+                donation.Address = value.Address;
                 donation.ExpiryDate = value.ExpiryDate;
                 donation.Description = value.Description;
 
@@ -71,8 +68,10 @@ namespace CharitAble_current.Controllers
 
                 if (!string.IsNullOrEmpty(value.Image1Name))
                 {
+                    string imagePath1 = @"D:\fyp-frontend\src\serverImages" + value.Image1Name;
+                    FileInfo fi = new FileInfo(imagePath1);
                     Guid obj = Guid.NewGuid();
-                    string imagePath1 = @"F:\charitable uploaded images\" + DateTime.Now.ToString("hh:mm:ss.fff MM/dd/yyyy") + obj.ToString();
+                    imagePath1 = @"D:\fyp-frontend\src\serverImages" + obj.ToString() + fi.Extension;
                     var cleanerBase1 = value.Image1base64.Substring(value.Image1base64.LastIndexOf(',') + 1);
                     File.WriteAllBytes(imagePath1, Convert.FromBase64String(cleanerBase1));
                     donation.Image1 = imagePath1;
@@ -80,8 +79,10 @@ namespace CharitAble_current.Controllers
 
                 if (!string.IsNullOrEmpty(value.Image2Name))
                 {
+                    string imagePath2 = @"D:\fyp-frontend\src\serverImages" + value.Image2Name;
+                    FileInfo fi = new FileInfo(imagePath2);
                     Guid obj = Guid.NewGuid();
-                    string imagePath2 = @"F:\charitable uploaded images\" + DateTime.Now.ToString("hh:mm:ss.fff MM/dd/yyyy") + obj.ToString();
+                    imagePath2 = @"D:\fyp-frontend\src\serverImages" + obj.ToString() + fi.Extension;
                     var cleanerBase2 = value.Image1base64.Substring(value.Image1base64.LastIndexOf(',') + 1);
                     File.WriteAllBytes(imagePath2, Convert.FromBase64String(cleanerBase2));
                     donation.Image2 = imagePath2;
@@ -89,8 +90,10 @@ namespace CharitAble_current.Controllers
 
                 if (!string.IsNullOrEmpty(value.Image3Name))
                 {
+                    string imagePath3 = @"D:\fyp-frontend\src\serverImages" + value.Image3Name;
+                    FileInfo fi = new FileInfo(imagePath3);
                     Guid obj = Guid.NewGuid();
-                    string imagePath3 = @"F:\charitable uploaded images\" + DateTime.Now.ToString("hh:mm:ss.fff MM/dd/yyyy") + obj.ToString();
+                    imagePath3 = @"D:\fyp-frontend\src\serverImages" + obj.ToString() + fi.Extension;
                     var cleanerBase3 = value.Image1base64.Substring(value.Image1base64.LastIndexOf(',') + 1);
                     File.WriteAllBytes(imagePath3, Convert.FromBase64String(cleanerBase3));
                     donation.Image3 = imagePath3;
@@ -151,7 +154,7 @@ namespace CharitAble_current.Controllers
                     Category = (from y in dbx.tbl_DonationCategory
                                 where y.CategoryID == x.Category
                                 select y.DonationCategory).FirstOrDefault().Trim(),
-                    LocationCo = x.LocationCoordinates,
+                    Address = x.Address,
                     Image1 = x.Image1,
                     Image2 = x.Image2,
                     Image3 = x.Image3,
@@ -208,17 +211,42 @@ namespace CharitAble_current.Controllers
                     Category = (from y in dbx.tbl_DonationCategory
                                 where y.CategoryID == x.Category
                                 select y.DonationCategory).FirstOrDefault().Trim(),
-                    LocationCo = x.LocationCoordinates,
+                    Address = x.Address,
                     Image1 = x.Image1,
                     Image2 = x.Image2,
                     Image3 = x.Image3,
                 }).Where(x => x.DonorId == donorId).ToList();
 
+                foreach (DonationRequest item in donations)
+                {
+                    if (!string.IsNullOrWhiteSpace(item.Image1))
+                    {
+                        string imagePath1 = item.Image1;
+                        FileInfo fi = new FileInfo(imagePath1);
+                        item.Image1Name = fi.Name;
+                    }
+                    if (!string.IsNullOrWhiteSpace(item.Image2))
+                    {
+                        string imagePath2 = item.Image2;
+                        FileInfo fi = new FileInfo(imagePath2);
+                        item.Image2Name = fi.Name;
+                    }
+                    if (!string.IsNullOrWhiteSpace(item.Image3))
+                    {
+                        string imagePath3 = item.Image3;
+                        FileInfo fi = new FileInfo(imagePath3);
+                        item.Image3Name = fi.Name;
+                    }
+
+                    //item.Image1 = string.IsNullOrWhiteSpace(item.Image1) ? item.Image1 : Convert.ToBase64String(File.ReadAllBytes(item.Image1));
+                    //item.Image2 = string.IsNullOrWhiteSpace(item.Image2) ? item.Image2 : Convert.ToBase64String(File.ReadAllBytes(item.Image2));
+                    //item.Image3 = string.IsNullOrWhiteSpace(item.Image3) ? item.Image3 : Convert.ToBase64String(File.ReadAllBytes(item.Image3));
+                }
                 return Json(donations);
             }
             catch (Exception ex)
             {
-                return BadRequest("Unable to process your request, check URL or user input\n" +
+                return BadRequest("Unable to process your request. " +
                    "ErrorMessage: '" + ex.Message + "'");
             }
         }
@@ -254,7 +282,7 @@ namespace CharitAble_current.Controllers
                     Category = (from y in dbx.tbl_DonationCategory
                                 where y.CategoryID == x.Category
                                 select y.DonationCategory).FirstOrDefault().Trim(),
-                    LocationCo = x.LocationCoordinates,
+                    Address = x.Address,
                     Image1 = x.Image1,
                     Image2 = x.Image2,
                     Image3 = x.Image3,
@@ -301,7 +329,7 @@ namespace CharitAble_current.Controllers
                     Category = (from y in dbx.tbl_DonationCategory
                                 where y.CategoryID == x.Category
                                 select y.DonationCategory).FirstOrDefault().Trim(),
-                    LocationCo = x.LocationCoordinates,
+                    Address = x.Address,
                     Image1 = x.Image1,
                     Image2 = x.Image2,
                     Image3 = x.Image3,
@@ -348,7 +376,7 @@ namespace CharitAble_current.Controllers
                     Category = (from y in dbx.tbl_DonationCategory
                                 where y.CategoryID == x.Category
                                 select y.DonationCategory).FirstOrDefault().Trim(),
-                    LocationCo = x.LocationCoordinates,
+                    Address = x.Address,
                     Image1 = x.Image1,
                     Image2 = x.Image2,
                     Image3 = x.Image3,
@@ -467,7 +495,7 @@ namespace CharitAble_current.Controllers
                     existingDonation.Rating = value.Rating;
                     existingDonation.Condition = value.ConditionId = conditionId;
                     existingDonation.Category = value.CategoryId = categoryId;
-                    existingDonation.LocationCoordinates = value.LocationCo;
+                    existingDonation.Address = value.Address;
 
                     if (!string.IsNullOrWhiteSpace(value.Image1Name))
                     {

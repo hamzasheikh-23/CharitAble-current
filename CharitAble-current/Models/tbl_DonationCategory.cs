@@ -14,16 +14,7 @@ namespace CharitAble_current.Models
     
     public partial class tbl_DonationCategory
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tbl_DonationCategory()
-        {
-            this.tbl_Donations = new HashSet<tbl_Donations>();
-        }
-    
         public int CategoryID { get; set; }
         public string DonationCategory { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbl_Donations> tbl_Donations { get; set; }
     }
 }

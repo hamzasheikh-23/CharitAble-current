@@ -11,33 +11,32 @@ namespace CharitAble_current.Models
 {
     using System;
     using System.Collections.Generic;
-
+    
     public partial class tbl_Donations
     {
         public int DonationID { get; set; }
+        public Nullable<int> CaseID { get; set; }
         public Nullable<int> DonorID { get; set; }
         public string DonationTitle { get; set; }
+        public Nullable<int> Condition { get; set; }
         public Nullable<short> Quantity { get; set; }
         public Nullable<decimal> Weight { get; set; }
         public Nullable<short> QuantityPerUnit { get; set; }
-        public Nullable<System.DateTime> ExpiryDate { get; set; }
-        public string Description { get; set; }
-        public Nullable<long> LocationCoordinates { get; set; }
-        public Nullable<int> Condition { get; set; }
         public Nullable<int> Rating { get; set; }
         public Nullable<int> Category { get; set; }
+        public Nullable<System.DateTime> ExpiryDate { get; set; }
+        public string Description { get; set; }
+        public string Address { get; set; }
+        public Nullable<int> Status { get; set; }
+        public Nullable<System.DateTime> PostedDateTime { get; set; }
+        public string isActive { get; set; }
         public string Image1 { get; set; }
         public string Image2 { get; set; }
         public string Image3 { get; set; }
-        public Nullable<int> Status { get; set; }
-        public string isActive { get; set; }
-        public Nullable<System.DateTime> PostedDateTime { get; set; }
-        public Nullable<int> CaseID { get; set; }
-
-        public virtual tbl_DonorMaster tbl_DonorMaster { get; set; }
-        public virtual tbl_DonationCategory tbl_DonationCategory { get; set; }
-        public virtual tbl_DonationCondition tbl_DonationCondition { get; set; }
-        public virtual tbl_DonationStatus tbl_DonationStatus { get; set; }
+    
         public virtual tbl_Cases tbl_Cases { get; set; }
+        public virtual tbl_DonationCondition tbl_DonationCondition { get; set; }
+        public virtual tbl_DonorMaster tbl_DonorMaster { get; set; }
+        public virtual tbl_DonationStatus tbl_DonationStatus { get; set; }
     }
 }

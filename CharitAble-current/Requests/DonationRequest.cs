@@ -24,7 +24,7 @@ namespace CharitAble_current.Requests
         public string Condition { get; set; }
         public int CategoryId { get; set; }
         public string Category { get; set; }
-        public long? LocationCo { get; set; }
+        public string Address { get; set; }
         public string Image1base64 { get; set; }
         public string Image2base64 { get; set; }
         public string Image3base64 { get; set; }
