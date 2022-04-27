@@ -68,10 +68,10 @@ namespace CharitAble_current.Controllers
 
                 if (!string.IsNullOrEmpty(value.Image1Name))
                 {
-                    string imagePath1 = @"D:\fyp-frontend\src\serverImages" + value.Image1Name;
+                    string imagePath1 = @"D:\fyp-frontend\src\serverImages\" + value.Image1Name;
                     FileInfo fi = new FileInfo(imagePath1);
                     Guid obj = Guid.NewGuid();
-                    imagePath1 = @"D:\fyp-frontend\src\serverImages" + obj.ToString() + fi.Extension;
+                    imagePath1 = @"D:\fyp-frontend\src\serverImages\" + obj.ToString() + fi.Extension;
                     var cleanerBase1 = value.Image1base64.Substring(value.Image1base64.LastIndexOf(',') + 1);
                     File.WriteAllBytes(imagePath1, Convert.FromBase64String(cleanerBase1));
                     donation.Image1 = imagePath1;
@@ -79,22 +79,22 @@ namespace CharitAble_current.Controllers
 
                 if (!string.IsNullOrEmpty(value.Image2Name))
                 {
-                    string imagePath2 = @"D:\fyp-frontend\src\serverImages" + value.Image2Name;
+                    string imagePath2 = @"D:\fyp-frontend\src\serverImages\" + value.Image2Name;
                     FileInfo fi = new FileInfo(imagePath2);
                     Guid obj = Guid.NewGuid();
-                    imagePath2 = @"D:\fyp-frontend\src\serverImages" + obj.ToString() + fi.Extension;
-                    var cleanerBase2 = value.Image1base64.Substring(value.Image1base64.LastIndexOf(',') + 1);
+                    imagePath2 = @"D:\fyp-frontend\src\serverImages\" + obj.ToString() + fi.Extension;
+                    var cleanerBase2 = value.Image2base64.Substring(value.Image2base64.LastIndexOf(',') + 1);
                     File.WriteAllBytes(imagePath2, Convert.FromBase64String(cleanerBase2));
                     donation.Image2 = imagePath2;
                 }
 
                 if (!string.IsNullOrEmpty(value.Image3Name))
                 {
-                    string imagePath3 = @"D:\fyp-frontend\src\serverImages" + value.Image3Name;
+                    string imagePath3 = @"D:\fyp-frontend\src\serverImages\" + value.Image3Name;
                     FileInfo fi = new FileInfo(imagePath3);
                     Guid obj = Guid.NewGuid();
-                    imagePath3 = @"D:\fyp-frontend\src\serverImages" + obj.ToString() + fi.Extension;
-                    var cleanerBase3 = value.Image1base64.Substring(value.Image1base64.LastIndexOf(',') + 1);
+                    imagePath3 = @"D:\fyp-frontend\src\serverImages\" + obj.ToString() + fi.Extension;
+                    var cleanerBase3 = value.Image3base64.Substring(value.Image3base64.LastIndexOf(',') + 1);
                     File.WriteAllBytes(imagePath3, Convert.FromBase64String(cleanerBase3));
                     donation.Image3 = imagePath3;
                 }
@@ -142,15 +142,18 @@ namespace CharitAble_current.Controllers
                     QuantityPerUnit = x.QuantityPerUnit,
                     ExpiryDate = x.ExpiryDate,
                     PostedDate = x.PostedDateTime,
+                    StatusId = x.Status,
                     Status = (from y in dbx.tbl_DonationStatus
                               where y.StatusID == x.Status
                               select y.Status).FirstOrDefault().Trim(),
                     IsActive = x.isActive,
                     Description = x.Description,
                     Rating = x.Rating,
+                    ConditionId = x.Condition,
                     Condition = (from y in dbx.tbl_DonationCondition
                                  where y.ConditionID == x.Condition
                                  select y.Condition).FirstOrDefault().Trim(),
+                    CategoryId = x.Category,
                     Category = (from y in dbx.tbl_DonationCategory
                                 where y.CategoryID == x.Category
                                 select y.DonationCategory).FirstOrDefault().Trim(),
@@ -199,15 +202,18 @@ namespace CharitAble_current.Controllers
                     QuantityPerUnit = x.QuantityPerUnit,
                     ExpiryDate = x.ExpiryDate,
                     PostedDate = x.PostedDateTime,
+                    StatusId = x.Status,
                     Status = (from y in dbx.tbl_DonationStatus
                               where y.StatusID == x.Status
                               select y.Status).FirstOrDefault().Trim(),
                     IsActive = x.isActive,
                     Description = x.Description,
                     Rating = x.Rating,
+                    ConditionId = x.Condition,
                     Condition = (from y in dbx.tbl_DonationCondition
                                  where y.ConditionID == x.Condition
                                  select y.Condition).FirstOrDefault().Trim(),
+                    CategoryId = x.Category,
                     Category = (from y in dbx.tbl_DonationCategory
                                 where y.CategoryID == x.Category
                                 select y.DonationCategory).FirstOrDefault().Trim(),
@@ -270,15 +276,18 @@ namespace CharitAble_current.Controllers
                     QuantityPerUnit = x.QuantityPerUnit,
                     ExpiryDate = x.ExpiryDate,
                     PostedDate = x.PostedDateTime,
+                    StatusId = x.Status,
                     Status = (from y in dbx.tbl_DonationStatus
                               where y.StatusID == x.Status
                               select y.Status).FirstOrDefault().Trim(),
                     IsActive = x.isActive,
                     Description = x.Description,
                     Rating = x.Rating,
+                    ConditionId = x.Condition,
                     Condition = (from y in dbx.tbl_DonationCondition
                                  where y.ConditionID == x.Condition
                                  select y.Condition).FirstOrDefault().Trim(),
+                    CategoryId = x.Category,
                     Category = (from y in dbx.tbl_DonationCategory
                                 where y.CategoryID == x.Category
                                 select y.DonationCategory).FirstOrDefault().Trim(),
@@ -317,15 +326,18 @@ namespace CharitAble_current.Controllers
                     QuantityPerUnit = x.QuantityPerUnit,
                     ExpiryDate = x.ExpiryDate,
                     PostedDate = x.PostedDateTime,
+                    StatusId = x.Status,
                     Status = (from y in dbx.tbl_DonationStatus
                               where y.StatusID == x.Status
                               select y.Status).FirstOrDefault().Trim(),
                     IsActive = x.isActive,
                     Description = x.Description,
                     Rating = x.Rating,
+                    ConditionId = x.Condition,
                     Condition = (from y in dbx.tbl_DonationCondition
                                  where y.ConditionID == x.Condition
                                  select y.Condition).FirstOrDefault().Trim(),
+                    CategoryId = x.Category,
                     Category = (from y in dbx.tbl_DonationCategory
                                 where y.CategoryID == x.Category
                                 select y.DonationCategory).FirstOrDefault().Trim(),
@@ -364,15 +376,18 @@ namespace CharitAble_current.Controllers
                     QuantityPerUnit = x.QuantityPerUnit,
                     ExpiryDate = x.ExpiryDate,
                     PostedDate = x.PostedDateTime,
+                    StatusId = x.Status,
                     Status = (from y in dbx.tbl_DonationStatus
                               where y.StatusID == x.Status
                               select y.Status).FirstOrDefault().Trim(),
                     IsActive = x.isActive,
                     Description = x.Description,
                     Rating = x.Rating,
+                    ConditionId = x.Condition,
                     Condition = (from y in dbx.tbl_DonationCondition
                                  where y.ConditionID == x.Condition
                                  select y.Condition).FirstOrDefault().Trim(),
+                    CategoryId = x.Category,
                     Category = (from y in dbx.tbl_DonationCategory
                                 where y.CategoryID == x.Category
                                 select y.DonationCategory).FirstOrDefault().Trim(),
@@ -470,17 +485,17 @@ namespace CharitAble_current.Controllers
 
                 if (donationIds.Contains(id))
                 {
-                    var statusId = (from x in dbx.tbl_DonationStatus
-                                    where x.Status == "Pending" || x.Status == "pending"
-                                    select x.StatusID).SingleOrDefault();
+                    //var statusId = (from x in dbx.tbl_DonationStatus
+                    //                where x.Status == "Pending" || x.Status == "pending"
+                    //                select x.StatusID).SingleOrDefault();
 
-                    var conditionId = (from x in dbx.tbl_DonationCondition
-                                       where x.Condition == value.Condition
-                                       select x.ConditionID).SingleOrDefault();
+                    //var conditionId = (from x in dbx.tbl_DonationCondition
+                    //                   where x.Condition == value.Condition
+                    //                   select x.ConditionID).SingleOrDefault();
 
-                    var categoryId = (from x in dbx.tbl_DonationCategory
-                                      where x.DonationCategory == value.Category
-                                      select x.CategoryID).SingleOrDefault();
+                    //var categoryId = (from x in dbx.tbl_DonationCategory
+                    //                  where x.DonationCategory == value.Category
+                    //                  select x.CategoryID).SingleOrDefault();
 
                     var existingDonation = dbx.tbl_Donations.Where(x => x.DonationID == id).FirstOrDefault();
 
@@ -490,36 +505,42 @@ namespace CharitAble_current.Controllers
                     existingDonation.Weight = value.Weight;
                     existingDonation.QuantityPerUnit = value.QuantityPerUnit;
                     existingDonation.ExpiryDate = value.ExpiryDate;
-                    existingDonation.Status = value.StatusId = statusId;
+                    // existingDonation.Status = value.StatusId;
                     existingDonation.Description = value.Description;
                     existingDonation.Rating = value.Rating;
-                    existingDonation.Condition = value.ConditionId = conditionId;
-                    existingDonation.Category = value.CategoryId = categoryId;
+                    existingDonation.Condition = value.ConditionId;
+                    existingDonation.Category = value.CategoryId;
                     existingDonation.Address = value.Address;
 
-                    if (!string.IsNullOrWhiteSpace(value.Image1Name))
+                    if (!string.IsNullOrEmpty(value.Image1Name))
                     {
+                        string imagePath1 = @"D:\fyp-frontend\src\serverImages\" + value.Image1Name;
+                        FileInfo fi = new FileInfo(imagePath1);
                         Guid obj = Guid.NewGuid();
-                        string imagePath1 = @"F:\charitable uploaded images\" + DateTime.Now.ToString("hh:mm:ss.fff MM/dd/yyyy") + obj.ToString();
+                        imagePath1 = @"D:\fyp-frontend\src\serverImages\" + obj.ToString() + fi.Extension;
                         var cleanerBase1 = value.Image1base64.Substring(value.Image1base64.LastIndexOf(',') + 1);
                         File.WriteAllBytes(imagePath1, Convert.FromBase64String(cleanerBase1));
                         existingDonation.Image1 = imagePath1;
                     }
 
-                    if (!string.IsNullOrWhiteSpace(value.Image2Name))
+                    if (!string.IsNullOrEmpty(value.Image2Name))
                     {
+                        string imagePath2 = @"D:\fyp-frontend\src\serverImages\" + value.Image2Name;
+                        FileInfo fi = new FileInfo(imagePath2);
                         Guid obj = Guid.NewGuid();
-                        string imagePath2 = @"F:\charitable uploaded images\" + DateTime.Now.ToString("hh:mm:ss.fff MM/dd/yyyy") + obj.ToString();
-                        var cleanerBase2 = value.Image1base64.Substring(value.Image1base64.LastIndexOf(',') + 1);
+                        imagePath2 = @"D:\fyp-frontend\src\serverImages\" + obj.ToString() + fi.Extension;
+                        var cleanerBase2 = value.Image2base64.Substring(value.Image2base64.LastIndexOf(',') + 1);
                         File.WriteAllBytes(imagePath2, Convert.FromBase64String(cleanerBase2));
                         existingDonation.Image2 = imagePath2;
                     }
 
-                    if (!string.IsNullOrWhiteSpace(value.Image3Name))
+                    if (!string.IsNullOrEmpty(value.Image3Name))
                     {
+                        string imagePath3 = @"D:\fyp-frontend\src\serverImages\" + value.Image3Name;
+                        FileInfo fi = new FileInfo(imagePath3);
                         Guid obj = Guid.NewGuid();
-                        string imagePath3 = @"F:\charitable uploaded images\" + DateTime.Now.ToString("hh:mm:ss.fff MM/dd/yyyy") + obj.ToString();
-                        var cleanerBase3 = value.Image1base64.Substring(value.Image1base64.LastIndexOf(',') + 1);
+                        imagePath3 = @"D:\fyp-frontend\src\serverImages\" + obj.ToString() + fi.Extension;
+                        var cleanerBase3 = value.Image3base64.Substring(value.Image3base64.LastIndexOf(',') + 1);
                         File.WriteAllBytes(imagePath3, Convert.FromBase64String(cleanerBase3));
                         existingDonation.Image3 = imagePath3;
                     }
@@ -527,7 +548,7 @@ namespace CharitAble_current.Controllers
                     dbx.tbl_Donations.AddOrUpdate(existingDonation);
                     dbx.SaveChanges();
 
-                    return Json("record deleted successfully");
+                    return Json("record updated successfully");
                 }
                 else
                 {

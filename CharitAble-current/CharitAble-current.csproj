@@ -286,6 +286,9 @@
     <Compile Include="Models\tbl_SuccessStories.cs">
       <DependentUpon>CharitableEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tbl_Units.cs">
+      <DependentUpon>CharitableEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tbl_Users.cs">
       <DependentUpon>CharitableEntity.tt</DependentUpon>
     </Compile>

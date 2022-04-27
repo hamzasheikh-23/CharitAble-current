@@ -2,6 +2,7 @@
 using CharitAble_current.Requests;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
@@ -48,40 +49,68 @@ namespace CharitAble_current.Controllers
         }
 
 
-        //[HttpPut]
-        //[Route("assign")]
-        //public IHttpActionResult Assign(int userid)
-        //{
-        //    try
-        //    {
-        //        var userIds = (from x in dbx.tbl_NGOMaster select x.UserID).ToList();
+        [HttpPut]
+        [Route("assign")]
+        public IHttpActionResult Assign(int ngoId, SubscriptionRequest value)
+        {
+            try
+            {
+                var userIds = (from x in dbx.tbl_NGOMaster select x.UserID).ToList();
 
-        //        if (userIds.Contains(userid))
-        //        {
+                if (userIds.Contains(ngoId))
+                {
 
-        //            UserRequest user = new UserRequest();
+                    var existingNGO = dbx.tbl_NGOMaster.Where(x => x.NGO_ID == ngoId).FirstOrDefault();
 
+                    existingNGO.PlanID = value.PlanId;
+                    existingNGO.SubscriptionStartDate = DateTime.Now.Date;
+                    existingNGO.SubscriptionEndDate = DateTime.Now.Date.AddMonths(1);
 
-        //            var existingDonation = dbx.tbl_Donations.Where(x => x.DonationID == id).FirstOrDefault();
+                    dbx.tbl_NGOMaster.AddOrUpdate(existingNGO);
+                    dbx.SaveChanges();
 
-        //            existingDonation.Status = donation.StatusId;
-        //            existingDonation.isActive = donation.IsActive;
+                    return Json("Succesfully subscribed!!!");
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Unable to process your request, check URL or user input\n" +
+                   "ErrorMessage: '" + ex.Message + "'");
+            }
+        }
 
-        //            dbx.tbl_Donations.AddOrUpdate(existingDonation);
-        //            dbx.SaveChanges();
+        [HttpGet]
+        [Route("validate")]
+        public IHttpActionResult validate(int ngoId)
+        {
+            //var subscriptionStartDate = (from x in dbx.tbl_NGOMaster
+            //                        where x.NGO_ID == ngoId
+            //                        select x.SubscriptionEndDate).SingleOrDefault();
 
-        //            return Json("record deleted successfully");
-        //        }
-        //        else
-        //        {
-        //            return NotFound();
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest("Unable to process your request, check URL or user input\n" +
-        //           "ErrorMessage: '" + ex.Message + "'");
-        //    }
-        //}
+            object ret = new
+            {
+                code = 1,
+                status = "subscription end, please pay bill to continue"
+            };
+            var subscriptionEndDate = (from x in dbx.tbl_NGOMaster
+                                       where x.NGO_ID == ngoId
+                                       select x.SubscriptionEndDate).SingleOrDefault();
+
+            if (!(subscriptionEndDate < DateTime.Today.Date))
+            {
+                ret = new
+                {
+                    code = 2,
+                    status = "You are subscribed right now"
+                };
+
+                return Ok(ret);
+            }
+            return Json(ret);
+        }
     }
 }

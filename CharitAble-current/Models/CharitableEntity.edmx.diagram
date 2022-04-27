@@ -13,7 +13,7 @@
         <EntityTypeShape EntityType="charitable_dbModel.tbl_MaterialMaster" Width="1.5" PointX="7.5" PointY="2.625" IsExpanded="true" />
         <EntityTypeShape EntityType="charitable_dbModel.tbl_MaterialType" Width="1.5" PointX="5.25" PointY="18.5" IsExpanded="true" />
         <EntityTypeShape EntityType="charitable_dbModel.tbl_NGOMaster" Width="1.5" PointX="5.25" PointY="13.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="charitable_dbModel.tbl_Orders" Width="1.5" PointX="7.5" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="charitable_dbModel.tbl_Orders" Width="1.5" PointX="11.125" PointY="14.125" IsExpanded="true" />
         <EntityTypeShape EntityType="charitable_dbModel.tbl_SubscriptionPlan" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="charitable_dbModel.tbl_SuccessStories" Width="1.5" PointX="7.5" PointY="17.25" IsExpanded="true" />
         <EntityTypeShape EntityType="charitable_dbModel.tbl_Users" Width="1.5" PointX="3" PointY="9.875" IsExpanded="true" />
@@ -40,6 +40,7 @@
         <AssociationConnector Association="charitable_dbModel.FK__tbl_Donat__Condi__06CD04F7" />
         <AssociationConnector Association="charitable_dbModel.FK__Donations__Donor__30F848ED" />
         <AssociationConnector Association="charitable_dbModel.FK__tbl_Donat__Statu__208CD6FA" />
+        <EntityTypeShape EntityType="charitable_dbModel.tbl_Units" Width="1.5" PointX="7.375" PointY="6.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

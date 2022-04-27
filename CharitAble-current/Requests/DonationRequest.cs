@@ -22,7 +22,7 @@ namespace CharitAble_current.Requests
         public int? Rating { get; set; }
         public int? ConditionId { get; set; }
         public string Condition { get; set; }
-        public int CategoryId { get; set; }
+        public int? CategoryId { get; set; }
         public string Category { get; set; }
         public string Address { get; set; }
         public string Image1base64 { get; set; }

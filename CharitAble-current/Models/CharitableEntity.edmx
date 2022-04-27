@@ -19,10 +19,14 @@
           <Property Name="CaseID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="NGO_ID" Type="int" />
           <Property Name="CaseTitle" Type="varchar" MaxLength="50" />
+          <Property Name="CategoryID" Type="int" />
           <Property Name="PostedDate" Type="smalldatetime" />
-          <Property Name="Description" Type="varchar" MaxLength="500" />
-          <Property Name="Picture" Type="image" />
           <Property Name="StatusID" Type="int" />
+          <Property Name="isActive" Type="varchar" MaxLength="6" />
+          <Property Name="Description" Type="varchar" MaxLength="500" />
+          <Property Name="Quantity" Type="smallint" />
+          <Property Name="UnitID" Type="int" />
+          <Property Name="CoverImage" Type="varchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="tbl_DonationCategory">
           <Key>
@@ -135,6 +139,8 @@
           <Property Name="City" Type="varchar" MaxLength="25" />
           <Property Name="Address" Type="varchar(max)" />
           <Property Name="LocationCoordinates" Type="bigint" />
+          <Property Name="SubscriptionEndDate" Type="date" />
+          <Property Name="SubscriptionStartDate" Type="date" />
           <Property Name="MemorandumOfNGO" Type="image" />
         </EntityType>
         <EntityType Name="tbl_Orders">
@@ -177,6 +183,13 @@
           <Property Name="PostedDate" Type="smalldatetime" />
           <Property Name="Description" Type="varchar" MaxLength="500" />
           <Property Name="Picture" Type="image" />
+        </EntityType>
+        <EntityType Name="tbl_Units">
+          <Key>
+            <PropertyRef Name="UnitID" />
+          </Key>
+          <Property Name="UnitID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Unit" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
         <EntityType Name="tbl_Users">
           <Key>
@@ -494,6 +507,7 @@
           <EntitySet Name="tbl_PaymentInfo" EntityType="Self.tbl_PaymentInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_SubscriptionPlan" EntityType="Self.tbl_SubscriptionPlan" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_SuccessStories" EntityType="Self.tbl_SuccessStories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Units" EntityType="Self.tbl_Units" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Users" EntityType="Self.tbl_Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_UserType" EntityType="Self.tbl_UserType" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__Donations__Donor__30F848ED" Association="Self.FK__Donations__Donor__30F848ED">
@@ -587,10 +601,14 @@
           <Property Name="CaseTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="PostedDate" Type="DateTime" Precision="0" />
           <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="Picture" Type="Binary" MaxLength="Max" FixedLength="false" />
           <NavigationProperty Name="tbl_NGOMaster" Relationship="Self.FK__tbl_Cases__NGO_I__35BCFE0A" FromRole="tbl_Cases" ToRole="tbl_NGOMaster" />
-          <Property Name="StatusID" Type="Int32" />
           <NavigationProperty Name="tbl_Donations" Relationship="charitable_dbModel.FK__tbl_Donat__CaseI__30C33EC3" FromRole="tbl_Cases" ToRole="tbl_Donations" />
+          <Property Name="CategoryID" Type="Int32" />
+          <Property Name="isActive" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="Quantity" Type="Int16" />
+          <Property Name="CoverImage" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="StatusID" Type="Int32" />
+          <Property Name="UnitID" Type="Int32" />
         </EntityType>
         <EntityType Name="tbl_DonorMaster">
           <Key>
@@ -675,6 +693,8 @@
           <NavigationProperty Name="tbl_Users" Relationship="Self.FK__NGOMaster__UserI__29572725" FromRole="tbl_NGOMaster" ToRole="tbl_Users" />
           <NavigationProperty Name="tbl_Orders" Relationship="Self.FK__tbl_Order__NGO_I__3B75D760" FromRole="tbl_NGOMaster" ToRole="tbl_Orders" />
           <NavigationProperty Name="tbl_SuccessStories" Relationship="Self.FK__tbl_Succe__NGO_I__38996AB5" FromRole="tbl_NGOMaster" ToRole="tbl_SuccessStories" />
+          <Property Name="SubscriptionEndDate" Type="DateTime" Precision="0" />
+          <Property Name="SubscriptionStartDate" Type="DateTime" Precision="0" />
         </EntityType>
         <EntityType Name="tbl_Orders">
           <Key>
@@ -1063,6 +1083,7 @@
             <End Role="tbl_DonationStatus" EntitySet="tbl_DonationStatus" />
             <End Role="tbl_Donations" EntitySet="tbl_Donations" />
           </AssociationSet>
+          <EntitySet Name="tbl_Units" EntityType="charitable_dbModel.tbl_Units" />
         </EntityContainer>
         <ComplexType Name="SP_SelectAllAdmins_Result">
           <Property Type="Int32" Name="AdminID" Nullable="false" />
@@ -1284,6 +1305,13 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="tbl_Units">
+          <Key>
+            <PropertyRef Name="UnitID" />
+          </Key>
+          <Property Name="UnitID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Unit" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1301,13 +1329,17 @@
           <EntitySetMapping Name="tbl_Cases">
             <EntityTypeMapping TypeName="charitable_dbModel.tbl_Cases">
               <MappingFragment StoreEntitySet="tbl_Cases">
+                <ScalarProperty Name="UnitID" ColumnName="UnitID" />
                 <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="CoverImage" ColumnName="CoverImage" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
                 <ScalarProperty Name="CaseID" ColumnName="CaseID" />
                 <ScalarProperty Name="NGO_ID" ColumnName="NGO_ID" />
                 <ScalarProperty Name="CaseTitle" ColumnName="CaseTitle" />
                 <ScalarProperty Name="PostedDate" ColumnName="PostedDate" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Picture" ColumnName="Picture" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1372,6 +1404,8 @@
           <EntitySetMapping Name="tbl_NGOMaster">
             <EntityTypeMapping TypeName="charitable_dbModel.tbl_NGOMaster">
               <MappingFragment StoreEntitySet="tbl_NGOMaster">
+                <ScalarProperty Name="SubscriptionStartDate" ColumnName="SubscriptionStartDate" />
+                <ScalarProperty Name="SubscriptionEndDate" ColumnName="SubscriptionEndDate" />
                 <ScalarProperty Name="NGO_ID" ColumnName="NGO_ID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="PlanID" ColumnName="PlanID" />
@@ -1690,6 +1724,14 @@
                 <ScalarProperty Name="DonorID" ColumnName="DonorID" />
                 <ScalarProperty Name="CaseID" ColumnName="CaseID" />
                 <ScalarProperty Name="DonationID" ColumnName="DonationID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Units">
+            <EntityTypeMapping TypeName="charitable_dbModel.tbl_Units">
+              <MappingFragment StoreEntitySet="tbl_Units">
+                <ScalarProperty Name="Unit" ColumnName="Unit" />
+                <ScalarProperty Name="UnitID" ColumnName="UnitID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
