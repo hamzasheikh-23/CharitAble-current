@@ -49,7 +49,7 @@ namespace CharitAble_current.Controllers
                 donation.QuantityPerUnit = value.QuantityPerUnit;
                 donation.Rating = value.Rating;
                 donation.Condition = value.ConditionId;
-                donation.Category = value.CategoryId;
+                donation.Category = value.Category;
                 donation.PostedDateTime = DateTime.Now;
                 donation.Status = value.StatusId = statusId;
                 donation.isActive = value.IsActive = isActive;
@@ -153,8 +153,8 @@ namespace CharitAble_current.Controllers
                     Condition = (from y in dbx.tbl_DonationCondition
                                  where y.ConditionID == x.Condition
                                  select y.Condition).FirstOrDefault().Trim(),
-                    CategoryId = x.Category,
-                    Category = (from y in dbx.tbl_DonationCategory
+                    Category = x.Category,
+                    category = (from y in dbx.tbl_DonationCategory
                                 where y.CategoryID == x.Category
                                 select y.DonationCategory).FirstOrDefault().Trim(),
                     Address = x.Address,
@@ -210,8 +210,8 @@ namespace CharitAble_current.Controllers
                     Condition = (from y in dbx.tbl_DonationCondition
                                  where y.ConditionID == x.Condition
                                  select y.Condition).FirstOrDefault().Trim(),
-                    CategoryId = x.Category,
-                    Category = (from y in dbx.tbl_DonationCategory
+                    Category = x.Category,
+                    category = (from y in dbx.tbl_DonationCategory
                                 where y.CategoryID == x.Category
                                 select y.DonationCategory).FirstOrDefault().Trim(),
                     Address = x.Address,
@@ -284,8 +284,8 @@ namespace CharitAble_current.Controllers
                     Condition = (from y in dbx.tbl_DonationCondition
                                  where y.ConditionID == x.Condition
                                  select y.Condition).FirstOrDefault().Trim(),
-                    CategoryId = x.Category,
-                    Category = (from y in dbx.tbl_DonationCategory
+                    Category = x.Category,
+                    category = (from y in dbx.tbl_DonationCategory
                                 where y.CategoryID == x.Category
                                 select y.DonationCategory).FirstOrDefault().Trim(),
                     Address = x.Address,
@@ -332,8 +332,8 @@ namespace CharitAble_current.Controllers
                     Condition = (from y in dbx.tbl_DonationCondition
                                  where y.ConditionID == x.Condition
                                  select y.Condition).FirstOrDefault().Trim(),
-                    CategoryId = x.Category,
-                    Category = (from y in dbx.tbl_DonationCategory
+                    Category = x.Category,
+                    category = (from y in dbx.tbl_DonationCategory
                                 where y.CategoryID == x.Category
                                 select y.DonationCategory).FirstOrDefault().Trim(),
                     Address = x.Address,
@@ -382,8 +382,8 @@ namespace CharitAble_current.Controllers
                     Condition = (from y in dbx.tbl_DonationCondition
                                  where y.ConditionID == x.Condition
                                  select y.Condition).FirstOrDefault().Trim(),
-                    CategoryId = x.Category,
-                    Category = (from y in dbx.tbl_DonationCategory
+                    Category = x.Category,
+                    category = (from y in dbx.tbl_DonationCategory
                                 where y.CategoryID == x.Category
                                 select y.DonationCategory).FirstOrDefault().Trim(),
                     Address = x.Address,
@@ -432,8 +432,8 @@ namespace CharitAble_current.Controllers
                     Condition = (from y in dbx.tbl_DonationCondition
                                  where y.ConditionID == x.Condition
                                  select y.Condition).FirstOrDefault().Trim(),
-                    CategoryId = x.Category,
-                    Category = (from y in dbx.tbl_DonationCategory
+                    Category = x.Category,
+                    category = (from y in dbx.tbl_DonationCategory
                                 where y.CategoryID == x.Category
                                 select y.DonationCategory).FirstOrDefault().Trim(),
                     Address = x.Address,
