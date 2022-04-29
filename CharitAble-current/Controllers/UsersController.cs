@@ -101,11 +101,17 @@ namespace CharitAble_current.Controllers
                                      where x.UserID == userID
                                      select x.NGO_ID).SingleOrDefault();
 
+                                var planID =
+                                    (from x in dbx.tbl_NGOMaster
+                                     where x.UserID == userID
+                                     select x.PlanID).SingleOrDefault();
+
                                 ret = new
                                 {
                                     isSuccess,
                                     userTypeId,
                                     ngoID,
+                                    planID,
                                     userID,
                                     code = "3",
                                     msg = "Login Successful as NGO"

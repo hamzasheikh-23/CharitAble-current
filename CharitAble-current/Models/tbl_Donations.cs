@@ -37,6 +37,6 @@ namespace CharitAble_current.Models
         public virtual tbl_Cases tbl_Cases { get; set; }
         public virtual tbl_DonationCondition tbl_DonationCondition { get; set; }
         public virtual tbl_DonorMaster tbl_DonorMaster { get; set; }
-        public virtual tbl_DonationStatus tbl_DonationStatus { get; set; }
+        public virtual tbl_Status tbl_Status { get; set; }
     }
 }

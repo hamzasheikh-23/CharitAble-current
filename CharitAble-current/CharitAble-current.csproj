@@ -171,6 +171,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\CasesController.cs" />
     <Compile Include="Controllers\DonationController.cs" />
+    <Compile Include="Controllers\RepliesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\StoryController.cs" />
     <Compile Include="Controllers\SubscriptionController.cs" />
@@ -253,10 +254,10 @@
     <Compile Include="Models\tbl_Donations.cs">
       <DependentUpon>CharitableEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\tbl_DonationStatus.cs">
+    <Compile Include="Models\tbl_DonorMaster.cs">
       <DependentUpon>CharitableEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\tbl_DonorMaster.cs">
+    <Compile Include="Models\tbl_DonorReplies.cs">
       <DependentUpon>CharitableEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_Invoices.cs">
@@ -280,6 +281,9 @@
     <Compile Include="Models\tbl_PaymentInfo.cs">
       <DependentUpon>CharitableEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tbl_Status.cs">
+      <DependentUpon>CharitableEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tbl_SubscriptionPlan.cs">
       <DependentUpon>CharitableEntity.tt</DependentUpon>
     </Compile>
@@ -299,6 +303,7 @@
     <Compile Include="Requests\CaseRequest.cs" />
     <Compile Include="Requests\DonationCategoryRequest.cs" />
     <Compile Include="Requests\DonationRequest.cs" />
+    <Compile Include="Requests\ReplyRequest.cs" />
     <Compile Include="Requests\StoryRequest.cs" />
     <Compile Include="Requests\SubscriptionRequest.cs" />
     <Compile Include="Requests\UserRequest.cs" />
@@ -375,6 +380,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Views\Cases\" />
     <Folder Include="Views\Donation\" />
+    <Folder Include="Views\DonorReplies\" />
     <Folder Include="Views\Donor\" />
     <Folder Include="Views\Employee_Login\" />
     <Folder Include="Views\Story\" />

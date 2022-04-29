@@ -35,7 +35,7 @@ namespace CharitAble_current.Controllers
                 };
 
 
-                var statusId = (from x in dbx.tbl_DonationStatus
+                var statusId = (from x in dbx.tbl_Status
                                 where x.Status == "Pending" || x.Status == "pending"
                                 select x.StatusID).SingleOrDefault();
 
@@ -68,10 +68,10 @@ namespace CharitAble_current.Controllers
 
                 if (!string.IsNullOrEmpty(value.Image1Name))
                 {
-                    string imagePath1 = @"D:\fyp-frontend\src\serverImages\" + value.Image1Name;
+                    string imagePath1 = @"D:\fyp-frontend\src\serverImages\donations" + value.Image1Name;
                     FileInfo fi = new FileInfo(imagePath1);
                     Guid obj = Guid.NewGuid();
-                    imagePath1 = @"D:\fyp-frontend\src\serverImages\" + obj.ToString() + fi.Extension;
+                    imagePath1 = @"D:\fyp-frontend\src\serverImages\donations" + obj.ToString() + fi.Extension;
                     var cleanerBase1 = value.Image1base64.Substring(value.Image1base64.LastIndexOf(',') + 1);
                     File.WriteAllBytes(imagePath1, Convert.FromBase64String(cleanerBase1));
                     donation.Image1 = imagePath1;
@@ -79,10 +79,10 @@ namespace CharitAble_current.Controllers
 
                 if (!string.IsNullOrEmpty(value.Image2Name))
                 {
-                    string imagePath2 = @"D:\fyp-frontend\src\serverImages\" + value.Image2Name;
+                    string imagePath2 = @"D:\fyp-frontend\src\serverImages\donations" + value.Image2Name;
                     FileInfo fi = new FileInfo(imagePath2);
                     Guid obj = Guid.NewGuid();
-                    imagePath2 = @"D:\fyp-frontend\src\serverImages\" + obj.ToString() + fi.Extension;
+                    imagePath2 = @"D:\fyp-frontend\src\serverImages\donations" + obj.ToString() + fi.Extension;
                     var cleanerBase2 = value.Image2base64.Substring(value.Image2base64.LastIndexOf(',') + 1);
                     File.WriteAllBytes(imagePath2, Convert.FromBase64String(cleanerBase2));
                     donation.Image2 = imagePath2;
@@ -90,10 +90,10 @@ namespace CharitAble_current.Controllers
 
                 if (!string.IsNullOrEmpty(value.Image3Name))
                 {
-                    string imagePath3 = @"D:\fyp-frontend\src\serverImages\" + value.Image3Name;
+                    string imagePath3 = @"D:\fyp-frontend\src\serverImages\donations" + value.Image3Name;
                     FileInfo fi = new FileInfo(imagePath3);
                     Guid obj = Guid.NewGuid();
-                    imagePath3 = @"D:\fyp-frontend\src\serverImages\" + obj.ToString() + fi.Extension;
+                    imagePath3 = @"D:\fyp-frontend\src\serverImages\donations" + obj.ToString() + fi.Extension;
                     var cleanerBase3 = value.Image3base64.Substring(value.Image3base64.LastIndexOf(',') + 1);
                     File.WriteAllBytes(imagePath3, Convert.FromBase64String(cleanerBase3));
                     donation.Image3 = imagePath3;
@@ -143,7 +143,7 @@ namespace CharitAble_current.Controllers
                     ExpiryDate = x.ExpiryDate,
                     PostedDate = x.PostedDateTime,
                     StatusId = x.Status,
-                    Status = (from y in dbx.tbl_DonationStatus
+                    Status = (from y in dbx.tbl_Status
                               where y.StatusID == x.Status
                               select y.Status).FirstOrDefault().Trim(),
                     IsActive = x.isActive,
@@ -165,15 +165,12 @@ namespace CharitAble_current.Controllers
 
                 if (donations.Count > 0)
                 {
-                    return Json(donations);
+                    return Ok(donations);
                 }
                 else
                 {
                     return BadRequest("Unable to retrieve data from database, check URL or other user input");
                 }
-
-
-
             }
             catch (Exception ex)
             {
@@ -203,7 +200,7 @@ namespace CharitAble_current.Controllers
                     ExpiryDate = x.ExpiryDate,
                     PostedDate = x.PostedDateTime,
                     StatusId = x.Status,
-                    Status = (from y in dbx.tbl_DonationStatus
+                    Status = (from y in dbx.tbl_Status
                               where y.StatusID == x.Status
                               select y.Status).FirstOrDefault().Trim(),
                     IsActive = x.isActive,
@@ -248,12 +245,60 @@ namespace CharitAble_current.Controllers
                     //item.Image2 = string.IsNullOrWhiteSpace(item.Image2) ? item.Image2 : Convert.ToBase64String(File.ReadAllBytes(item.Image2));
                     //item.Image3 = string.IsNullOrWhiteSpace(item.Image3) ? item.Image3 : Convert.ToBase64String(File.ReadAllBytes(item.Image3));
                 }
-                return Json(donations);
+                return Ok(donations);
             }
             catch (Exception ex)
             {
                 return BadRequest("Unable to process your request. " +
                    "ErrorMessage: '" + ex.Message + "'");
+            }
+        }
+
+        //GET donation/get?{status}
+
+        [HttpGet]
+        [Route("get")]
+        public IHttpActionResult GetDonation(string status)
+        {
+            try
+            {
+                var donations = dbx.tbl_Donations.Select(x =>
+                new DonationRequest()
+                {
+                    DonationId = x.DonationID,
+                    DonorId = x.DonorID,
+                    Title = x.DonationTitle,
+                    Quantity = x.Quantity,
+                    Weight = x.Weight,
+                    QuantityPerUnit = x.QuantityPerUnit,
+                    ExpiryDate = x.ExpiryDate,
+                    PostedDate = x.PostedDateTime,
+                    StatusId = x.Status,
+                    Status = (from y in dbx.tbl_Status
+                              where y.StatusID == x.Status
+                              select y.Status).FirstOrDefault().Trim(),
+                    IsActive = x.isActive,
+                    Description = x.Description,
+                    Rating = x.Rating,
+                    ConditionId = x.Condition,
+                    Condition = (from y in dbx.tbl_DonationCondition
+                                 where y.ConditionID == x.Condition
+                                 select y.Condition).FirstOrDefault().Trim(),
+                    CategoryId = x.Category,
+                    Category = (from y in dbx.tbl_DonationCategory
+                                where y.CategoryID == x.Category
+                                select y.DonationCategory).FirstOrDefault().Trim(),
+                    Address = x.Address,
+                    Image1 = x.Image1,
+                    Image2 = x.Image2,
+                    Image3 = x.Image3,
+                }).Where(x => x.Status == status).ToList();
+
+                return Ok(donations);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex + ": '" + ex.Message + "'");
             }
         }
 
@@ -277,7 +322,7 @@ namespace CharitAble_current.Controllers
                     ExpiryDate = x.ExpiryDate,
                     PostedDate = x.PostedDateTime,
                     StatusId = x.Status,
-                    Status = (from y in dbx.tbl_DonationStatus
+                    Status = (from y in dbx.tbl_Status
                               where y.StatusID == x.Status
                               select y.Status).FirstOrDefault().Trim(),
                     IsActive = x.isActive,
@@ -297,7 +342,7 @@ namespace CharitAble_current.Controllers
                     Image3 = x.Image3,
                 }).Where(x => x.DonorId == donorId && x.Status == status).ToList();
 
-                return Json(donations);
+                return Ok(donations);
             }
             catch (Exception ex)
             {
@@ -327,7 +372,7 @@ namespace CharitAble_current.Controllers
                     ExpiryDate = x.ExpiryDate,
                     PostedDate = x.PostedDateTime,
                     StatusId = x.Status,
-                    Status = (from y in dbx.tbl_DonationStatus
+                    Status = (from y in dbx.tbl_Status
                               where y.StatusID == x.Status
                               select y.Status).FirstOrDefault().Trim(),
                     IsActive = x.isActive,
@@ -347,7 +392,7 @@ namespace CharitAble_current.Controllers
                     Image3 = x.Image3,
                 }).Where(x => x.DonorId == donorId && x.IsActive == isActive).ToList();
 
-                return Json(donations);
+                return Ok(donations);
             }
             catch (Exception ex)
             {
@@ -377,7 +422,7 @@ namespace CharitAble_current.Controllers
                     ExpiryDate = x.ExpiryDate,
                     PostedDate = x.PostedDateTime,
                     StatusId = x.Status,
-                    Status = (from y in dbx.tbl_DonationStatus
+                    Status = (from y in dbx.tbl_Status
                               where y.StatusID == x.Status
                               select y.Status).FirstOrDefault().Trim(),
                     IsActive = x.isActive,
@@ -397,7 +442,7 @@ namespace CharitAble_current.Controllers
                     Image3 = x.Image3,
                 }).Where(x => x.DonorId == donorId && x.Status == status && x.IsActive == isActive).ToList();
 
-                return Json(donations);
+                return Ok(donations);
             }
             catch (Exception ex)
             {
@@ -422,7 +467,7 @@ namespace CharitAble_current.Controllers
                     DonationCategory = x.DonationCategory
                 }).ToList();
 
-                return Json(donations);
+                return Ok(donations);
             }
             catch (Exception ex)
             {
@@ -443,7 +488,7 @@ namespace CharitAble_current.Controllers
 
                 if (donationIds.Contains(id))
                 {
-                    var statusId = (from x in dbx.tbl_DonationStatus
+                    var statusId = (from x in dbx.tbl_Status
                                     where x.Status == "Deleted" || x.Status == "deleted"
                                     select x.StatusID).SingleOrDefault();
 
@@ -460,7 +505,7 @@ namespace CharitAble_current.Controllers
                     dbx.tbl_Donations.AddOrUpdate(existingDonation);
                     dbx.SaveChanges();
 
-                    return Json("record deleted successfully");
+                    return Ok("record deleted successfully");
                 }
                 else
                 {
@@ -485,7 +530,7 @@ namespace CharitAble_current.Controllers
 
                 if (donationIds.Contains(id))
                 {
-                    //var statusId = (from x in dbx.tbl_DonationStatus
+                    //var statusId = (from x in dbx.tbl_Status
                     //                where x.Status == "Pending" || x.Status == "pending"
                     //                select x.StatusID).SingleOrDefault();
 
@@ -514,10 +559,10 @@ namespace CharitAble_current.Controllers
 
                     if (!string.IsNullOrEmpty(value.Image1Name))
                     {
-                        string imagePath1 = @"D:\fyp-frontend\src\serverImages\" + value.Image1Name;
+                        string imagePath1 = @"D:\fyp-frontend\src\serverImages\donations" + value.Image1Name;
                         FileInfo fi = new FileInfo(imagePath1);
                         Guid obj = Guid.NewGuid();
-                        imagePath1 = @"D:\fyp-frontend\src\serverImages\" + obj.ToString() + fi.Extension;
+                        imagePath1 = @"D:\fyp-frontend\src\serverImages\donations" + obj.ToString() + fi.Extension;
                         var cleanerBase1 = value.Image1base64.Substring(value.Image1base64.LastIndexOf(',') + 1);
                         File.WriteAllBytes(imagePath1, Convert.FromBase64String(cleanerBase1));
                         existingDonation.Image1 = imagePath1;
@@ -525,10 +570,10 @@ namespace CharitAble_current.Controllers
 
                     if (!string.IsNullOrEmpty(value.Image2Name))
                     {
-                        string imagePath2 = @"D:\fyp-frontend\src\serverImages\" + value.Image2Name;
+                        string imagePath2 = @"D:\fyp-frontend\src\serverImages\donations" + value.Image2Name;
                         FileInfo fi = new FileInfo(imagePath2);
                         Guid obj = Guid.NewGuid();
-                        imagePath2 = @"D:\fyp-frontend\src\serverImages\" + obj.ToString() + fi.Extension;
+                        imagePath2 = @"D:\fyp-frontend\src\serverImages\donations" + obj.ToString() + fi.Extension;
                         var cleanerBase2 = value.Image2base64.Substring(value.Image2base64.LastIndexOf(',') + 1);
                         File.WriteAllBytes(imagePath2, Convert.FromBase64String(cleanerBase2));
                         existingDonation.Image2 = imagePath2;
@@ -536,10 +581,10 @@ namespace CharitAble_current.Controllers
 
                     if (!string.IsNullOrEmpty(value.Image3Name))
                     {
-                        string imagePath3 = @"D:\fyp-frontend\src\serverImages\" + value.Image3Name;
+                        string imagePath3 = @"D:\fyp-frontend\src\serverImages\donations" + value.Image3Name;
                         FileInfo fi = new FileInfo(imagePath3);
                         Guid obj = Guid.NewGuid();
-                        imagePath3 = @"D:\fyp-frontend\src\serverImages\" + obj.ToString() + fi.Extension;
+                        imagePath3 = @"D:\fyp-frontend\src\serverImages\donations" + obj.ToString() + fi.Extension;
                         var cleanerBase3 = value.Image3base64.Substring(value.Image3base64.LastIndexOf(',') + 1);
                         File.WriteAllBytes(imagePath3, Convert.FromBase64String(cleanerBase3));
                         existingDonation.Image3 = imagePath3;
@@ -548,7 +593,7 @@ namespace CharitAble_current.Controllers
                     dbx.tbl_Donations.AddOrUpdate(existingDonation);
                     dbx.SaveChanges();
 
-                    return Json("record updated successfully");
+                    return Ok("record updated successfully");
                 }
                 else
                 {
@@ -557,9 +602,53 @@ namespace CharitAble_current.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest("Unable to process your request, check URL or user input\n" +
-                   "ErrorMessage: '" + ex.Message + "'");
+                return BadRequest(ex + " : '" + ex.Message + "'");
             }
         }
+
+        [HttpPut]
+        [Route("edit")]
+        public IHttpActionResult UpdateDonation(int id, string status)
+        {
+            try
+            {
+                var donationIds = (from x in dbx.tbl_Donations select x.DonationID).ToList();
+
+                if (donationIds.Contains(id))
+                {
+                    var statusId = (from x in dbx.tbl_Status
+                                    where x.Status == status
+                                    select x.StatusID).SingleOrDefault();
+
+                    //var conditionId = (from x in dbx.tbl_DonationCondition
+                    //                   where x.Condition == value.Condition
+                    //                   select x.ConditionID).SingleOrDefault();
+
+                    //var categoryId = (from x in dbx.tbl_DonationCategory
+                    //                  where x.DonationCategory == value.Category
+                    //                  select x.CategoryID).SingleOrDefault();
+
+                    DonationRequest value = new DonationRequest();
+
+                    var existingDonation = dbx.tbl_Donations.Where(x => x.DonationID == id).FirstOrDefault();
+
+                    existingDonation.Status = value.StatusId = statusId;
+
+                    dbx.tbl_Donations.AddOrUpdate(existingDonation);
+                    dbx.SaveChanges();
+
+                    return Ok("record updated successfully");
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex + " : '" + ex.Message + "'");
+            }
+        }
+
     }
 }

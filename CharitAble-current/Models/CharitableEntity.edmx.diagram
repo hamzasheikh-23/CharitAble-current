@@ -33,14 +33,18 @@
         <AssociationConnector Association="charitable_dbModel.FK__tbl_Users__UserT__5629CD9C" ManuallyRouted="false" />
         <EntityTypeShape EntityType="charitable_dbModel.tbl_DonationCategory" Width="1.5" PointX="5.625" PointY="22" />
         <EntityTypeShape EntityType="charitable_dbModel.tbl_DonationCondition" Width="1.5" PointX="0.75" PointY="6.875" />
-        <EntityTypeShape EntityType="charitable_dbModel.tbl_DonationStatus" Width="1.5" PointX="10.375" PointY="3.875" />
         <EntityTypeShape EntityType="charitable_dbModel.tbl_PaymentInfo" Width="1.5" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="charitable_dbModel.tbl_Donations" Width="1.5" PointX="12.625" PointY="5.875" />
         <AssociationConnector Association="charitable_dbModel.FK__tbl_Donat__CaseI__30C33EC3" />
         <AssociationConnector Association="charitable_dbModel.FK__tbl_Donat__Condi__06CD04F7" />
         <AssociationConnector Association="charitable_dbModel.FK__Donations__Donor__30F848ED" />
-        <AssociationConnector Association="charitable_dbModel.FK__tbl_Donat__Statu__208CD6FA" />
         <EntityTypeShape EntityType="charitable_dbModel.tbl_Units" Width="1.5" PointX="7.375" PointY="6.75" />
+        <EntityTypeShape EntityType="charitable_dbModel.tbl_DonorReplies" Width="1.5" PointX="15.625" PointY="8.75" />
+        <EntityTypeShape EntityType="charitable_dbModel.tbl_Status" Width="1.5" PointX="10.375" PointY="7.75" />
+        <AssociationConnector Association="charitable_dbModel.FK__tbl_Donor__CaseI__634EBE90" />
+        <AssociationConnector Association="charitable_dbModel.FK__tbl_Donat__Statu__208CD6FA1" />
+        <AssociationConnector Association="charitable_dbModel.FK__tbl_Donor__Donor__625A9A57" />
+        <AssociationConnector Association="charitable_dbModel.FK__tbl_Donor__Statu__6BE40491" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

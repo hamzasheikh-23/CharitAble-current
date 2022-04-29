@@ -12,12 +12,13 @@ namespace CharitAble_current.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class tbl_DonationStatus
+    public partial class tbl_Status
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tbl_DonationStatus()
+        public tbl_Status()
         {
             this.tbl_Donations = new HashSet<tbl_Donations>();
+            this.tbl_DonorReplies = new HashSet<tbl_DonorReplies>();
         }
     
         public int StatusID { get; set; }
@@ -25,5 +26,7 @@ namespace CharitAble_current.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_Donations> tbl_Donations { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbl_DonorReplies> tbl_DonorReplies { get; set; }
     }
 }
