@@ -45,6 +45,8 @@
         <AssociationConnector Association="charitable_dbModel.FK__tbl_Donat__Statu__208CD6FA1" />
         <AssociationConnector Association="charitable_dbModel.FK__tbl_Donor__Donor__625A9A57" />
         <AssociationConnector Association="charitable_dbModel.FK__tbl_Donor__Statu__6BE40491" />
+        <EntityTypeShape EntityType="charitable_dbModel.tbl_Feedback" Width="1.5" PointX="5.25" PointY="24.25" />
+        <AssociationConnector Association="charitable_dbModel.FK__tbl_Feedb__UserI__756D6ECB" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

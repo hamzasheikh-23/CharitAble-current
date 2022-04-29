@@ -86,7 +86,7 @@
           <Property Name="ReplyID" Type="int" Nullable="false" />
           <Property Name="DonorID" Type="int" Nullable="false" />
           <Property Name="CaseID" Type="int" Nullable="false" />
-          <Property Name="Quanitity" Type="tinyint" Nullable="false" />
+          <Property Name="Quantity" Type="tinyint" Nullable="false" />
           <Property Name="Address" Type="varchar" MaxLength="500" Nullable="false" />
           <Property Name="Message" Type="varchar" MaxLength="500" />
           <Property Name="PostedDateTime" Type="smalldatetime" Nullable="false" />
@@ -95,6 +95,14 @@
           <Property Name="Image2" Type="varchar" MaxLength="200" />
           <Property Name="Image3" Type="varchar" MaxLength="200" />
           <Property Name="isActive" Type="varchar" MaxLength="1" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_Feedback">
+          <Key>
+            <PropertyRef Name="FeedbackID" />
+          </Key>
+          <Property Name="FeedbackID" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="Feedback" Type="varchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="tbl_Invoices">
           <Key>
@@ -105,7 +113,6 @@
           <Property Name="DonorID" Type="int" />
           <Property Name="NGO_ID" Type="int" />
           <Property Name="Date" Type="smalldatetime" />
-          <Property Name="Time" Type="time" Precision="7" />
           <Property Name="Amount" Type="smallmoney" />
         </EntityType>
         <EntityType Name="tbl_MaterialGroup">
@@ -159,11 +166,10 @@
           </Key>
           <Property Name="OrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="NGO_ID" Type="int" />
-          <Property Name="StoryTitle" Type="varchar" MaxLength="50" />
-          <Property Name="OrderDate" Type="smalldatetime" />
-          <Property Name="OrderTime" Type="time" Precision="7" />
+          <Property Name="CaseID" Type="int" />
+          <Property Name="OrderDateTime" Type="smalldatetime" />
           <Property Name="DeliveryAddress" Type="varchar(max)" />
-          <Property Name="OrderStatus" Type="varchar" MaxLength="15" />
+          <Property Name="StatusID" Type="int" />
         </EntityType>
         <EntityType Name="tbl_PaymentInfo">
           <Key>
@@ -199,7 +205,7 @@
           <Property Name="StoryTitle" Type="varchar" MaxLength="50" />
           <Property Name="PostedDate" Type="smalldatetime" />
           <Property Name="Description" Type="varchar" MaxLength="500" />
-          <Property Name="Picture" Type="image" />
+          <Property Name="CoverImage" Type="varchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="tbl_Units">
           <Key>
@@ -337,6 +343,18 @@
               <PropertyRef Name="UserID" />
             </Principal>
             <Dependent Role="tbl_DonorMaster">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_Feedb__UserI__756D6ECB">
+          <End Role="tbl_Users" Type="Self.tbl_Users" Multiplicity="1" />
+          <End Role="tbl_Feedback" Type="Self.tbl_Feedback" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tbl_Feedback">
               <PropertyRef Name="UserID" />
             </Dependent>
           </ReferentialConstraint>
@@ -539,6 +557,7 @@
           <EntitySet Name="tbl_Donations" EntityType="Self.tbl_Donations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_DonorMaster" EntityType="Self.tbl_DonorMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_DonorReplies" EntityType="Self.tbl_DonorReplies" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Feedback" EntityType="Self.tbl_Feedback" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Invoices" EntityType="Self.tbl_Invoices" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_MaterialGroup" EntityType="Self.tbl_MaterialGroup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_MaterialMaster" EntityType="Self.tbl_MaterialMaster" Schema="dbo" store:Type="Tables" />
@@ -587,6 +606,10 @@
           <AssociationSet Name="FK__tbl_Donor__UserI__1332DBDC" Association="Self.FK__tbl_Donor__UserI__1332DBDC">
             <End Role="tbl_Users" EntitySet="tbl_Users" />
             <End Role="tbl_DonorMaster" EntitySet="tbl_DonorMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_Feedb__UserI__756D6ECB" Association="Self.FK__tbl_Feedb__UserI__756D6ECB">
+            <End Role="tbl_Users" EntitySet="tbl_Users" />
+            <End Role="tbl_Feedback" EntitySet="tbl_Feedback" />
           </AssociationSet>
           <AssociationSet Name="FK__tbl_Invoi__Donor__3F466844" Association="Self.FK__tbl_Invoi__Donor__3F466844">
             <End Role="tbl_DonorMaster" EntitySet="tbl_DonorMaster" />
@@ -687,7 +710,6 @@
           <Property Name="DonorID" Type="Int32" />
           <Property Name="NGO_ID" Type="Int32" />
           <Property Name="Date" Type="DateTime" Precision="0" />
-          <Property Name="Time" Type="Time" Precision="7" />
           <Property Name="Amount" Type="Decimal" Precision="10" Scale="4" />
           <NavigationProperty Name="tbl_DonorMaster" Relationship="Self.FK__tbl_Invoi__Donor__3F466844" FromRole="tbl_Invoices" ToRole="tbl_DonorMaster" />
           <NavigationProperty Name="tbl_NGOMaster" Relationship="Self.FK__tbl_Invoi__NGO_I__403A8C7D" FromRole="tbl_Invoices" ToRole="tbl_NGOMaster" />
@@ -754,13 +776,12 @@
           </Key>
           <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="NGO_ID" Type="Int32" />
-          <Property Name="StoryTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="OrderDate" Type="DateTime" Precision="0" />
-          <Property Name="OrderTime" Type="Time" Precision="7" />
           <Property Name="DeliveryAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="OrderStatus" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="tbl_Invoices" Relationship="Self.FK__tbl_Invoi__Order__3E52440B" FromRole="tbl_Orders" ToRole="tbl_Invoices" />
           <NavigationProperty Name="tbl_NGOMaster" Relationship="Self.FK__tbl_Order__NGO_I__3B75D760" FromRole="tbl_Orders" ToRole="tbl_NGOMaster" />
+          <Property Name="CaseID" Type="Int32" />
+          <Property Name="OrderDateTime" Type="DateTime" Precision="0" />
+          <Property Name="StatusID" Type="Int32" />
         </EntityType>
         <EntityType Name="tbl_PaymentInfo">
           <Key>
@@ -789,8 +810,8 @@
           <Property Name="StoryTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="PostedDate" Type="DateTime" Precision="0" />
           <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="Picture" Type="Binary" MaxLength="Max" FixedLength="false" />
           <NavigationProperty Name="tbl_NGOMaster" Relationship="Self.FK__tbl_Succe__NGO_I__38996AB5" FromRole="tbl_SuccessStories" ToRole="tbl_NGOMaster" />
+          <Property Name="CoverImage" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="tbl_Users">
           <Key>
@@ -813,6 +834,7 @@
           <NavigationProperty Name="tbl_UserType" Relationship="Self.FK__tbl_Users__UserT__5629CD9C" FromRole="tbl_Users" ToRole="tbl_UserType" />
           <Property Name="RegistrationDateTime" Type="DateTime" Precision="0" />
           <Property Name="UpdateDateTime" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="tbl_Feedback" Relationship="charitable_dbModel.FK__tbl_Feedb__UserI__756D6ECB" FromRole="tbl_Users" ToRole="tbl_Feedback" />
         </EntityType>
         <EntityType Name="tbl_UserType">
           <Key>
@@ -1149,6 +1171,11 @@
             <End Role="tbl_Status" EntitySet="tbl_Status" />
             <End Role="tbl_DonorReplies" EntitySet="tbl_DonorReplies" />
           </AssociationSet>
+          <EntitySet Name="tbl_Feedback" EntityType="charitable_dbModel.tbl_Feedback" />
+          <AssociationSet Name="FK__tbl_Feedb__UserI__756D6ECB" Association="charitable_dbModel.FK__tbl_Feedb__UserI__756D6ECB">
+            <End Role="tbl_Users" EntitySet="tbl_Users" />
+            <End Role="tbl_Feedback" EntitySet="tbl_Feedback" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="SP_SelectAllAdmins_Result">
           <Property Type="Int32" Name="AdminID" Nullable="false" />
@@ -1364,7 +1391,6 @@
           <Property Name="ReplyID" Type="Int32" Nullable="false" />
           <Property Name="DonorID" Type="Int32" Nullable="false" />
           <Property Name="CaseID" Type="Int32" Nullable="false" />
-          <Property Name="Quanitity" Type="Byte" Nullable="false" />
           <Property Name="Address" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="Message" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="PostedDateTime" Type="DateTime" Nullable="false" Precision="0" />
@@ -1376,6 +1402,7 @@
           <NavigationProperty Name="tbl_DonorMaster" Relationship="charitable_dbModel.FK__tbl_Donor__Donor__625A9A57" FromRole="tbl_DonorReplies" ToRole="tbl_DonorMaster" />
           <NavigationProperty Name="tbl_Status" Relationship="charitable_dbModel.FK__tbl_Donor__Statu__6BE40491" FromRole="tbl_DonorReplies" ToRole="tbl_Status" />
           <Property Name="isActive" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="Quantity" Type="Byte" Nullable="false" />
         </EntityType>
         <EntityType Name="tbl_Status">
           <Key>
@@ -1434,6 +1461,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="tbl_Feedback">
+          <Key>
+            <PropertyRef Name="FeedbackID" />
+          </Key>
+          <Property Name="FeedbackID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="Feedback" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tbl_Users" Relationship="charitable_dbModel.FK__tbl_Feedb__UserI__756D6ECB" FromRole="tbl_Feedback" ToRole="tbl_Users" />
+        </EntityType>
+        <Association Name="FK__tbl_Feedb__UserI__756D6ECB">
+          <End Type="charitable_dbModel.tbl_Users" Role="tbl_Users" Multiplicity="1" />
+          <End Type="charitable_dbModel.tbl_Feedback" Role="tbl_Feedback" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tbl_Feedback">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1487,7 +1535,6 @@
                 <ScalarProperty Name="DonorID" ColumnName="DonorID" />
                 <ScalarProperty Name="NGO_ID" ColumnName="NGO_ID" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="Time" ColumnName="Time" />
                 <ScalarProperty Name="Amount" ColumnName="Amount" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1544,13 +1591,12 @@
           <EntitySetMapping Name="tbl_Orders">
             <EntityTypeMapping TypeName="charitable_dbModel.tbl_Orders">
               <MappingFragment StoreEntitySet="tbl_Orders">
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="OrderDateTime" ColumnName="OrderDateTime" />
+                <ScalarProperty Name="CaseID" ColumnName="CaseID" />
                 <ScalarProperty Name="OrderID" ColumnName="OrderID" />
                 <ScalarProperty Name="NGO_ID" ColumnName="NGO_ID" />
-                <ScalarProperty Name="StoryTitle" ColumnName="StoryTitle" />
-                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
-                <ScalarProperty Name="OrderTime" ColumnName="OrderTime" />
                 <ScalarProperty Name="DeliveryAddress" ColumnName="DeliveryAddress" />
-                <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1577,12 +1623,12 @@
           <EntitySetMapping Name="tbl_SuccessStories">
             <EntityTypeMapping TypeName="charitable_dbModel.tbl_SuccessStories">
               <MappingFragment StoreEntitySet="tbl_SuccessStories">
+                <ScalarProperty Name="CoverImage" ColumnName="CoverImage" />
                 <ScalarProperty Name="StoryID" ColumnName="StoryID" />
                 <ScalarProperty Name="NGO_ID" ColumnName="NGO_ID" />
                 <ScalarProperty Name="StoryTitle" ColumnName="StoryTitle" />
                 <ScalarProperty Name="PostedDate" ColumnName="PostedDate" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Picture" ColumnName="Picture" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1852,6 +1898,7 @@
           <EntitySetMapping Name="tbl_DonorReplies">
             <EntityTypeMapping TypeName="charitable_dbModel.tbl_DonorReplies">
               <MappingFragment StoreEntitySet="tbl_DonorReplies">
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
                 <ScalarProperty Name="isActive" ColumnName="isActive" />
                 <ScalarProperty Name="Image3" ColumnName="Image3" />
                 <ScalarProperty Name="Image2" ColumnName="Image2" />
@@ -1860,7 +1907,6 @@
                 <ScalarProperty Name="PostedDateTime" ColumnName="PostedDateTime" />
                 <ScalarProperty Name="Message" ColumnName="Message" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="Quanitity" ColumnName="Quanitity" />
                 <ScalarProperty Name="CaseID" ColumnName="CaseID" />
                 <ScalarProperty Name="DonorID" ColumnName="DonorID" />
                 <ScalarProperty Name="ReplyID" ColumnName="ReplyID" />
@@ -1872,6 +1918,15 @@
               <MappingFragment StoreEntitySet="tbl_Status">
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Feedback">
+            <EntityTypeMapping TypeName="charitable_dbModel.tbl_Feedback">
+              <MappingFragment StoreEntitySet="tbl_Feedback">
+                <ScalarProperty Name="Feedback" ColumnName="Feedback" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="FeedbackID" ColumnName="FeedbackID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

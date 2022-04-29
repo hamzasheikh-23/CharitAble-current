@@ -260,6 +260,9 @@
     <Compile Include="Models\tbl_DonorReplies.cs">
       <DependentUpon>CharitableEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tbl_Feedback.cs">
+      <DependentUpon>CharitableEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tbl_Invoices.cs">
       <DependentUpon>CharitableEntity.tt</DependentUpon>
     </Compile>

@@ -20,6 +20,7 @@ namespace CharitAble_current.Models
             this.tbl_Admin = new HashSet<tbl_Admin>();
             this.tbl_DonorMaster = new HashSet<tbl_DonorMaster>();
             this.tbl_NGOMaster = new HashSet<tbl_NGOMaster>();
+            this.tbl_Feedback = new HashSet<tbl_Feedback>();
         }
     
         public int UserID { get; set; }
@@ -43,5 +44,7 @@ namespace CharitAble_current.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_NGOMaster> tbl_NGOMaster { get; set; }
         public virtual tbl_UserType tbl_UserType { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbl_Feedback> tbl_Feedback { get; set; }
     }
 }

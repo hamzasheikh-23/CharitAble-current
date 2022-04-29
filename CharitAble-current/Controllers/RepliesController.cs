@@ -37,7 +37,7 @@ namespace CharitAble_current.Controllers
                 tbl_DonorReplies reply = new tbl_DonorReplies();
                 reply.DonorID = value.DonorId;
                 reply.CaseID = value.CaseId;
-                reply.Quanitity = value.Quantity;
+                reply.Quantity = value.Quantity;
                 reply.Address = value.Address;
                 reply.Message = value.Message;
                 reply.isActive = value.IsActive = isActive;
@@ -115,7 +115,7 @@ namespace CharitAble_current.Controllers
                                  where d.DonorID == x.DonorID
                                  select u.FirstName + " " + u.LastName).FirstOrDefault().Trim(),
                     CaseId = x.CaseID,
-                    Quantity = x.Quanitity,
+                    Quantity = x.Quantity,
                     Address = x.Address,
                     Message = x.Message,
                     StatusId = x.StatusID,
@@ -155,7 +155,7 @@ namespace CharitAble_current.Controllers
                 {
                     return Ok(reply);
                 }
-                return BadRequest((string)ret);
+                return BadRequest();
             }
             catch (Exception ex)
             {
@@ -182,7 +182,7 @@ namespace CharitAble_current.Controllers
                                  where d.DonorID == x.DonorID
                                  select u.FirstName + " " + u.LastName).FirstOrDefault().Trim(),
                     CaseId = x.CaseID,
-                    Quantity = x.Quanitity,
+                    Quantity = x.Quantity,
                     Address = x.Address,
                     Message = x.Message,
                     StatusId = x.StatusID,
@@ -222,7 +222,7 @@ namespace CharitAble_current.Controllers
                 {
                     return Ok(reply);
                 }
-                return BadRequest((string)ret);
+                return BadRequest();
             }
             catch (Exception ex)
             {
@@ -253,7 +253,7 @@ namespace CharitAble_current.Controllers
                                  where d.DonorID == x.DonorID
                                  select u.FirstName + " " + u.LastName).FirstOrDefault().Trim(),
                     CaseId = x.CaseID,
-                    Quantity = x.Quanitity,
+                    Quantity = x.Quantity,
                     Address = x.Address,
                     Message = x.Message,
                     StatusId = x.StatusID,
@@ -293,7 +293,7 @@ namespace CharitAble_current.Controllers
                 {
                     return Ok(reply);
                 }
-                return BadRequest((string)ret);
+                return BadRequest();
             }
             catch (Exception ex)
             {
@@ -320,7 +320,7 @@ namespace CharitAble_current.Controllers
                                  where d.DonorID == x.DonorID
                                  select u.FirstName + " " + u.LastName).FirstOrDefault().Trim(),
                     CaseId = x.CaseID,
-                    Quantity = x.Quanitity,
+                    Quantity = x.Quantity,
                     Address = x.Address,
                     Message = x.Message,
                     StatusId = x.StatusID,
@@ -360,7 +360,7 @@ namespace CharitAble_current.Controllers
                 {
                     return Ok(reply);
                 }
-                return BadRequest((string)ret);
+                return BadRequest();
             }
             catch (Exception ex)
             {
@@ -391,7 +391,7 @@ namespace CharitAble_current.Controllers
                                  where d.DonorID == x.DonorID
                                  select u.FirstName + " " + u.LastName).FirstOrDefault().Trim(),
                     CaseId = x.CaseID,
-                    Quantity = x.Quanitity,
+                    Quantity = x.Quantity,
                     Address = x.Address,
                     Message = x.Message,
                     StatusId = x.StatusID,
@@ -431,7 +431,7 @@ namespace CharitAble_current.Controllers
                 {
                     return Ok(reply);
                 }
-                return BadRequest((string)ret);
+                return BadRequest();
             }
             catch (Exception ex)
             {
@@ -504,7 +504,7 @@ namespace CharitAble_current.Controllers
 
                     var existingReply = dbx.tbl_DonorReplies.Where(x => x.ReplyID == id).FirstOrDefault();
 
-                    existingReply.Quanitity = value.Quantity;
+                    existingReply.Quantity = value.Quantity;
                     existingReply.Address = value.Address;
                     existingReply.Message = value.Message;
                     existingReply.StatusID = (from x in dbx.tbl_Status
@@ -562,15 +562,32 @@ namespace CharitAble_current.Controllers
         }
 
         //GET:reply/remainingQuantity/{caseId}
-        //[HttpGet]
-        //[Route("remainingQuantity")]
-        //public IHttpActionResult GetRemainingQuantity()
-        //{
-        //    var remainingQuantity = dbx.tbl_DonorReplies.Select(x => x.Quanitity).Sum().Where(x => x.CaseID == caseId);
+        [HttpGet]
+        [Route("remainingQuantity/{caseId}")]
+        public IHttpActionResult GetRemainingQuantity(int caseId)
+        {
+            try
+            {
+                var totalDonationsList = (from x in dbx.tbl_DonorReplies
+                                          where x.CaseID == caseId
+                                          select x).ToList();
 
-        //    object ret = new { remainingQuantity, code = 1 };
+                var sum = totalDonationsList.Sum(x => x.Quantity);
 
-        //    return Ok(ret);
-        //}
+                var quantity = (from x in dbx.tbl_Cases
+                                where x.CaseID == caseId
+                                select x.Quantity).SingleOrDefault();
+
+                var RemainingQuantity = quantity - sum;
+
+                object obj = new { RemainingQuantity };
+
+                return Ok(obj);
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex+": "+ex.Message+"");
+            }
+        }
     }
 }

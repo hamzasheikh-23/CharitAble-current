@@ -13,6 +13,7 @@ namespace CharitAble_current.Requests
         public int CaseId { get; set; }
         public byte Quantity { get; set; }
         public int RemainingQuantity { get; set; }
+        public int Sum { get; set; }
         public string Address { get; set; }
         public string Message { get; set; }
         public string Status { get; set; }

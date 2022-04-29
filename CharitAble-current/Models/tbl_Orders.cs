@@ -22,11 +22,10 @@ namespace CharitAble_current.Models
     
         public int OrderID { get; set; }
         public Nullable<int> NGO_ID { get; set; }
-        public string StoryTitle { get; set; }
-        public Nullable<System.DateTime> OrderDate { get; set; }
-        public Nullable<System.TimeSpan> OrderTime { get; set; }
         public string DeliveryAddress { get; set; }
-        public string OrderStatus { get; set; }
+        public Nullable<int> CaseID { get; set; }
+        public Nullable<System.DateTime> OrderDateTime { get; set; }
+        public Nullable<int> StatusID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_Invoices> tbl_Invoices { get; set; }

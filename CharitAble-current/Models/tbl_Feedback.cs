@@ -12,15 +12,12 @@ namespace CharitAble_current.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class tbl_SuccessStories
+    public partial class tbl_Feedback
     {
-        public int StoryID { get; set; }
-        public Nullable<int> NGO_ID { get; set; }
-        public string StoryTitle { get; set; }
-        public Nullable<System.DateTime> PostedDate { get; set; }
-        public string Description { get; set; }
-        public string CoverImage { get; set; }
+        public int FeedbackID { get; set; }
+        public int UserID { get; set; }
+        public string Feedback { get; set; }
     
-        public virtual tbl_NGOMaster tbl_NGOMaster { get; set; }
+        public virtual tbl_Users tbl_Users { get; set; }
     }
 }

@@ -554,7 +554,7 @@ namespace CharitAble_current.Controllers
                     existingDonation.Description = value.Description;
                     existingDonation.Rating = value.Rating;
                     existingDonation.Condition = value.ConditionId;
-                    existingDonation.Category = value.CategoryId;
+                    existingDonation.Category = value.Category;
                     existingDonation.Address = value.Address;
 
                     if (!string.IsNullOrEmpty(value.Image1Name))
