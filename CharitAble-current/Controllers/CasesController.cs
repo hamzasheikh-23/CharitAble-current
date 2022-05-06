@@ -55,13 +55,13 @@ namespace CharitAble_current.Controllers
 
                 if (!string.IsNullOrEmpty(value.ImageName))
                 {
-                    string imagePath = @"D:\fyp-frontend\src\serverImages\cases" + value.ImageName;
+                    string imagePath = @"D:\fyp-frontend\src\serverImages\cases\" + value.ImageName;
                     FileInfo fi = new FileInfo(imagePath);
                     Guid obj = Guid.NewGuid();
-                    imagePath = @"D:\fyp-frontend\src\serverImages\cases" + obj.ToString() + fi.Extension;
+                    imagePath = @"D:\fyp-frontend\src\serverImages\cases\" + obj.ToString() + fi.Extension;
                     var cleanerBase = value.ImageBase64.Substring(value.ImageBase64.LastIndexOf(',') + 1);
                     File.WriteAllBytes(imagePath, Convert.FromBase64String(cleanerBase));
-                    value.CoverImage = imagePath;
+                    cases.CoverImage = imagePath;
                 }
 
 
@@ -451,7 +451,7 @@ namespace CharitAble_current.Controllers
 
         [HttpPut]
         [Route("edit/{id}")]
-        public IHttpActionResult UpdateDonation(int id, CaseRequest value)
+        public IHttpActionResult Update(int id, CaseRequest value)
         {
             try
             {
@@ -479,10 +479,10 @@ namespace CharitAble_current.Controllers
 
                     if (!string.IsNullOrEmpty(value.ImageName))
                     {
-                        string imagePath = @"D:\fyp-frontend\src\serverImages\cases" + value.ImageName;
+                        string imagePath = @"D:\fyp-frontend\src\serverImages\cases\" + value.ImageName;
                         FileInfo fi = new FileInfo(imagePath);
                         Guid obj = Guid.NewGuid();
-                        imagePath = @"D:\fyp-frontend\src\serverImages\cases" + obj.ToString() + fi.Extension;
+                        imagePath = @"D:\fyp-frontend\src\serverImages\cases\" + obj.ToString() + fi.Extension;
                         var cleanerBase = value.ImageBase64.Substring(value.ImageBase64.LastIndexOf(',') + 1);
                         File.WriteAllBytes(imagePath, Convert.FromBase64String(cleanerBase));
                         existingCase.CoverImage = imagePath;

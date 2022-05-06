@@ -46,10 +46,10 @@ namespace CharitAble_current.Controllers
 
                 if (!string.IsNullOrEmpty(value.Image1Name))
                 {
-                    string imagePath1 = @"D:\fyp-frontend\src\serverImages\donorReplies" + value.Image1Name;
+                    string imagePath1 = @"D:\fyp-frontend\src\serverImages\donorReplies\" + value.Image1Name;
                     FileInfo fi = new FileInfo(imagePath1);
                     Guid obj = Guid.NewGuid();
-                    imagePath1 = @"D:\fyp-frontend\src\serverImages\donorReplies" + obj.ToString() + fi.Extension;
+                    imagePath1 = @"D:\fyp-frontend\src\serverImages\donorReplies\" + obj.ToString() + fi.Extension;
                     var cleanerBase1 = value.Image1Base64.Substring(value.Image1Base64.LastIndexOf(',') + 1);
                     File.WriteAllBytes(imagePath1, Convert.FromBase64String(cleanerBase1));
                     reply.Image1 = imagePath1;
@@ -57,10 +57,10 @@ namespace CharitAble_current.Controllers
 
                 if (!string.IsNullOrEmpty(value.Image2Name))
                 {
-                    string imagePath2 = @"D:\fyp-frontend\src\serverImages\donorReplies" + value.Image2Name;
+                    string imagePath2 = @"D:\fyp-frontend\src\serverImages\donorReplies\" + value.Image2Name;
                     FileInfo fi = new FileInfo(imagePath2);
                     Guid obj = Guid.NewGuid();
-                    imagePath2 = @"D:\fyp-frontend\src\serverImages\donorReplies" + obj.ToString() + fi.Extension;
+                    imagePath2 = @"D:\fyp-frontend\src\serverImages\donorReplies\" + obj.ToString() + fi.Extension;
                     var cleanerBase2 = value.Image2Base64.Substring(value.Image2Base64.LastIndexOf(',') + 1);
                     File.WriteAllBytes(imagePath2, Convert.FromBase64String(cleanerBase2));
                     reply.Image2 = imagePath2;
@@ -68,10 +68,10 @@ namespace CharitAble_current.Controllers
 
                 if (!string.IsNullOrEmpty(value.Image3Name))
                 {
-                    string imagePath3 = @"D:\fyp-frontend\src\serverImages\donorReplies" + value.Image3Name;
+                    string imagePath3 = @"D:\fyp-frontend\src\serverImages\donorReplies\" + value.Image3Name;
                     FileInfo fi = new FileInfo(imagePath3);
                     Guid obj = Guid.NewGuid();
-                    imagePath3 = @"D:\fyp-frontend\src\serverImages\donorReplies" + obj.ToString() + fi.Extension;
+                    imagePath3 = @"D:\fyp-frontend\src\serverImages\donorReplies\" + obj.ToString() + fi.Extension;
                     var cleanerBase3 = value.Image3Base64.Substring(value.Image3Base64.LastIndexOf(',') + 1);
                     File.WriteAllBytes(imagePath3, Convert.FromBase64String(cleanerBase3));
                     reply.Image3 = imagePath3;
@@ -493,7 +493,7 @@ namespace CharitAble_current.Controllers
 
         [HttpPut]
         [Route("edit/{id}")]
-        public IHttpActionResult UpdateDonation(int id, ReplyRequest value)
+        public IHttpActionResult Update(int id, ReplyRequest value)
         {
             try
             {
@@ -514,10 +514,10 @@ namespace CharitAble_current.Controllers
 
                     if (!string.IsNullOrEmpty(value.Image1Name))
                     {
-                        string imagePath1 = @"D:\fyp-frontend\src\serverImages\donorReplies" + value.Image1Name;
+                        string imagePath1 = @"D:\fyp-frontend\src\serverImages\donorReplies\" + value.Image1Name;
                         FileInfo fi = new FileInfo(imagePath1);
                         Guid obj = Guid.NewGuid();
-                        imagePath1 = @"D:\fyp-frontend\src\serverImages\donorReplies" + obj.ToString() + fi.Extension;
+                        imagePath1 = @"D:\fyp-frontend\src\serverImages\donorReplies\" + obj.ToString() + fi.Extension;
                         var cleanerBase1 = value.Image1Base64.Substring(value.Image1Base64.LastIndexOf(',') + 1);
                         File.WriteAllBytes(imagePath1, Convert.FromBase64String(cleanerBase1));
                         existingReply.Image1 = imagePath1;
@@ -525,10 +525,10 @@ namespace CharitAble_current.Controllers
 
                     if (!string.IsNullOrEmpty(value.Image2Name))
                     {
-                        string imagePath2 = @"D:\fyp-frontend\src\serverImages\donorReplies" + value.Image2Name;
+                        string imagePath2 = @"D:\fyp-frontend\src\serverImages\donorReplies\" + value.Image2Name;
                         FileInfo fi = new FileInfo(imagePath2);
                         Guid obj = Guid.NewGuid();
-                        imagePath2 = @"D:\fyp-frontend\src\serverImages\donorReplies" + obj.ToString() + fi.Extension;
+                        imagePath2 = @"D:\fyp-frontend\src\serverImages\donorReplies\" + obj.ToString() + fi.Extension;
                         var cleanerBase2 = value.Image2Base64.Substring(value.Image2Base64.LastIndexOf(',') + 1);
                         File.WriteAllBytes(imagePath2, Convert.FromBase64String(cleanerBase2));
                         existingReply.Image2 = imagePath2;
@@ -539,7 +539,7 @@ namespace CharitAble_current.Controllers
                         string imagePath3 = @"D:\fyp-frontend\src\serverImages\donorReplies" + value.Image3Name;
                         FileInfo fi = new FileInfo(imagePath3);
                         Guid obj = Guid.NewGuid();
-                        imagePath3 = @"D:\fyp-frontend\src\serverImages\donorReplies" + obj.ToString() + fi.Extension;
+                        imagePath3 = @"D:\fyp-frontend\src\serverImages\donorReplies\" + obj.ToString() + fi.Extension;
                         var cleanerBase3 = value.Image3Base64.Substring(value.Image3Base64.LastIndexOf(',') + 1);
                         File.WriteAllBytes(imagePath3, Convert.FromBase64String(cleanerBase3));
                         existingReply.Image3 = imagePath3;

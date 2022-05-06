@@ -196,7 +196,9 @@
           <Property Name="PlanID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="PlanName" Type="varchar" MaxLength="30" />
           <Property Name="Amount" Type="smallmoney" />
+          <Property Name="AdminID" Type="int" />
           <Property Name="Description" Type="varchar" MaxLength="500" />
+          <Property Name="isActive" Type="varchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="tbl_SuccessStories">
           <Key>
@@ -471,6 +473,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__tbl_Subsc__Admin__13F1F5EB">
+          <End Role="tbl_Admin" Type="Self.tbl_Admin" Multiplicity="0..1" />
+          <End Role="tbl_SubscriptionPlan" Type="Self.tbl_SubscriptionPlan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Admin">
+              <PropertyRef Name="AdminID" />
+            </Principal>
+            <Dependent Role="tbl_SubscriptionPlan">
+              <PropertyRef Name="AdminID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__tbl_Succe__NGO_I__38996AB5">
           <End Role="tbl_NGOMaster" Type="Self.tbl_NGOMaster" Multiplicity="0..1" />
           <End Role="tbl_SuccessStories" Type="Self.tbl_SuccessStories" Multiplicity="*" />
@@ -675,6 +689,10 @@
             <End Role="tbl_DonorReplies" EntitySet="tbl_DonorReplies" />
             <End Role="tbl_Orders" EntitySet="tbl_Orders" />
           </AssociationSet>
+          <AssociationSet Name="FK__tbl_Subsc__Admin__13F1F5EB" Association="Self.FK__tbl_Subsc__Admin__13F1F5EB">
+            <End Role="tbl_Admin" EntitySet="tbl_Admin" />
+            <End Role="tbl_SubscriptionPlan" EntitySet="tbl_SubscriptionPlan" />
+          </AssociationSet>
           <AssociationSet Name="FK__tbl_Succe__NGO_I__38996AB5" Association="Self.FK__tbl_Succe__NGO_I__38996AB5">
             <End Role="tbl_NGOMaster" EntitySet="tbl_NGOMaster" />
             <End Role="tbl_SuccessStories" EntitySet="tbl_SuccessStories" />
@@ -700,6 +718,7 @@
           <Property Name="UserID" Type="Int32" />
           <NavigationProperty Name="tbl_Users" Relationship="Self.FK__Admin__UserID__2E1BDC42" FromRole="tbl_Admin" ToRole="tbl_Users" />
           <NavigationProperty Name="tbl_MaterialMaster" Relationship="Self.FK__tbl_Mater__Admin__4AB81AF0" FromRole="tbl_Admin" ToRole="tbl_MaterialMaster" />
+          <NavigationProperty Name="tbl_SubscriptionPlan" Relationship="charitable_dbModel.FK__tbl_Subsc__Admin__13F1F5EB" FromRole="tbl_Admin" ToRole="tbl_SubscriptionPlan" />
         </EntityType>
         <EntityType Name="tbl_Cases">
           <Key>
@@ -838,6 +857,9 @@
           <Property Name="PlanName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="Amount" Type="Decimal" Precision="10" Scale="4" />
           <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="isActive" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="AdminID" Type="Int32" />
+          <NavigationProperty Name="tbl_Admin" Relationship="charitable_dbModel.FK__tbl_Subsc__Admin__13F1F5EB" FromRole="tbl_SubscriptionPlan" ToRole="tbl_Admin" />
         </EntityType>
         <EntityType Name="tbl_SuccessStories">
           <Key>
@@ -1225,6 +1247,10 @@
             <End Role="tbl_Status" EntitySet="tbl_Status" />
             <End Role="tbl_SuccessStories" EntitySet="tbl_SuccessStories" />
           </AssociationSet>
+          <AssociationSet Name="FK__tbl_Subsc__Admin__13F1F5EB" Association="charitable_dbModel.FK__tbl_Subsc__Admin__13F1F5EB">
+            <End Role="tbl_Admin" EntitySet="tbl_Admin" />
+            <End Role="tbl_SubscriptionPlan" EntitySet="tbl_SubscriptionPlan" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="SP_SelectAllAdmins_Result">
           <Property Type="Int32" Name="AdminID" Nullable="false" />
@@ -1558,6 +1584,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__tbl_Subsc__Admin__13F1F5EB">
+          <End Type="charitable_dbModel.tbl_Admin" Role="tbl_Admin" Multiplicity="0..1" />
+          <End Type="charitable_dbModel.tbl_SubscriptionPlan" Role="tbl_SubscriptionPlan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Admin">
+              <PropertyRef Name="AdminID" />
+            </Principal>
+            <Dependent Role="tbl_SubscriptionPlan">
+              <PropertyRef Name="AdminID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1690,6 +1728,8 @@
           <EntitySetMapping Name="tbl_SubscriptionPlan">
             <EntityTypeMapping TypeName="charitable_dbModel.tbl_SubscriptionPlan">
               <MappingFragment StoreEntitySet="tbl_SubscriptionPlan">
+                <ScalarProperty Name="AdminID" ColumnName="AdminID" />
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
                 <ScalarProperty Name="PlanID" ColumnName="PlanID" />
                 <ScalarProperty Name="PlanName" ColumnName="PlanName" />
                 <ScalarProperty Name="Amount" ColumnName="Amount" />

@@ -294,6 +294,27 @@ namespace CharitAble_current.Controllers
                     Image3 = x.Image3,
                 }).Where(x => x.Status == status).ToList();
 
+                foreach (DonationRequest item in donations)
+                {
+                    if (!string.IsNullOrWhiteSpace(item.Image1))
+                    {
+                        string imagePath1 = item.Image1;
+                        FileInfo fi = new FileInfo(imagePath1);
+                        item.Image1Name = fi.Name;
+                    }
+                    if (!string.IsNullOrWhiteSpace(item.Image2))
+                    {
+                        string imagePath2 = item.Image2;
+                        FileInfo fi = new FileInfo(imagePath2);
+                        item.Image2Name = fi.Name;
+                    }
+                    if (!string.IsNullOrWhiteSpace(item.Image3))
+                    {
+                        string imagePath3 = item.Image3;
+                        FileInfo fi = new FileInfo(imagePath3);
+                        item.Image3Name = fi.Name;
+                    }
+                }
                 return Ok(donations);
             }
             catch (Exception ex)
@@ -342,6 +363,27 @@ namespace CharitAble_current.Controllers
                     Image3 = x.Image3,
                 }).Where(x => x.DonorId == donorId && x.Status == status).ToList();
 
+                foreach (DonationRequest item in donations)
+                {
+                    if (!string.IsNullOrWhiteSpace(item.Image1))
+                    {
+                        string imagePath1 = item.Image1;
+                        FileInfo fi = new FileInfo(imagePath1);
+                        item.Image1Name = fi.Name;
+                    }
+                    if (!string.IsNullOrWhiteSpace(item.Image2))
+                    {
+                        string imagePath2 = item.Image2;
+                        FileInfo fi = new FileInfo(imagePath2);
+                        item.Image2Name = fi.Name;
+                    }
+                    if (!string.IsNullOrWhiteSpace(item.Image3))
+                    {
+                        string imagePath3 = item.Image3;
+                        FileInfo fi = new FileInfo(imagePath3);
+                        item.Image3Name = fi.Name;
+                    }
+                }
                 return Ok(donations);
             }
             catch (Exception ex)
@@ -392,6 +434,27 @@ namespace CharitAble_current.Controllers
                     Image3 = x.Image3,
                 }).Where(x => x.DonorId == donorId && x.IsActive == isActive).ToList();
 
+                foreach (DonationRequest item in donations)
+                {
+                    if (!string.IsNullOrWhiteSpace(item.Image1))
+                    {
+                        string imagePath1 = item.Image1;
+                        FileInfo fi = new FileInfo(imagePath1);
+                        item.Image1Name = fi.Name;
+                    }
+                    if (!string.IsNullOrWhiteSpace(item.Image2))
+                    {
+                        string imagePath2 = item.Image2;
+                        FileInfo fi = new FileInfo(imagePath2);
+                        item.Image2Name = fi.Name;
+                    }
+                    if (!string.IsNullOrWhiteSpace(item.Image3))
+                    {
+                        string imagePath3 = item.Image3;
+                        FileInfo fi = new FileInfo(imagePath3);
+                        item.Image3Name = fi.Name;
+                    }
+                }
                 return Ok(donations);
             }
             catch (Exception ex)
@@ -442,6 +505,27 @@ namespace CharitAble_current.Controllers
                     Image3 = x.Image3,
                 }).Where(x => x.DonorId == donorId && x.Status == status && x.IsActive == isActive).ToList();
 
+                foreach (DonationRequest item in donations)
+                {
+                    if (!string.IsNullOrWhiteSpace(item.Image1))
+                    {
+                        string imagePath1 = item.Image1;
+                        FileInfo fi = new FileInfo(imagePath1);
+                        item.Image1Name = fi.Name;
+                    }
+                    if (!string.IsNullOrWhiteSpace(item.Image2))
+                    {
+                        string imagePath2 = item.Image2;
+                        FileInfo fi = new FileInfo(imagePath2);
+                        item.Image2Name = fi.Name;
+                    }
+                    if (!string.IsNullOrWhiteSpace(item.Image3))
+                    {
+                        string imagePath3 = item.Image3;
+                        FileInfo fi = new FileInfo(imagePath3);
+                        item.Image3Name = fi.Name;
+                    }
+                }
                 return Ok(donations);
             }
             catch (Exception ex)
@@ -649,6 +733,5 @@ namespace CharitAble_current.Controllers
                 return BadRequest(ex + " : '" + ex.Message + "'");
             }
         }
-
     }
 }

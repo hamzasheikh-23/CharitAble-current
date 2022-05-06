@@ -18,5 +18,9 @@ namespace CharitAble_current.Models
         public string PlanName { get; set; }
         public Nullable<decimal> Amount { get; set; }
         public string Description { get; set; }
+        public string isActive { get; set; }
+        public Nullable<int> AdminID { get; set; }
+    
+        public virtual tbl_Admin tbl_Admin { get; set; }
     }
 }

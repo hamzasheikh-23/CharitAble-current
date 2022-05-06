@@ -49,6 +49,7 @@
         <AssociationConnector Association="charitable_dbModel.FK__tbl_Feedb__UserI__756D6ECB" />
         <AssociationConnector Association="charitable_dbModel.FK__tbl_Order__Reply__0A688BB1" />
         <AssociationConnector Association="charitable_dbModel.FK__tbl_Succe__Statu__11158940" />
+        <AssociationConnector Association="charitable_dbModel.FK__tbl_Subsc__Admin__13F1F5EB" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -18,6 +18,7 @@ namespace CharitAble_current.Models
         public tbl_Admin()
         {
             this.tbl_MaterialMaster = new HashSet<tbl_MaterialMaster>();
+            this.tbl_SubscriptionPlan = new HashSet<tbl_SubscriptionPlan>();
         }
     
         public int AdminID { get; set; }
@@ -26,5 +27,7 @@ namespace CharitAble_current.Models
         public virtual tbl_Users tbl_Users { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_MaterialMaster> tbl_MaterialMaster { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbl_SubscriptionPlan> tbl_SubscriptionPlan { get; set; }
     }
 }

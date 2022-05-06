@@ -15,6 +15,47 @@ namespace CharitAble_current.Controllers
 
         private charitable_dbEntities1 dbx = new charitable_dbEntities1();
 
+        [HttpPost]
+        [Route("post")]
+        public IHttpActionResult Post(SubscriptionRequest value)
+        {
+            try
+            {
+                object ret = new
+                {
+                    code = "0",
+                    status = "Posting subscription plan failed"
+                };
+
+
+                var isActive = "true";
+
+                tbl_SubscriptionPlan subs = new tbl_SubscriptionPlan
+                {
+                    PlanName = value.PlanName,
+                    Amount = value.Amount,
+                    Description = value.Description,
+                    isActive = value.IsActive = isActive
+                };
+
+                dbx.tbl_SubscriptionPlan.AddOrUpdate(subs);
+                var result = dbx.SaveChanges();
+
+                if (result != 0)
+                {
+                    ret = new
+                    {
+                        code = "1",
+                        status = "story posted successfully"
+                    };
+                }
+                return Ok(ret);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("'" + ex + ": " + ex.Message + "'");
+            }
+        }
 
         // GET: Subscription
         [HttpGet]
@@ -26,10 +67,12 @@ namespace CharitAble_current.Controllers
                 var subscription = dbx.tbl_SubscriptionPlan.Select(x =>
                 new SubscriptionRequest()
                 {
+                    AdminId = x.AdminID,
                     PlanId = x.PlanID,
                     PlanName = x.PlanName,
                     Amount = x.Amount,
-                    Description = x.Description
+                    Description = x.Description,
+                    IsActive = x.isActive
                 }).ToList();
 
                 if (subscription.Count > 0)
@@ -48,6 +91,89 @@ namespace CharitAble_current.Controllers
             }
         }
 
+        //PUT: subscription/delete/{id}
+
+        [HttpPut]
+        [Route("delete/{id}")]
+        public IHttpActionResult Delete(int id)
+        {
+            try
+            {
+                object ret = new { isSuccess = false };
+                var subscriptionIds = (from x in dbx.tbl_SubscriptionPlan select x.PlanID).ToList();
+
+                if (subscriptionIds.Contains(id))
+                {
+
+                    SubscriptionRequest subs = new SubscriptionRequest();
+                    ;
+                    subs.IsActive = "false";
+
+                    var existingPlan = dbx.tbl_SubscriptionPlan.Where(x => x.PlanID == id).FirstOrDefault();
+
+                    existingPlan.isActive = subs.IsActive;
+
+                    dbx.tbl_SubscriptionPlan.AddOrUpdate(existingPlan);
+                    var result = dbx.SaveChanges();
+
+                    if (result > 0)
+                    {
+                        ret = new { isSuccess = true };
+                        return Ok(ret);
+                    }
+                    else
+                    {
+                        return NotFound();
+                    }
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("'" + ex + ": " + ex.Message + "'");
+
+            }
+        }
+
+        //PUT:subscription/edit/{id}
+
+        [HttpPut]
+        [Route("edit/{id}")]
+        public IHttpActionResult Update(int id, SubscriptionRequest value)
+        {
+            try
+            {
+                var planIds = (from x in dbx.tbl_SubscriptionPlan select x.PlanID).ToList();
+
+                if (planIds.Contains(id))
+                {
+
+                    var existingPlan = dbx.tbl_SubscriptionPlan.Where(x => x.PlanID == id).FirstOrDefault();
+
+                    existingPlan.PlanName = value.PlanName;
+                    existingPlan.Amount = value.Amount;
+                    existingPlan.Description = value.Description;
+
+                    dbx.tbl_SubscriptionPlan.AddOrUpdate(existingPlan);
+                    dbx.SaveChanges();
+
+                    return Ok("record updated successfully");
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("'" + ex + ": " + ex.Message + "'");
+            }
+        }
+
+        //PUT: subscription/assign
 
         [HttpPut]
         [Route("assign")]
@@ -82,6 +208,8 @@ namespace CharitAble_current.Controllers
                    "ErrorMessage: '" + ex.Message + "'");
             }
         }
+
+        //GET: subscription/validate
 
         [HttpGet]
         [Route("validate")]
