@@ -20,7 +20,10 @@ namespace CharitAble_current.Models
         public Nullable<System.DateTime> PostedDate { get; set; }
         public string Description { get; set; }
         public string CoverImage { get; set; }
+        public Nullable<int> StatusID { get; set; }
+        public string isActive { get; set; }
     
         public virtual tbl_NGOMaster tbl_NGOMaster { get; set; }
+        public virtual tbl_Status tbl_Status { get; set; }
     }
 }

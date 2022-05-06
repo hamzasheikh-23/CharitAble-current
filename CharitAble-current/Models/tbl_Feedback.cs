@@ -17,6 +17,7 @@ namespace CharitAble_current.Models
         public int FeedbackID { get; set; }
         public int UserID { get; set; }
         public string Feedback { get; set; }
+        public System.DateTime PostedDateTime { get; set; }
     
         public virtual tbl_Users tbl_Users { get; set; }
     }

@@ -103,6 +103,7 @@
           <Property Name="FeedbackID" Type="int" Nullable="false" />
           <Property Name="UserID" Type="int" Nullable="false" />
           <Property Name="Feedback" Type="varchar" MaxLength="200" />
+          <Property Name="PostedDateTime" Type="smalldatetime" Nullable="false" />
         </EntityType>
         <EntityType Name="tbl_Invoices">
           <Key>
@@ -167,6 +168,7 @@
           <Property Name="OrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="NGO_ID" Type="int" />
           <Property Name="CaseID" Type="int" />
+          <Property Name="ReplyID" Type="int" />
           <Property Name="OrderDateTime" Type="smalldatetime" />
           <Property Name="DeliveryAddress" Type="varchar(max)" />
           <Property Name="StatusID" Type="int" />
@@ -204,8 +206,10 @@
           <Property Name="NGO_ID" Type="int" />
           <Property Name="StoryTitle" Type="varchar" MaxLength="50" />
           <Property Name="PostedDate" Type="smalldatetime" />
-          <Property Name="Description" Type="varchar" MaxLength="500" />
+          <Property Name="Description" Type="varchar(max)" />
+          <Property Name="StatusID" Type="int" />
           <Property Name="CoverImage" Type="varchar" MaxLength="200" />
+          <Property Name="isActive" Type="varchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="tbl_Units">
           <Key>
@@ -455,6 +459,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__tbl_Order__Reply__0A688BB1">
+          <End Role="tbl_DonorReplies" Type="Self.tbl_DonorReplies" Multiplicity="0..1" />
+          <End Role="tbl_Orders" Type="Self.tbl_Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_DonorReplies">
+              <PropertyRef Name="ReplyID" />
+            </Principal>
+            <Dependent Role="tbl_Orders">
+              <PropertyRef Name="ReplyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__tbl_Succe__NGO_I__38996AB5">
           <End Role="tbl_NGOMaster" Type="Self.tbl_NGOMaster" Multiplicity="0..1" />
           <End Role="tbl_SuccessStories" Type="Self.tbl_SuccessStories" Multiplicity="*" />
@@ -464,6 +480,18 @@
             </Principal>
             <Dependent Role="tbl_SuccessStories">
               <PropertyRef Name="NGO_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_Succe__Statu__11158940">
+          <End Role="tbl_Status" Type="Self.tbl_Status" Multiplicity="0..1" />
+          <End Role="tbl_SuccessStories" Type="Self.tbl_SuccessStories" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Status">
+              <PropertyRef Name="StatusID" />
+            </Principal>
+            <Dependent Role="tbl_SuccessStories">
+              <PropertyRef Name="StatusID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -643,8 +671,16 @@
             <End Role="tbl_NGOMaster" EntitySet="tbl_NGOMaster" />
             <End Role="tbl_Orders" EntitySet="tbl_Orders" />
           </AssociationSet>
+          <AssociationSet Name="FK__tbl_Order__Reply__0A688BB1" Association="Self.FK__tbl_Order__Reply__0A688BB1">
+            <End Role="tbl_DonorReplies" EntitySet="tbl_DonorReplies" />
+            <End Role="tbl_Orders" EntitySet="tbl_Orders" />
+          </AssociationSet>
           <AssociationSet Name="FK__tbl_Succe__NGO_I__38996AB5" Association="Self.FK__tbl_Succe__NGO_I__38996AB5">
             <End Role="tbl_NGOMaster" EntitySet="tbl_NGOMaster" />
+            <End Role="tbl_SuccessStories" EntitySet="tbl_SuccessStories" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_Succe__Statu__11158940" Association="Self.FK__tbl_Succe__Statu__11158940">
+            <End Role="tbl_Status" EntitySet="tbl_Status" />
             <End Role="tbl_SuccessStories" EntitySet="tbl_SuccessStories" />
           </AssociationSet>
           <AssociationSet Name="FK__tbl_Users__UserT__160F4887" Association="Self.FK__tbl_Users__UserT__160F4887">
@@ -782,6 +818,8 @@
           <Property Name="CaseID" Type="Int32" />
           <Property Name="OrderDateTime" Type="DateTime" Precision="0" />
           <Property Name="StatusID" Type="Int32" />
+          <Property Name="ReplyID" Type="Int32" />
+          <NavigationProperty Name="tbl_DonorReplies" Relationship="charitable_dbModel.FK__tbl_Order__Reply__0A688BB1" FromRole="tbl_Orders" ToRole="tbl_DonorReplies" />
         </EntityType>
         <EntityType Name="tbl_PaymentInfo">
           <Key>
@@ -809,9 +847,12 @@
           <Property Name="NGO_ID" Type="Int32" />
           <Property Name="StoryTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="PostedDate" Type="DateTime" Precision="0" />
-          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="tbl_NGOMaster" Relationship="Self.FK__tbl_Succe__NGO_I__38996AB5" FromRole="tbl_SuccessStories" ToRole="tbl_NGOMaster" />
           <Property Name="CoverImage" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="StatusID" Type="Int32" />
+          <Property Name="isActive" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tbl_Status" Relationship="charitable_dbModel.FK__tbl_Succe__Statu__11158940" FromRole="tbl_SuccessStories" ToRole="tbl_Status" />
         </EntityType>
         <EntityType Name="tbl_Users">
           <Key>
@@ -1176,6 +1217,14 @@
             <End Role="tbl_Users" EntitySet="tbl_Users" />
             <End Role="tbl_Feedback" EntitySet="tbl_Feedback" />
           </AssociationSet>
+          <AssociationSet Name="FK__tbl_Order__Reply__0A688BB1" Association="charitable_dbModel.FK__tbl_Order__Reply__0A688BB1">
+            <End Role="tbl_DonorReplies" EntitySet="tbl_DonorReplies" />
+            <End Role="tbl_Orders" EntitySet="tbl_Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_Succe__Statu__11158940" Association="charitable_dbModel.FK__tbl_Succe__Statu__11158940">
+            <End Role="tbl_Status" EntitySet="tbl_Status" />
+            <End Role="tbl_SuccessStories" EntitySet="tbl_SuccessStories" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="SP_SelectAllAdmins_Result">
           <Property Type="Int32" Name="AdminID" Nullable="false" />
@@ -1403,6 +1452,7 @@
           <NavigationProperty Name="tbl_Status" Relationship="charitable_dbModel.FK__tbl_Donor__Statu__6BE40491" FromRole="tbl_DonorReplies" ToRole="tbl_Status" />
           <Property Name="isActive" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
           <Property Name="Quantity" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="tbl_Orders" Relationship="charitable_dbModel.FK__tbl_Order__Reply__0A688BB1" FromRole="tbl_DonorReplies" ToRole="tbl_Orders" />
         </EntityType>
         <EntityType Name="tbl_Status">
           <Key>
@@ -1412,6 +1462,7 @@
           <Property Name="Status" Type="String" Nullable="false" MaxLength="15" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="tbl_Donations" Relationship="charitable_dbModel.FK__tbl_Donat__Statu__208CD6FA1" FromRole="tbl_Status" ToRole="tbl_Donations" />
           <NavigationProperty Name="tbl_DonorReplies" Relationship="charitable_dbModel.FK__tbl_Donor__Statu__6BE40491" FromRole="tbl_Status" ToRole="tbl_DonorReplies" />
+          <NavigationProperty Name="tbl_SuccessStories" Relationship="charitable_dbModel.FK__tbl_Succe__Statu__11158940" FromRole="tbl_Status" ToRole="tbl_SuccessStories" />
         </EntityType>
         <Association Name="FK__tbl_Donor__CaseI__634EBE90">
           <End Type="charitable_dbModel.tbl_Cases" Role="tbl_Cases" Multiplicity="1" />
@@ -1469,6 +1520,7 @@
           <Property Name="UserID" Type="Int32" Nullable="false" />
           <Property Name="Feedback" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="tbl_Users" Relationship="charitable_dbModel.FK__tbl_Feedb__UserI__756D6ECB" FromRole="tbl_Feedback" ToRole="tbl_Users" />
+          <Property Name="PostedDateTime" Type="DateTime" Nullable="false" Precision="0" />
         </EntityType>
         <Association Name="FK__tbl_Feedb__UserI__756D6ECB">
           <End Type="charitable_dbModel.tbl_Users" Role="tbl_Users" Multiplicity="1" />
@@ -1479,6 +1531,30 @@
             </Principal>
             <Dependent Role="tbl_Feedback">
               <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_Order__Reply__0A688BB1">
+          <End Type="charitable_dbModel.tbl_DonorReplies" Role="tbl_DonorReplies" Multiplicity="0..1" />
+          <End Type="charitable_dbModel.tbl_Orders" Role="tbl_Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_DonorReplies">
+              <PropertyRef Name="ReplyID" />
+            </Principal>
+            <Dependent Role="tbl_Orders">
+              <PropertyRef Name="ReplyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_Succe__Statu__11158940">
+          <End Type="charitable_dbModel.tbl_Status" Role="tbl_Status" Multiplicity="0..1" />
+          <End Type="charitable_dbModel.tbl_SuccessStories" Role="tbl_SuccessStories" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Status">
+              <PropertyRef Name="StatusID" />
+            </Principal>
+            <Dependent Role="tbl_SuccessStories">
+              <PropertyRef Name="StatusID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1591,6 +1667,7 @@
           <EntitySetMapping Name="tbl_Orders">
             <EntityTypeMapping TypeName="charitable_dbModel.tbl_Orders">
               <MappingFragment StoreEntitySet="tbl_Orders">
+                <ScalarProperty Name="ReplyID" ColumnName="ReplyID" />
                 <ScalarProperty Name="StatusID" ColumnName="StatusID" />
                 <ScalarProperty Name="OrderDateTime" ColumnName="OrderDateTime" />
                 <ScalarProperty Name="CaseID" ColumnName="CaseID" />
@@ -1623,6 +1700,8 @@
           <EntitySetMapping Name="tbl_SuccessStories">
             <EntityTypeMapping TypeName="charitable_dbModel.tbl_SuccessStories">
               <MappingFragment StoreEntitySet="tbl_SuccessStories">
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
                 <ScalarProperty Name="CoverImage" ColumnName="CoverImage" />
                 <ScalarProperty Name="StoryID" ColumnName="StoryID" />
                 <ScalarProperty Name="NGO_ID" ColumnName="NGO_ID" />
@@ -1924,6 +2003,7 @@
           <EntitySetMapping Name="tbl_Feedback">
             <EntityTypeMapping TypeName="charitable_dbModel.tbl_Feedback">
               <MappingFragment StoreEntitySet="tbl_Feedback">
+                <ScalarProperty Name="PostedDateTime" ColumnName="PostedDateTime" />
                 <ScalarProperty Name="Feedback" ColumnName="Feedback" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="FeedbackID" ColumnName="FeedbackID" />

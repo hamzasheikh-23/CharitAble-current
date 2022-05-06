@@ -96,7 +96,7 @@ namespace CharitAble_current.Controllers
             }
         }
 
-        // GET: case/get
+        // GET: reply/get
         [HttpGet]
         [Route("get")]
         public IHttpActionResult Get()
@@ -584,9 +584,9 @@ namespace CharitAble_current.Controllers
 
                 return Ok(obj);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                return BadRequest(ex+": "+ex.Message+"");
+                return BadRequest(ex + ": " + ex.Message + "");
             }
         }
     }

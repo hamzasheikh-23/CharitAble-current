@@ -171,6 +171,8 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\CasesController.cs" />
     <Compile Include="Controllers\DonationController.cs" />
+    <Compile Include="Controllers\FeedbackController.cs" />
+    <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\RepliesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\StoryController.cs" />
@@ -306,6 +308,8 @@
     <Compile Include="Requests\CaseRequest.cs" />
     <Compile Include="Requests\DonationCategoryRequest.cs" />
     <Compile Include="Requests\DonationRequest.cs" />
+    <Compile Include="Requests\FeedbackRequest.cs" />
+    <Compile Include="Requests\OrderRequest.cs" />
     <Compile Include="Requests\ReplyRequest.cs" />
     <Compile Include="Requests\StoryRequest.cs" />
     <Compile Include="Requests\SubscriptionRequest.cs" />
@@ -386,6 +390,8 @@
     <Folder Include="Views\DonorReplies\" />
     <Folder Include="Views\Donor\" />
     <Folder Include="Views\Employee_Login\" />
+    <Folder Include="Views\Feedback\" />
+    <Folder Include="Views\Orders\" />
     <Folder Include="Views\Story\" />
     <Folder Include="Views\Subscription\" />
   </ItemGroup>
