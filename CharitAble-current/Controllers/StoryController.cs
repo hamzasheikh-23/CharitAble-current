@@ -39,7 +39,7 @@ namespace CharitAble_current.Controllers
                 story.StoryTitle = value.StoryTitle;
                 story.PostedDate = value.PostedDate = DateTime.Now;
                 story.Description = value.Description;
-                story.StatusID = value.StatusID = statusId;
+                story.StatusID = value.StatusId = statusId;
                 story.isActive = value.isActive = isActive;
 
                 if (!string.IsNullOrEmpty(value.ImageName))
@@ -122,7 +122,7 @@ namespace CharitAble_current.Controllers
             }
         }
 
-        // GET: story/get
+        // GET: story/get?{storyId}
         [HttpGet]
         [Route("get")]
         public IHttpActionResult Get(int storyId)
@@ -149,7 +149,61 @@ namespace CharitAble_current.Controllers
                               select y.Status).FirstOrDefault().Trim(),
                     isActive = x.isActive,
                     CoverImage = x.CoverImage
-                }).ToList();
+                }).Where(x => x.StoryId == storyId).ToList();
+
+                foreach (StoryRequest item in story)
+                {
+                    if (!string.IsNullOrWhiteSpace(item.CoverImage))
+                    {
+                        string imagePath1 = item.CoverImage;
+                        FileInfo fi = new FileInfo(imagePath1);
+                        item.ImageName = fi.Name;
+                    }
+                }
+                if (story.Any())
+                {
+                    return Ok(story);
+                }
+                return BadRequest();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("'" + ex + ": " + ex.Message + "'");
+            }
+        }
+
+        // GET: story/get?{storyId}&&{status}
+        [HttpGet]
+        [Route("get")]
+        public IHttpActionResult Get(int storyId, string status)
+        {
+            try
+            {
+                object ret = new { code = 0, status = "unsuccesfull request" };
+
+                var statusId = (from x in dbx.tbl_Status
+                                where x.Status == status
+                                select x.StatusID).SingleOrDefault();
+
+                var story = dbx.tbl_SuccessStories.Select(x =>
+                new StoryRequest()
+                {
+                    StoryId = x.StoryID,
+                    NGOId = x.NGO_ID,
+                    NGOName = (from n in dbx.tbl_NGOMaster
+                               join u in dbx.tbl_Users on n.UserID equals u.UserID
+                               where n.NGO_ID == x.NGO_ID
+                               select u.FirstName + " " + u.LastName).FirstOrDefault().Trim(),
+                    StoryTitle = x.StoryTitle,
+                    PostedDate = x.PostedDate,
+                    Description = x.Description,
+                    StatusId = x.StatusID,
+                    Status = (from y in dbx.tbl_Status
+                              where y.StatusID == x.StatusID
+                              select y.Status).FirstOrDefault().Trim(),
+                    isActive = x.isActive,
+                    CoverImage = x.CoverImage
+                }).Where(x => x.StoryId == storyId && x.StatusId == statusId).ToList();
 
                 foreach (StoryRequest item in story)
                 {

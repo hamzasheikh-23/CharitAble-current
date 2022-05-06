@@ -177,6 +177,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\StoryController.cs" />
     <Compile Include="Controllers\SubscriptionController.cs" />
+    <Compile Include="Controllers\UnitController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -313,6 +314,7 @@
     <Compile Include="Requests\ReplyRequest.cs" />
     <Compile Include="Requests\StoryRequest.cs" />
     <Compile Include="Requests\SubscriptionRequest.cs" />
+    <Compile Include="Requests\UnitRequest.cs" />
     <Compile Include="Requests\UserRequest.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -394,6 +396,7 @@
     <Folder Include="Views\Orders\" />
     <Folder Include="Views\Story\" />
     <Folder Include="Views\Subscription\" />
+    <Folder Include="Views\Unit\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
