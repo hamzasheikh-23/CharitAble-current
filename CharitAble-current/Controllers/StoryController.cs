@@ -81,7 +81,7 @@ namespace CharitAble_current.Controllers
             {
                 object ret = new { code = 0, status = "unsuccesfull request" };
 
-                var order = dbx.tbl_SuccessStories.Select(x =>
+                var story = dbx.tbl_SuccessStories.Select(x =>
                 new StoryRequest()
                 {
                     StoryId = x.StoryID,
@@ -97,13 +97,72 @@ namespace CharitAble_current.Controllers
                     Status = (from y in dbx.tbl_Status
                               where y.StatusID == x.StatusID
                               select y.Status).FirstOrDefault().Trim(),
-                    isActive = x.isActive
+                    isActive = x.isActive,
+                    CoverImage = x.CoverImage
                 }).ToList();
 
-
-                if (order.Any())
+                foreach (StoryRequest item in story)
                 {
-                    return Ok(order);
+                    if (!string.IsNullOrWhiteSpace(item.CoverImage))
+                    {
+                        string imagePath1 = item.CoverImage;
+                        FileInfo fi = new FileInfo(imagePath1);
+                        item.ImageName = fi.Name;
+                    }
+                }
+                if (story.Any())
+                {
+                    return Ok(story);
+                }
+                return BadRequest();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("'" + ex + ": " + ex.Message + "'");
+            }
+        }
+
+        // GET: story/get
+        [HttpGet]
+        [Route("get")]
+        public IHttpActionResult Get(int storyId)
+        {
+            try
+            {
+                object ret = new { code = 0, status = "unsuccesfull request" };
+
+                var story = dbx.tbl_SuccessStories.Select(x =>
+                new StoryRequest()
+                {
+                    StoryId = x.StoryID,
+                    NGOId = x.NGO_ID,
+                    NGOName = (from n in dbx.tbl_NGOMaster
+                               join u in dbx.tbl_Users on n.UserID equals u.UserID
+                               where n.NGO_ID == x.NGO_ID
+                               select u.FirstName + " " + u.LastName).FirstOrDefault().Trim(),
+                    StoryTitle = x.StoryTitle,
+                    PostedDate = x.PostedDate,
+                    Description = x.Description,
+                    StatusId = x.StatusID,
+                    Status = (from y in dbx.tbl_Status
+                              where y.StatusID == x.StatusID
+                              select y.Status).FirstOrDefault().Trim(),
+                    isActive = x.isActive,
+                    CoverImage = x.CoverImage
+                }).ToList();
+
+                foreach (StoryRequest item in story)
+                {
+                    if (!string.IsNullOrWhiteSpace(item.CoverImage))
+                    {
+                        string imagePath1 = item.CoverImage;
+                        FileInfo fi = new FileInfo(imagePath1);
+                        item.ImageName = fi.Name;
+                    }
+                }
+                if (story.Any())
+                {
+                    return Ok(story);
                 }
                 return BadRequest();
             }

@@ -403,6 +403,7 @@ namespace CharitAble_current.Controllers
         {
             try
             {
+                object ret = new { isSuccess = false };
                 var caseIds = (from x in dbx.tbl_Cases select x.CaseID).ToList();
 
                 if (caseIds.Contains(id))
@@ -426,7 +427,8 @@ namespace CharitAble_current.Controllers
 
                     if (result > 0)
                     {
-                        return Ok("record deleted successfully");
+                        ret = new { isSuccess = true };
+                        return Ok(ret);
 
                     }
                     else
