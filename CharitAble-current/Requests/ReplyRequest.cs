@@ -11,6 +11,7 @@ namespace CharitAble_current.Requests
         public int DonorId { get; set; }
         public string DonorName { get; set; }
         public int CaseId { get; set; }
+        public string CaseTitle { get; set; }
         public byte Quantity { get; set; }
         public int RemainingQuantity { get; set; }
         public int Sum { get; set; }

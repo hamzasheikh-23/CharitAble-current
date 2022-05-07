@@ -194,6 +194,8 @@ namespace CharitAble_current.Controllers
         {
             try
             {
+                object ret = new { isSuccess = false };
+
                 var orderIds = (from x in dbx.tbl_Orders select x.OrderID).ToList();
 
 
@@ -211,9 +213,10 @@ namespace CharitAble_current.Controllers
 
                     if (currentOrderStatus == "Pending" || currentOrderStatus == "pending")
                     {
-                        OrderRequest order = new OrderRequest();
-
-                        order.StatusId = statusId;
+                        OrderRequest order = new OrderRequest
+                        {
+                            StatusId = statusId
+                        };
                         // order.IsActive = "false";
 
                         var existingOrder = dbx.tbl_Orders.Where(x => x.OrderID == id).FirstOrDefault();
@@ -226,7 +229,8 @@ namespace CharitAble_current.Controllers
 
                         if (result > 0)
                         {
-                            return Ok("record deleted successfully");
+                            ret = new { isSuccess = true };
+                            return Ok(ret);
                         }
                         else
                         {

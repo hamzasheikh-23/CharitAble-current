@@ -31,10 +31,9 @@ namespace CharitAble_current.Models
         public string State { get; set; }
         public string City { get; set; }
         public string Address { get; set; }
-        public Nullable<long> LocationCoordinates { get; set; }
-        public byte[] MemorandumOfNGO { get; set; }
         public Nullable<System.DateTime> SubscriptionEndDate { get; set; }
         public Nullable<System.DateTime> SubscriptionStartDate { get; set; }
+        public string isActive { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_Cases> tbl_Cases { get; set; }

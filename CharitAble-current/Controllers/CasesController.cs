@@ -92,7 +92,7 @@ namespace CharitAble_current.Controllers
         {
             try
             {
-                object ret = new { code = 0, status = "unsuccesfull request" };
+                object ret = new { noData = true, status = "unsuccesfull request" };
 
                 var cases = dbx.tbl_Cases.Select(x =>
                 new CaseRequest()
@@ -136,9 +136,10 @@ namespace CharitAble_current.Controllers
 
                 if (cases.Any())
                 {
-                    return Ok(cases);
+                    ret = new { cases, noData = false };
+                    return Ok(ret);
                 }
-                return BadRequest((string)ret);
+                return Ok(ret);
             }
             catch (Exception ex)
             {
@@ -154,7 +155,7 @@ namespace CharitAble_current.Controllers
         {
             try
             {
-                object ret = new { code = 0, status = "unsuccesfull request" };
+                object ret = new { noData = true, status = "unsuccesfull request" };
 
                 var cases = dbx.tbl_Cases.Select(x =>
                 new CaseRequest()
@@ -198,9 +199,10 @@ namespace CharitAble_current.Controllers
 
                 if (cases.Any())
                 {
-                    return Ok(cases);
+                    ret = new { cases, noData = false };
+                    return Ok(ret);
                 }
-                return BadRequest((string)ret);
+                return Ok(ret);
             }
             catch (Exception ex)
             {
@@ -216,7 +218,7 @@ namespace CharitAble_current.Controllers
         {
             try
             {
-                object ret = new { code = 0, status = "unsuccesfull request" };
+                object ret = new { noData = true, status = "unsuccesfull request" };
 
                 var cases = dbx.tbl_Cases.Select(x =>
                 new CaseRequest()
@@ -260,9 +262,10 @@ namespace CharitAble_current.Controllers
 
                 if (cases.Any())
                 {
-                    return Ok(cases);
+                    ret = new { cases, noData = false };
+                    return Ok(ret);
                 }
-                return BadRequest((string)ret);
+                return Ok(ret);
             }
             catch (Exception ex)
             {
@@ -278,7 +281,7 @@ namespace CharitAble_current.Controllers
         {
             try
             {
-                object ret = new { code = 0, status = "unsuccesfull request" };
+                object ret = new { noData = true, status = "unsuccesfull request" };
 
                 var cases = dbx.tbl_Cases.Select(x =>
                 new CaseRequest()
@@ -322,9 +325,10 @@ namespace CharitAble_current.Controllers
 
                 if (cases.Any())
                 {
-                    return Ok(cases);
+                    ret = new { cases, noData = false };
+                    return Ok(ret);
                 }
-                return BadRequest((string)ret);
+                return Ok(ret);
             }
             catch (Exception ex)
             {
@@ -340,7 +344,11 @@ namespace CharitAble_current.Controllers
         {
             try
             {
-                object ret = new { code = 0, status = "unsuccesfull request" };
+                object ret = new { status = "unsuccesfull request", noData = true };
+
+                var statusId = (from x in dbx.tbl_Status
+                                where x.Status == status
+                                select x.StatusID).FirstOrDefault();
 
                 var cases = dbx.tbl_Cases.Select(x =>
                 new CaseRequest()
@@ -370,7 +378,7 @@ namespace CharitAble_current.Controllers
                     PostedDate = (DateTime)x.PostedDate,
                     Description = x.Description,
                     CoverImage = x.CoverImage
-                }).Where(x => x.NGOId == ngoId && x.Status == status && x.IsActive == isActive).ToList();
+                }).Where(x => x.NGOId == ngoId && x.StatusId == statusId && x.IsActive == isActive).ToList();
 
                 foreach (CaseRequest item in cases)
                 {
@@ -384,9 +392,10 @@ namespace CharitAble_current.Controllers
 
                 if (cases.Any())
                 {
-                    return Ok(cases);
+                    ret = new { cases, noData = false };
+                    return Ok(ret);
                 }
-                return BadRequest((string)ret);
+                return Ok(ret);
             }
             catch (Exception ex)
             {
@@ -394,6 +403,145 @@ namespace CharitAble_current.Controllers
             }
         }
 
+
+        //GET: case/get?{id}&&{status}&&{isActive}&&{category}
+
+        [HttpGet]
+        [Route("get")]
+        public IHttpActionResult GetCase(int ngoId, string status, string isActive, string category)
+        {
+            try
+            {
+                object ret = new { status = "unsuccesfull request", noData = true };
+
+                var statusId = (from x in dbx.tbl_Status
+                                where x.Status == status
+                                select x.StatusID).FirstOrDefault();
+
+                var categoryId = (from x in dbx.tbl_DonationCategory
+                                  where x.DonationCategory == category
+                                  select x.CategoryID).FirstOrDefault();
+
+                var cases = dbx.tbl_Cases.Select(x =>
+                new CaseRequest()
+                {
+                    CaseId = x.CaseID,
+                    NGOId = x.NGO_ID,
+                    NGOName = (from n in dbx.tbl_NGOMaster
+                               join u in dbx.tbl_Users on n.UserID equals u.UserID
+                               where n.NGO_ID == x.NGO_ID
+                               select u.FirstName + " " + u.LastName).FirstOrDefault(),
+                    CaseTitle = x.CaseTitle,
+                    CategoryId = x.CategoryID,
+                    Category = (from y in dbx.tbl_DonationCategory
+                                where y.CategoryID == x.CategoryID
+                                select y.DonationCategory).FirstOrDefault(),
+                    Quantity = x.Quantity,
+                    StatusId = x.StatusID,
+                    Status = (from y in dbx.tbl_Status
+                              where y.StatusID == x.StatusID
+                              select y.Status).FirstOrDefault(),
+                    IsActive = x.isActive,
+                    UnitId = x.UnitID,
+                    Unit = (from y in dbx.tbl_Units
+                            where y.UnitID == x.UnitID
+                            select y.Unit).FirstOrDefault(),
+
+                    PostedDate = (DateTime)x.PostedDate,
+                    Description = x.Description,
+                    CoverImage = x.CoverImage
+                }).Where(x => x.NGOId == ngoId && x.StatusId == statusId && x.IsActive == isActive && x.CategoryId == categoryId).ToList();
+
+                foreach (CaseRequest item in cases)
+                {
+                    if (!string.IsNullOrWhiteSpace(item.CoverImage))
+                    {
+                        string imagePath = item.CoverImage;
+                        FileInfo fi = new FileInfo(imagePath);
+                        item.ImageName = fi.Name;
+                    }
+                }
+
+                if (cases.Any())
+                {
+                    ret = new { cases, noData = false };
+                    return Ok(ret);
+                }
+                return Ok(ret);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("'" + ex + ": " + ex.Message + "'");
+            }
+        }
+
+        //GET: case/get?{category}
+
+        [HttpGet]
+        [Route("get")]
+        public IHttpActionResult GetCase(string category)
+        {
+            try
+            {
+                object ret = new { status = "unsuccesfull request", noData = true };
+
+
+                var categoryId = (from x in dbx.tbl_DonationCategory
+                                  where x.DonationCategory == category
+                                  select x.CategoryID).FirstOrDefault();
+
+                var cases = dbx.tbl_Cases.Select(x =>
+                new CaseRequest()
+                {
+                    CaseId = x.CaseID,
+                    NGOId = x.NGO_ID,
+                    NGOName = (from n in dbx.tbl_NGOMaster
+                               join u in dbx.tbl_Users on n.UserID equals u.UserID
+                               where n.NGO_ID == x.NGO_ID
+                               select u.FirstName + " " + u.LastName).FirstOrDefault(),
+                    CaseTitle = x.CaseTitle,
+                    CategoryId = x.CategoryID,
+                    Category = (from y in dbx.tbl_DonationCategory
+                                where y.CategoryID == x.CategoryID
+                                select y.DonationCategory).FirstOrDefault(),
+                    Quantity = x.Quantity,
+                    StatusId = x.StatusID,
+                    Status = (from y in dbx.tbl_Status
+                              where y.StatusID == x.StatusID
+                              select y.Status).FirstOrDefault(),
+                    IsActive = x.isActive,
+                    UnitId = x.UnitID,
+                    Unit = (from y in dbx.tbl_Units
+                            where y.UnitID == x.UnitID
+                            select y.Unit).FirstOrDefault(),
+
+                    PostedDate = (DateTime)x.PostedDate,
+                    Description = x.Description,
+                    CoverImage = x.CoverImage
+                }).Where(x => x.CategoryId == categoryId).ToList();
+
+                foreach (CaseRequest item in cases)
+                {
+                    if (!string.IsNullOrWhiteSpace(item.CoverImage))
+                    {
+                        string imagePath = item.CoverImage;
+                        FileInfo fi = new FileInfo(imagePath);
+                        item.ImageName = fi.Name;
+                    }
+                }
+
+                if (cases.Any())
+                {
+                    ret = new { cases, noData = false };
+                    return Ok(ret);
+                }
+                return Ok(ret);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("'" + ex + ": " + ex.Message + "'");
+            }
+        }
 
         //PUT: case/delete/{id}
 
@@ -471,7 +619,7 @@ namespace CharitAble_current.Controllers
                     existingCase.isActive = value.IsActive;
                     existingCase.Quantity = value.Quantity;
                     existingCase.StatusID = (from x in dbx.tbl_Status
-                                             where x.Status == value.Status
+                                             where x.Status == "Pending" || x.Status == "pending"
                                              select x.StatusID).FirstOrDefault();
                     existingCase.UnitID = (from x in dbx.tbl_Units
                                            where x.Unit == value.Unit
@@ -501,6 +649,81 @@ namespace CharitAble_current.Controllers
             catch (Exception ex)
             {
                 return BadRequest("'" + ex + ": " + ex.Message + "'");
+            }
+        }
+
+        //PUT: case/edit?{id}&{status}
+        [HttpPut]
+        [Route("edit")]
+        public IHttpActionResult UpdateDonation(int id, string status)
+        {
+            try
+            {
+                var caseIds = (from x in dbx.tbl_Cases select x.CaseID).ToList();
+
+                if (caseIds.Contains(id))
+                {
+                    var statusId = (from x in dbx.tbl_Status
+                                    where x.Status == status
+                                    select x.StatusID).SingleOrDefault();
+
+                    CaseRequest value = new CaseRequest();
+
+                    var existingCase = dbx.tbl_Cases.Where(x => x.CaseID == id).FirstOrDefault();
+
+                    existingCase.StatusID = value.StatusId = statusId;
+
+                    dbx.tbl_Cases.AddOrUpdate(existingCase);
+                    dbx.SaveChanges();
+
+                    return Ok("record updated successfully");
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex + " : '" + ex.Message + "'");
+            }
+        }
+
+        //PUT: case/edit?{id}&{status}&{isActive}
+        [HttpPut]
+        [Route("edit")]
+        public IHttpActionResult UpdateDonation(int id, string status, string isActive)
+        {
+            try
+            {
+                var caseIds = (from x in dbx.tbl_Cases select x.CaseID).ToList();
+
+                if (caseIds.Contains(id))
+                {
+                    var statusId = (from x in dbx.tbl_Status
+                                    where x.Status == status
+                                    select x.StatusID).SingleOrDefault();
+
+                    CaseRequest value = new CaseRequest();
+
+                    var existingCase = dbx.tbl_Cases.Where(x => x.CaseID == id).FirstOrDefault();
+
+                    existingCase.StatusID = value.StatusId = statusId;
+                    existingCase.isActive = value.IsActive = isActive;
+
+                    dbx.tbl_Cases.AddOrUpdate(existingCase);
+                    dbx.SaveChanges();
+
+                    return Ok("record updated successfully");
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex + " : '" + ex.Message + "'");
             }
         }
     }

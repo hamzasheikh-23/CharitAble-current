@@ -27,7 +27,6 @@ namespace CharitAble_current.Controllers
         [Route("login")]
         public IHttpActionResult LoginResult(UserRequest value)
         {
-
             try
             {
                 bool isSuccess = false;
@@ -357,6 +356,18 @@ namespace CharitAble_current.Controllers
                     new UserRequest()
                     {
                         UserId = x.UserID,
+                        NgoId = (from n in dbx.tbl_NGOMaster
+                                 join u in dbx.tbl_Users on n.UserID equals u.UserID
+                                 where n.UserID == x.UserID
+                                 select n.NGO_ID).FirstOrDefault(),
+                        DonorId = (from d in dbx.tbl_DonorMaster
+                                   join u in dbx.tbl_Users on d.UserID equals u.UserID
+                                   where d.UserID == x.UserID
+                                   select d.DonorID).FirstOrDefault(),
+                        AdminId = (from a in dbx.tbl_Admin
+                                   join u in dbx.tbl_Users on a.UserID equals u.UserID
+                                   where a.UserID == x.UserID
+                                   select a.AdminID).FirstOrDefault(),
                         FirstName = x.FirstName,
                         LastName = x.LastName,
                         Username = x.Username,
@@ -376,8 +387,107 @@ namespace CharitAble_current.Controllers
             }
         }
 
+        //PUT: user/edit/ngo?{id}&{isActive}
+        [HttpPut]
+        [Route("edit/ngo")]
+        public IHttpActionResult UpdateNGO(int id, string isActive)
+        {
+            try
+            {
+                var ngoIds = (from x in dbx.tbl_NGOMaster select x.NGO_ID).ToList();
+
+                if (ngoIds.Contains(id))
+                {
+                    UserRequest value = new UserRequest();
+
+                    var existingNGO = dbx.tbl_NGOMaster.Where(x => x.NGO_ID == id).FirstOrDefault();
 
 
+                    existingNGO.isActive = value.IsActive = isActive;
+
+                    dbx.tbl_NGOMaster.AddOrUpdate(existingNGO);
+                    dbx.SaveChanges();
+
+                    return Ok("record updated successfully");
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex + " : '" + ex.Message + "'");
+            }
+        }
+
+        //PUT: user/edit/ngo?{id}&{isActive}
+        [HttpPut]
+        [Route("edit/donor")]
+        public IHttpActionResult UpdateDonor(int id, string isActive)
+        {
+            try
+            {
+                var donorIds = (from x in dbx.tbl_DonorMaster select x.DonorID).ToList();
+
+                if (donorIds.Contains(id))
+                {
+                    UserRequest value = new UserRequest();
+
+                    var existingDonor = dbx.tbl_DonorMaster.Where(x => x.DonorID == id).FirstOrDefault();
+
+
+                    existingDonor.isActive = value.IsActive = isActive;
+
+                    dbx.tbl_DonorMaster.AddOrUpdate(existingDonor);
+                    dbx.SaveChanges();
+
+                    return Ok("record updated successfully");
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex + " : '" + ex.Message + "'");
+            }
+        }
+
+        //PUT: user/edit/ngo?{id}&{isActive}
+        [HttpPut]
+        [Route("edit/ngo")]
+        public IHttpActionResult UpdateAdmin(int id, string isActive)
+        {
+            try
+            {
+                var adminIds = (from x in dbx.tbl_Admin select x.AdminID).ToList();
+
+                if (adminIds.Contains(id))
+                {
+                    UserRequest value = new UserRequest();
+
+                    var existingAdmin = dbx.tbl_Admin.Where(x => x.AdminID == id).FirstOrDefault();
+
+
+                    existingAdmin.isActive = value.IsActive = isActive;
+
+                    dbx.tbl_Admin.AddOrUpdate(existingAdmin);
+                    dbx.SaveChanges();
+
+                    return Ok("record updated successfully");
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex + " : '" + ex.Message + "'");
+            }
+        }
     }
 
 }

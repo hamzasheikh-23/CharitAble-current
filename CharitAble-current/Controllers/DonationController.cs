@@ -568,6 +568,8 @@ namespace CharitAble_current.Controllers
         {
             try
             {
+                object ret = new { isSuccess = false };
+
                 var donationIds = (from x in dbx.tbl_Donations select x.DonationID).ToList();
 
                 if (donationIds.Contains(id))
@@ -589,7 +591,8 @@ namespace CharitAble_current.Controllers
                     dbx.tbl_Donations.AddOrUpdate(existingDonation);
                     dbx.SaveChanges();
 
-                    return Ok("record deleted successfully");
+                    ret = new { isSuccess = true };
+                    return Ok(ret);
                 }
                 else
                 {
@@ -717,6 +720,52 @@ namespace CharitAble_current.Controllers
                     var existingDonation = dbx.tbl_Donations.Where(x => x.DonationID == id).FirstOrDefault();
 
                     existingDonation.Status = value.StatusId = statusId;
+
+                    dbx.tbl_Donations.AddOrUpdate(existingDonation);
+                    dbx.SaveChanges();
+
+                    return Ok("record updated successfully");
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex + " : '" + ex.Message + "'");
+            }
+        }
+
+        //PUT: dponation/edit?{id}&{status}&{isActive}
+        [HttpPut]
+        [Route("edit")]
+        public IHttpActionResult UpdateDonation(int id, string status, string isActive)
+        {
+            try
+            {
+                var donationIds = (from x in dbx.tbl_Donations select x.DonationID).ToList();
+
+                if (donationIds.Contains(id))
+                {
+                    var statusId = (from x in dbx.tbl_Status
+                                    where x.Status == status
+                                    select x.StatusID).SingleOrDefault();
+
+                    //var conditionId = (from x in dbx.tbl_DonationCondition
+                    //                   where x.Condition == value.Condition
+                    //                   select x.ConditionID).SingleOrDefault();
+
+                    //var categoryId = (from x in dbx.tbl_DonationCategory
+                    //                  where x.DonationCategory == value.Category
+                    //                  select x.CategoryID).SingleOrDefault();
+
+                    DonationRequest value = new DonationRequest();
+
+                    var existingDonation = dbx.tbl_Donations.Where(x => x.DonationID == id).FirstOrDefault();
+
+                    existingDonation.Status = value.StatusId = statusId;
+                    existingDonation.isActive = value.IsActive = isActive;
 
                     dbx.tbl_Donations.AddOrUpdate(existingDonation);
                     dbx.SaveChanges();

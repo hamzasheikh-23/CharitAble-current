@@ -30,6 +30,7 @@ namespace CharitAble_current.Models
         public string Address { get; set; }
         public Nullable<System.DateTime> DOB { get; set; }
         public Nullable<long> CNIC { get; set; }
+        public string isActive { get; set; }
     
         public virtual tbl_Users tbl_Users { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

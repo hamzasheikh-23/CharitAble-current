@@ -103,7 +103,7 @@ namespace CharitAble_current.Controllers
         {
             try
             {
-                object ret = new { code = 0, status = "unsuccesfull request" };
+                object ret = new { noData = true, status = "unsuccesfull request" };
 
                 var reply = dbx.tbl_DonorReplies.Select(x =>
                 new ReplyRequest()
@@ -131,6 +131,7 @@ namespace CharitAble_current.Controllers
 
                 foreach (ReplyRequest item in reply)
                 {
+
                     if (!string.IsNullOrWhiteSpace(item.Image1))
                     {
                         string imagePath1 = item.Image1;
@@ -153,15 +154,88 @@ namespace CharitAble_current.Controllers
 
                 if (reply.Any())
                 {
-                    return Ok(reply);
+                    ret = new { reply, noData = true };
+                    return Ok(ret);
                 }
-                return BadRequest();
+                return Json(ret);
             }
             catch (Exception ex)
             {
                 return BadRequest("'" + ex + ": " + ex.Message + "'");
             }
         }
+
+        // GET: reply/get?{ngoId}
+        [HttpGet]
+        [Route("get")]
+        public IHttpActionResult GetD(int ngoId)
+        {
+            try
+            {
+                object ret = new { noData = true, status = "unsuccesfull request" };
+
+                var reply = (from d in dbx.tbl_DonorReplies
+                             join c in dbx.tbl_Cases on d.CaseID equals c.CaseID
+                             where c.NGO_ID == ngoId
+                             select new ReplyRequest()
+                             {
+                                 ReplyId = d.ReplyID,
+                                 DonorId = d.DonorID,
+                                 DonorName = (from dm in dbx.tbl_DonorMaster
+                                              join u in dbx.tbl_Users on dm.UserID equals u.UserID
+                                              where dm.DonorID == d.DonorID
+                                              select u.FirstName + " " + u.LastName).FirstOrDefault().Trim(),
+                                 CaseId = d.CaseID,
+                                 Quantity = d.Quantity,
+                                 Address = d.Address,
+                                 Message = d.Message,
+                                 StatusId = d.StatusID,
+                                 Status = (from y in dbx.tbl_Status
+                                           where y.StatusID == d.StatusID
+                                           select y.Status).FirstOrDefault().Trim(),
+                                 IsActive = d.isActive,
+                                 PostedDateTime = d.PostedDateTime,
+                                 Image1 = d.Image1,
+                                 Image2 = d.Image2,
+                                 Image3 = d.Image3
+                             }).ToList();
+
+                foreach (ReplyRequest item in reply)
+                {
+                    if (!string.IsNullOrWhiteSpace(item.Image1))
+                    {
+                        string imagePath1 = item.Image1;
+                        FileInfo fi = new FileInfo(imagePath1);
+                        item.Image1Name = fi.Name;
+                    }
+                    if (!string.IsNullOrWhiteSpace(item.Image2))
+                    {
+                        string image2Path = item.Image2;
+                        FileInfo fi = new FileInfo(image2Path);
+                        item.Image2Name = fi.Name;
+                    }
+                    if (!string.IsNullOrWhiteSpace(item.Image3))
+                    {
+                        string imagePath3 = item.Image3;
+                        FileInfo fi = new FileInfo(imagePath3);
+                        item.Image3Name = fi.Name;
+                    }
+                }
+
+                if (reply.Any())
+                {
+                    ret = new { reply, noData = false };
+                    return Ok(reply);
+                }
+                return Json(ret);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("'" + ex + ": " + ex.Message + "'");
+            }
+        }
+
+
 
         // GET: reply/get?{caseId}
         [HttpGet]
@@ -170,7 +244,7 @@ namespace CharitAble_current.Controllers
         {
             try
             {
-                object ret = new { code = 0, status = "unsuccesfull request" };
+                object ret = new { noData = true, status = "unsuccesfull request" };
 
                 var reply = dbx.tbl_DonorReplies.Select(x =>
                 new ReplyRequest()
@@ -220,9 +294,10 @@ namespace CharitAble_current.Controllers
 
                 if (reply.Any())
                 {
+                    ret = new { reply, noData = false };
                     return Ok(reply);
                 }
-                return BadRequest();
+                return Json(ret);
             }
             catch (Exception ex)
             {
@@ -241,7 +316,7 @@ namespace CharitAble_current.Controllers
                                 where x.Status == status
                                 select x.StatusID).SingleOrDefault();
 
-                object ret = new { code = 0, status = "unsuccesfull request" };
+                object ret = new { noData = true, status = "unsuccesfull request" };
 
                 var reply = dbx.tbl_DonorReplies.Select(x =>
                 new ReplyRequest()
@@ -291,9 +366,10 @@ namespace CharitAble_current.Controllers
 
                 if (reply.Any())
                 {
-                    return Ok(reply);
+                    ret = new { reply, noData = false };
+                    return Ok(ret);
                 }
-                return BadRequest();
+                return Json(ret);
             }
             catch (Exception ex)
             {
@@ -308,7 +384,7 @@ namespace CharitAble_current.Controllers
         {
             try
             {
-                object ret = new { code = 0, status = "unsuccesfull request" };
+                object ret = new { noData = true, status = "unsuccesfull request" };
 
                 var reply = dbx.tbl_DonorReplies.Select(x =>
                 new ReplyRequest()
@@ -358,9 +434,10 @@ namespace CharitAble_current.Controllers
 
                 if (reply.Any())
                 {
-                    return Ok(reply);
+                    ret = new { reply, noData = false };
+                    return Ok(ret);
                 }
-                return BadRequest();
+                return Json(ret);
             }
             catch (Exception ex)
             {
@@ -379,7 +456,7 @@ namespace CharitAble_current.Controllers
                                 where x.Status == status
                                 select x.StatusID).SingleOrDefault();
 
-                object ret = new { code = 0, status = "unsuccesfull request" };
+                object ret = new { noData = true, status = "unsuccesfull request" };
 
                 var reply = dbx.tbl_DonorReplies.Select(x =>
                 new ReplyRequest()
@@ -429,9 +506,10 @@ namespace CharitAble_current.Controllers
 
                 if (reply.Any())
                 {
-                    return Ok(reply);
+                    ret = new { reply, noData = false };
+                    return Ok(ret);
                 }
-                return BadRequest();
+                return Json(ret);
             }
             catch (Exception ex)
             {
@@ -446,6 +524,7 @@ namespace CharitAble_current.Controllers
         {
             try
             {
+                object ret = new { isSuccess = false };
                 var replyIds = (from x in dbx.tbl_DonorReplies select x.ReplyID).ToList();
 
                 if (replyIds.Contains(id))
@@ -469,7 +548,8 @@ namespace CharitAble_current.Controllers
 
                     if (result > 0)
                     {
-                        return Ok("record deleted successfully");
+                        ret = new { isSuccess = true, message = "record has been deleted" };
+                        return Ok(ret);
 
                     }
                     else
@@ -558,6 +638,53 @@ namespace CharitAble_current.Controllers
             catch (Exception ex)
             {
                 return BadRequest("'" + ex + ": " + ex.Message + "'");
+            }
+        }
+
+
+        //PUT: reply/edit?{id}&{status}
+
+        [HttpPut]
+        [Route("edit")]
+        public IHttpActionResult UpdateReply(int id, string status)
+        {
+            try
+            {
+                var replyIds = (from x in dbx.tbl_DonorReplies select x.ReplyID).ToList();
+
+                if (replyIds.Contains(id))
+                {
+                    var statusId = (from x in dbx.tbl_Status
+                                    where x.Status == status
+                                    select x.StatusID).SingleOrDefault();
+
+                    //var conditionId = (from x in dbx.tbl_DonationCondition
+                    //                   where x.Condition == value.Condition
+                    //                   select x.ConditionID).SingleOrDefault();
+
+                    //var categoryId = (from x in dbx.tbl_DonationCategory
+                    //                  where x.DonationCategory == value.Category
+                    //                  select x.CategoryID).SingleOrDefault();
+
+                    ReplyRequest value = new ReplyRequest();
+
+                    var existingReply = dbx.tbl_DonorReplies.Where(x => x.ReplyID == id).FirstOrDefault();
+
+                    existingReply.StatusID = value.StatusId = statusId;
+
+                    dbx.tbl_DonorReplies.AddOrUpdate(existingReply);
+                    dbx.SaveChanges();
+
+                    return Ok("record updated successfully");
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex + " : '" + ex.Message + "'");
             }
         }
 

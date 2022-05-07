@@ -32,6 +32,7 @@ namespace CharitAble_current.Models
         public string CoverImage { get; set; }
         public Nullable<int> StatusID { get; set; }
         public Nullable<int> UnitID { get; set; }
+        public Nullable<short> RemainingQuantity { get; set; }
     
         public virtual tbl_NGOMaster tbl_NGOMaster { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

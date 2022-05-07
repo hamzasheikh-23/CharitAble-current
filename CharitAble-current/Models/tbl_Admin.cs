@@ -23,6 +23,7 @@ namespace CharitAble_current.Models
     
         public int AdminID { get; set; }
         public Nullable<int> UserID { get; set; }
+        public string isActive { get; set; }
     
         public virtual tbl_Users tbl_Users { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

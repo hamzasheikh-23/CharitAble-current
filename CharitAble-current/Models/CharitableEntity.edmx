@@ -11,6 +11,7 @@
           </Key>
           <Property Name="AdminID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserID" Type="int" />
+          <Property Name="isActive" Type="varchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="tbl_Cases">
           <Key>
@@ -25,6 +26,7 @@
           <Property Name="isActive" Type="varchar" MaxLength="6" />
           <Property Name="Description" Type="varchar" MaxLength="500" />
           <Property Name="Quantity" Type="smallint" />
+          <Property Name="RemainingQuantity" Type="smallint" />
           <Property Name="UnitID" Type="int" />
           <Property Name="CoverImage" Type="varchar" MaxLength="200" />
         </EntityType>
@@ -78,12 +80,13 @@
           <Property Name="Address" Type="varchar(max)" />
           <Property Name="DOB" Type="smalldatetime" />
           <Property Name="CNIC" Type="bigint" />
+          <Property Name="isActive" Type="varchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="tbl_DonorReplies">
           <Key>
             <PropertyRef Name="ReplyID" />
           </Key>
-          <Property Name="ReplyID" Type="int" Nullable="false" />
+          <Property Name="ReplyID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DonorID" Type="int" Nullable="false" />
           <Property Name="CaseID" Type="int" Nullable="false" />
           <Property Name="Quantity" Type="tinyint" Nullable="false" />
@@ -91,10 +94,10 @@
           <Property Name="Message" Type="varchar" MaxLength="500" />
           <Property Name="PostedDateTime" Type="smalldatetime" Nullable="false" />
           <Property Name="StatusID" Type="int" />
-          <Property Name="Image1" Type="varchar" MaxLength="200" />
-          <Property Name="Image2" Type="varchar" MaxLength="200" />
-          <Property Name="Image3" Type="varchar" MaxLength="200" />
-          <Property Name="isActive" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="Image1" Type="varchar(max)" />
+          <Property Name="Image2" Type="varchar(max)" />
+          <Property Name="Image3" Type="varchar(max)" />
+          <Property Name="isActive" Type="varchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <EntityType Name="tbl_Feedback">
           <Key>
@@ -159,7 +162,7 @@
           <Property Name="LocationCoordinates" Type="bigint" />
           <Property Name="SubscriptionEndDate" Type="date" />
           <Property Name="SubscriptionStartDate" Type="date" />
-          <Property Name="MemorandumOfNGO" Type="image" />
+          <Property Name="isActive" Type="varchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="tbl_Orders">
           <Key>
@@ -719,6 +722,7 @@
           <NavigationProperty Name="tbl_Users" Relationship="Self.FK__Admin__UserID__2E1BDC42" FromRole="tbl_Admin" ToRole="tbl_Users" />
           <NavigationProperty Name="tbl_MaterialMaster" Relationship="Self.FK__tbl_Mater__Admin__4AB81AF0" FromRole="tbl_Admin" ToRole="tbl_MaterialMaster" />
           <NavigationProperty Name="tbl_SubscriptionPlan" Relationship="charitable_dbModel.FK__tbl_Subsc__Admin__13F1F5EB" FromRole="tbl_Admin" ToRole="tbl_SubscriptionPlan" />
+          <Property Name="isActive" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="tbl_Cases">
           <Key>
@@ -738,6 +742,7 @@
           <Property Name="StatusID" Type="Int32" />
           <Property Name="UnitID" Type="Int32" />
           <NavigationProperty Name="tbl_DonorReplies" Relationship="charitable_dbModel.FK__tbl_Donor__CaseI__634EBE90" FromRole="tbl_Cases" ToRole="tbl_DonorReplies" />
+          <Property Name="RemainingQuantity" Type="Int16" />
         </EntityType>
         <EntityType Name="tbl_DonorMaster">
           <Key>
@@ -755,6 +760,7 @@
           <NavigationProperty Name="tbl_Invoices" Relationship="Self.FK__tbl_Invoi__Donor__3F466844" FromRole="tbl_DonorMaster" ToRole="tbl_Invoices" />
           <NavigationProperty Name="tbl_Donations" Relationship="charitable_dbModel.FK__Donations__Donor__30F848ED" FromRole="tbl_DonorMaster" ToRole="tbl_Donations" />
           <NavigationProperty Name="tbl_DonorReplies" Relationship="charitable_dbModel.FK__tbl_Donor__Donor__625A9A57" FromRole="tbl_DonorMaster" ToRole="tbl_DonorReplies" />
+          <Property Name="isActive" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="tbl_Invoices">
           <Key>
@@ -815,8 +821,6 @@
           <Property Name="State" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
           <Property Name="City" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
           <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="LocationCoordinates" Type="Int64" />
-          <Property Name="MemorandumOfNGO" Type="Binary" MaxLength="Max" FixedLength="false" />
           <NavigationProperty Name="tbl_Cases" Relationship="Self.FK__tbl_Cases__NGO_I__35BCFE0A" FromRole="tbl_NGOMaster" ToRole="tbl_Cases" />
           <NavigationProperty Name="tbl_Invoices" Relationship="Self.FK__tbl_Invoi__NGO_I__403A8C7D" FromRole="tbl_NGOMaster" ToRole="tbl_Invoices" />
           <NavigationProperty Name="tbl_Users" Relationship="Self.FK__NGOMaster__UserI__29572725" FromRole="tbl_NGOMaster" ToRole="tbl_Users" />
@@ -824,6 +828,7 @@
           <NavigationProperty Name="tbl_SuccessStories" Relationship="Self.FK__tbl_Succe__NGO_I__38996AB5" FromRole="tbl_NGOMaster" ToRole="tbl_SuccessStories" />
           <Property Name="SubscriptionEndDate" Type="DateTime" Precision="0" />
           <Property Name="SubscriptionStartDate" Type="DateTime" Precision="0" />
+          <Property Name="isActive" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="tbl_Orders">
           <Key>
@@ -1470,13 +1475,13 @@
           <Property Name="Message" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="PostedDateTime" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="StatusID" Type="Int32" />
-          <Property Name="Image1" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="Image2" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="Image3" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Image1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Image2" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Image3" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="tbl_Cases" Relationship="charitable_dbModel.FK__tbl_Donor__CaseI__634EBE90" FromRole="tbl_DonorReplies" ToRole="tbl_Cases" />
           <NavigationProperty Name="tbl_DonorMaster" Relationship="charitable_dbModel.FK__tbl_Donor__Donor__625A9A57" FromRole="tbl_DonorReplies" ToRole="tbl_DonorMaster" />
           <NavigationProperty Name="tbl_Status" Relationship="charitable_dbModel.FK__tbl_Donor__Statu__6BE40491" FromRole="tbl_DonorReplies" ToRole="tbl_Status" />
-          <Property Name="isActive" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="isActive" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="Quantity" Type="Byte" Nullable="false" />
           <NavigationProperty Name="tbl_Orders" Relationship="charitable_dbModel.FK__tbl_Order__Reply__0A688BB1" FromRole="tbl_DonorReplies" ToRole="tbl_Orders" />
         </EntityType>
@@ -1605,6 +1610,7 @@
           <EntitySetMapping Name="tbl_Admin">
             <EntityTypeMapping TypeName="charitable_dbModel.tbl_Admin">
               <MappingFragment StoreEntitySet="tbl_Admin">
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
                 <ScalarProperty Name="AdminID" ColumnName="AdminID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
               </MappingFragment>
@@ -1613,6 +1619,7 @@
           <EntitySetMapping Name="tbl_Cases">
             <EntityTypeMapping TypeName="charitable_dbModel.tbl_Cases">
               <MappingFragment StoreEntitySet="tbl_Cases">
+                <ScalarProperty Name="RemainingQuantity" ColumnName="RemainingQuantity" />
                 <ScalarProperty Name="UnitID" ColumnName="UnitID" />
                 <ScalarProperty Name="StatusID" ColumnName="StatusID" />
                 <ScalarProperty Name="CoverImage" ColumnName="CoverImage" />
@@ -1630,6 +1637,7 @@
           <EntitySetMapping Name="tbl_DonorMaster">
             <EntityTypeMapping TypeName="charitable_dbModel.tbl_DonorMaster">
               <MappingFragment StoreEntitySet="tbl_DonorMaster">
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
                 <ScalarProperty Name="DonorID" ColumnName="DonorID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="Gender" ColumnName="Gender" />
@@ -1687,6 +1695,7 @@
           <EntitySetMapping Name="tbl_NGOMaster">
             <EntityTypeMapping TypeName="charitable_dbModel.tbl_NGOMaster">
               <MappingFragment StoreEntitySet="tbl_NGOMaster">
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
                 <ScalarProperty Name="SubscriptionStartDate" ColumnName="SubscriptionStartDate" />
                 <ScalarProperty Name="SubscriptionEndDate" ColumnName="SubscriptionEndDate" />
                 <ScalarProperty Name="NGO_ID" ColumnName="NGO_ID" />
@@ -1697,8 +1706,6 @@
                 <ScalarProperty Name="State" ColumnName="State" />
                 <ScalarProperty Name="City" ColumnName="City" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="LocationCoordinates" ColumnName="LocationCoordinates" />
-                <ScalarProperty Name="MemorandumOfNGO" ColumnName="MemorandumOfNGO" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

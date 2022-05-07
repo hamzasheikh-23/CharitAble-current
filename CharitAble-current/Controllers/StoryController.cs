@@ -389,6 +389,8 @@ namespace CharitAble_current.Controllers
         {
             try
             {
+
+
                 var storyIds = (from x in dbx.tbl_SuccessStories select x.StoryID).ToList();
 
                 object ret = new { isSuccess = false };
