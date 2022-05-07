@@ -225,7 +225,7 @@ namespace CharitAble_current.Controllers
                 if (reply.Any())
                 {
                     ret = new { reply, noData = false };
-                    return Ok(reply);
+                    return Ok(ret);
                 }
                 return Json(ret);
             }
@@ -295,7 +295,77 @@ namespace CharitAble_current.Controllers
                 if (reply.Any())
                 {
                     ret = new { reply, noData = false };
-                    return Ok(reply);
+                    return Ok(ret);
+                }
+                return Json(ret);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("'" + ex + ": " + ex.Message + "'");
+            }
+        }
+
+        // GET: reply/get?{ngoId}
+        [HttpGet]
+        [Route("get")]
+        public IHttpActionResult GetD(int ngoId, int caseId)
+        {
+            try
+            {
+                object ret = new { noData = true, status = "unsuccesfull request" };
+
+                var reply = (from d in dbx.tbl_DonorReplies
+                             join c in dbx.tbl_Cases on d.CaseID equals c.CaseID
+                             where c.NGO_ID == ngoId && d.CaseID == caseId
+                             select new ReplyRequest()
+                             {
+                                 ReplyId = d.ReplyID,
+                                 DonorId = d.DonorID,
+                                 DonorName = (from dm in dbx.tbl_DonorMaster
+                                              join u in dbx.tbl_Users on dm.UserID equals u.UserID
+                                              where dm.DonorID == d.DonorID
+                                              select u.FirstName + " " + u.LastName).FirstOrDefault().Trim(),
+                                 CaseId = d.CaseID,
+                                 Quantity = d.Quantity,
+                                 Address = d.Address,
+                                 Message = d.Message,
+                                 StatusId = d.StatusID,
+                                 Status = (from y in dbx.tbl_Status
+                                           where y.StatusID == d.StatusID
+                                           select y.Status).FirstOrDefault().Trim(),
+                                 IsActive = d.isActive,
+                                 PostedDateTime = d.PostedDateTime,
+                                 Image1 = d.Image1,
+                                 Image2 = d.Image2,
+                                 Image3 = d.Image3
+                             }).ToList();
+
+                foreach (ReplyRequest item in reply)
+                {
+                    if (!string.IsNullOrWhiteSpace(item.Image1))
+                    {
+                        string imagePath1 = item.Image1;
+                        FileInfo fi = new FileInfo(imagePath1);
+                        item.Image1Name = fi.Name;
+                    }
+                    if (!string.IsNullOrWhiteSpace(item.Image2))
+                    {
+                        string image2Path = item.Image2;
+                        FileInfo fi = new FileInfo(image2Path);
+                        item.Image2Name = fi.Name;
+                    }
+                    if (!string.IsNullOrWhiteSpace(item.Image3))
+                    {
+                        string imagePath3 = item.Image3;
+                        FileInfo fi = new FileInfo(imagePath3);
+                        item.Image3Name = fi.Name;
+                    }
+                }
+
+                if (reply.Any())
+                {
+                    ret = new { reply, noData = false };
+                    return Ok(ret);
                 }
                 return Json(ret);
             }
@@ -707,9 +777,9 @@ namespace CharitAble_current.Controllers
 
                 var RemainingQuantity = quantity - sum;
 
-                object obj = new { RemainingQuantity };
+                object ret = new { RemainingQuantity };
 
-                return Ok(obj);
+                return Ok(ret);
             }
             catch (Exception ex)
             {

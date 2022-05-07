@@ -173,6 +173,39 @@ namespace CharitAble_current.Controllers
             }
         }
 
+        //PUT: subscription/edit?{id}&{isActive}
+        [HttpPut]
+        [Route("edit")]
+        public IHttpActionResult UpdateDonation(int id, string isActive)
+        {
+            try
+            {
+                var planIds = (from x in dbx.tbl_SubscriptionPlan select x.PlanID).ToList();
+
+                if (planIds.Contains(id))
+                {
+                    SubscriptionRequest value = new SubscriptionRequest();
+
+                    var existingPlan = dbx.tbl_SubscriptionPlan.Where(x => x.PlanID == id).FirstOrDefault();
+
+                    existingPlan.isActive = value.IsActive = isActive;
+
+                    dbx.tbl_SubscriptionPlan.AddOrUpdate(existingPlan);
+                    dbx.SaveChanges();
+
+                    return Ok("record updated successfully");
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex + " : '" + ex.Message + "'");
+            }
+        }
+
         //PUT: subscription/assign
 
         [HttpPut]
