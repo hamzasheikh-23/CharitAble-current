@@ -186,6 +186,7 @@ namespace CharitAble_current.Controllers
                                               where dm.DonorID == d.DonorID
                                               select u.FirstName + " " + u.LastName).FirstOrDefault().Trim(),
                                  CaseId = d.CaseID,
+                                 CaseTitle = c.CaseTitle,
                                  Quantity = d.Quantity,
                                  Address = d.Address,
                                  Message = d.Message,
@@ -256,6 +257,9 @@ namespace CharitAble_current.Controllers
                                  where d.DonorID == x.DonorID
                                  select u.FirstName + " " + u.LastName).FirstOrDefault().Trim(),
                     CaseId = x.CaseID,
+                    CaseTitle = (from x in dbx.tbl_Cases
+                                 where x.CaseID == caseId
+                                 select x.CaseTitle).FirstOrDefault(),
                     Quantity = x.Quantity,
                     Address = x.Address,
                     Message = x.Message,
@@ -326,6 +330,7 @@ namespace CharitAble_current.Controllers
                                               where dm.DonorID == d.DonorID
                                               select u.FirstName + " " + u.LastName).FirstOrDefault().Trim(),
                                  CaseId = d.CaseID,
+                                 CaseTitle = c.CaseTitle,
                                  Quantity = d.Quantity,
                                  Address = d.Address,
                                  Message = d.Message,
@@ -398,6 +403,9 @@ namespace CharitAble_current.Controllers
                                  where d.DonorID == x.DonorID
                                  select u.FirstName + " " + u.LastName).FirstOrDefault().Trim(),
                     CaseId = x.CaseID,
+                    CaseTitle = (from x in dbx.tbl_Cases 
+                                 where x.CaseID == caseId 
+                                 select x.CaseTitle).FirstOrDefault(),
                     Quantity = x.Quantity,
                     Address = x.Address,
                     Message = x.Message,
@@ -466,6 +474,9 @@ namespace CharitAble_current.Controllers
                                  where d.DonorID == x.DonorID
                                  select u.FirstName + " " + u.LastName).FirstOrDefault().Trim(),
                     CaseId = x.CaseID,
+                    CaseTitle = (from x in dbx.tbl_Cases
+                                 where x.CaseID == caseId
+                                 select x.CaseTitle).FirstOrDefault(),
                     Quantity = x.Quantity,
                     Address = x.Address,
                     Message = x.Message,
@@ -538,6 +549,9 @@ namespace CharitAble_current.Controllers
                                  where d.DonorID == x.DonorID
                                  select u.FirstName + " " + u.LastName).FirstOrDefault().Trim(),
                     CaseId = x.CaseID,
+                    CaseTitle = (from x in dbx.tbl_Cases
+                                 where x.CaseID == caseId
+                                 select x.CaseTitle).FirstOrDefault(),
                     Quantity = x.Quantity,
                     Address = x.Address,
                     Message = x.Message,
