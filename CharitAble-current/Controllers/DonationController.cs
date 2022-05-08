@@ -819,7 +819,7 @@ namespace CharitAble_current.Controllers
 
         //        foreach (var item in categoryArray)
         //        {
-        //            var c = from x in dbx.tbl_Donations where x.Category == item select x
+
         //        }
 
         //        var countArray = totalDonationsList.Sum(x => x.Quantity);

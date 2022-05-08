@@ -378,7 +378,8 @@ namespace CharitAble_current.Controllers
                                        PlanName = (from y in dbx.tbl_SubscriptionPlan
                                                    where y.PlanID == n.PlanID
                                                    select y.PlanName).FirstOrDefault(),
-                                       SubscriptionEndDate = n.SubscriptionEndDate
+                                       SubscriptionEndDate = n.SubscriptionEndDate,
+                                       IsActive = n.isActive
                                    }).ToList();
                     ret = new { ngoList, noData = false };
 
@@ -403,10 +404,10 @@ namespace CharitAble_current.Controllers
                                          UpdateDate = (DateTime)x.UpdateDateTime,
                                          CNIC = (long)d.CNIC,
                                          Address = d.Address
-                                     
+                                         IsActive = d.isActive
                                      }).ToList();
 
-                    ret = new {donorList, noData = false };
+                    ret = new { donorList, noData = false };
 
                     return Ok(ret);
                 }
@@ -431,7 +432,7 @@ namespace CharitAble_current.Controllers
                         UpdateDate = (DateTime)x.UpdateDateTime
                     }).Where(x => x.UserTypeId == userTypeId);
 
-                    ret = new { adminList, noData = false};
+                    ret = new { adminList, noData = false };
 
                     return Ok(ret);
                 }

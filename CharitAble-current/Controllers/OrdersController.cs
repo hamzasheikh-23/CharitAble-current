@@ -119,26 +119,29 @@ namespace CharitAble_current.Controllers
             {
                 object ret = new { noData = true, status = "unsuccesfull request" };
 
-                var order = dbx.tbl_Orders.Select(x =>
-                new OrderRequest()
-                {
-                    OrderId = x.OrderID,
-                    NGOId = x.NGO_ID,
-                    NGOName = (from n in dbx.tbl_NGOMaster
-                               join u in dbx.tbl_Users on n.UserID equals u.UserID
-                               where n.NGO_ID == x.NGO_ID
-                               select u.FirstName + " " + u.LastName).FirstOrDefault().Trim(),
-                    CaseId = x.CaseID,
-                    ReplyId = x.ReplyID,
-                    PaymentId = x.PaymentID,
-                    DeliveryAddress = x.DeliveryAddress,
-                    Amount = x.Amount,
-                    StatusId = x.StatusID,
-                    Status = (from y in dbx.tbl_Status
-                              where y.StatusID == x.StatusID
-                              select y.Status).FirstOrDefault().Trim(),
-                    OrderDateTime = x.OrderDateTime
-                }).Where(x => x.NGOId == ngoId).ToList();
+                var order = (from x in dbx.tbl_Orders
+                             join r in dbx.tbl_DonorReplies on x.ReplyID equals r.ReplyID
+                             where x.NGO_ID == ngoId
+                             select new OrderRequest()
+                             {
+                                 OrderId = x.OrderID,
+                                 NGOId = x.NGO_ID,
+                                 NGOName = (from n in dbx.tbl_NGOMaster
+                                            join u in dbx.tbl_Users on n.UserID equals u.UserID
+                                            where n.NGO_ID == x.NGO_ID
+                                            select u.FirstName + " " + u.LastName).FirstOrDefault().Trim(),
+                                 CaseId = x.CaseID,
+                                 ReplyId = x.ReplyID,
+                                 PaymentId = x.PaymentID,
+                                 PickupAddress = r.Address,
+                                 DeliveryAddress = x.DeliveryAddress,
+                                 Amount = x.Amount,
+                                 StatusId = x.StatusID,
+                                 Status = (from y in dbx.tbl_Status
+                                           where y.StatusID == x.StatusID
+                                           select y.Status).FirstOrDefault().Trim(),
+                                 OrderDateTime = x.OrderDateTime
+                             }).ToList();
 
 
                 if (order.Any())
@@ -163,27 +166,29 @@ namespace CharitAble_current.Controllers
             {
                 object ret = new { code = 0, status = "unsuccesfull request" };
 
-                var order = dbx.tbl_Orders.Select(x =>
-                new OrderRequest()
-                {
-                    OrderId = x.OrderID,
-                    NGOId = x.NGO_ID,
-                    NGOName = (from n in dbx.tbl_NGOMaster
-                               join u in dbx.tbl_Users on n.UserID equals u.UserID
-                               where n.NGO_ID == x.NGO_ID
-                               select u.FirstName + " " + u.LastName).FirstOrDefault().Trim(),
-                    CaseId = x.CaseID,
-                    ReplyId = x.ReplyID,
-                    PaymentId = x.PaymentID,
-                    DeliveryAddress = x.DeliveryAddress,
-                    Amount = x.Amount,
-                    StatusId = x.StatusID,
-                    Status = (from y in dbx.tbl_Status
-                              where y.StatusID == x.StatusID
-                              select y.Status).FirstOrDefault().Trim(),
-                    OrderDateTime = x.OrderDateTime
-                }).Where(x => x.OrderId == orderId).ToList();
-
+                var order = (from x in dbx.tbl_Orders
+                             join r in dbx.tbl_DonorReplies on x.ReplyID equals r.ReplyID
+                             where x.OrderID == orderId
+                             select new OrderRequest()
+                             {
+                                 OrderId = x.OrderID,
+                                 NGOId = x.NGO_ID,
+                                 NGOName = (from n in dbx.tbl_NGOMaster
+                                            join u in dbx.tbl_Users on n.UserID equals u.UserID
+                                            where n.NGO_ID == x.NGO_ID
+                                            select u.FirstName + " " + u.LastName).FirstOrDefault().Trim(),
+                                 CaseId = x.CaseID,
+                                 ReplyId = x.ReplyID,
+                                 PaymentId = x.PaymentID,
+                                 PickupAddress = r.Address,
+                                 DeliveryAddress = x.DeliveryAddress,
+                                 Amount = x.Amount,
+                                 StatusId = x.StatusID,
+                                 Status = (from y in dbx.tbl_Status
+                                           where y.StatusID == x.StatusID
+                                           select y.Status).FirstOrDefault().Trim(),
+                                 OrderDateTime = x.OrderDateTime
+                             }).ToList();
 
                 if (order.Any())
                 {
@@ -212,27 +217,29 @@ namespace CharitAble_current.Controllers
 
                 object ret = new { code = 0, status = "unsuccesfull request" };
 
-                var order = dbx.tbl_Orders.Select(x =>
-                new OrderRequest()
-                {
-                    OrderId = x.OrderID,
-                    NGOId = x.NGO_ID,
-                    NGOName = (from n in dbx.tbl_NGOMaster
-                               join u in dbx.tbl_Users on n.UserID equals u.UserID
-                               where n.NGO_ID == x.NGO_ID
-                               select u.FirstName + " " + u.LastName).FirstOrDefault().Trim(),
-                    CaseId = x.CaseID,
-                    ReplyId = x.ReplyID,
-                    PaymentId = x.PaymentID,
-                    DeliveryAddress = x.DeliveryAddress,
-                    Amount = x.Amount,
-                    StatusId = x.StatusID,
-                    Status = (from y in dbx.tbl_Status
-                              where y.StatusID == x.StatusID
-                              select y.Status).FirstOrDefault().Trim(),
-                    OrderDateTime = x.OrderDateTime
-                }).Where(x => x.OrderId == orderId && x.StatusId == statusId).ToList();
-
+                var order = (from x in dbx.tbl_Orders
+                             join r in dbx.tbl_DonorReplies on x.ReplyID equals r.ReplyID
+                             where x.OrderID == orderId && x.StatusID == statusId
+                             select new OrderRequest()
+                             {
+                                 OrderId = x.OrderID,
+                                 NGOId = x.NGO_ID,
+                                 NGOName = (from n in dbx.tbl_NGOMaster
+                                            join u in dbx.tbl_Users on n.UserID equals u.UserID
+                                            where n.NGO_ID == x.NGO_ID
+                                            select u.FirstName + " " + u.LastName).FirstOrDefault().Trim(),
+                                 CaseId = x.CaseID,
+                                 ReplyId = x.ReplyID,
+                                 PaymentId = x.PaymentID,
+                                 PickupAddress = r.Address,
+                                 DeliveryAddress = x.DeliveryAddress,
+                                 Amount = x.Amount,
+                                 StatusId = x.StatusID,
+                                 Status = (from y in dbx.tbl_Status
+                                           where y.StatusID == x.StatusID
+                                           select y.Status).FirstOrDefault().Trim(),
+                                 OrderDateTime = x.OrderDateTime
+                             }).ToList();
 
                 if (order.Any())
                 {
