@@ -20,12 +20,12 @@ namespace CharitAble_current.Requests
         public int AdminId { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public int PlanId { get; set; }
+        public int? PlanId { get; set; }
         public string PlanName { get; set; }
         public DateTime? SubscriptionEndDate { get; set; }
-        public long CNIC { get; set; }
+        public long? CNIC { get; set; }
         public string Address { get; set; }
-        public long Contact { get; set; }
+        public long? Contact { get; set; }
         public int UserTypeId { get; set; }
         public DateTime? RegistrationDate { get; set; }
         public DateTime? UpdateDate { get; set; }

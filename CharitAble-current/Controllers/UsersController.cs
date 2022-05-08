@@ -370,11 +370,11 @@ namespace CharitAble_current.Controllers
                                        LastName = x.LastName,
                                        Username = x.Username,
                                        Email = x.Email,
-                                       Contact = (long)x.ContactNumber,
+                                       Contact = x.ContactNumber,
                                        UserTypeId = x.UserTypeID,
                                        RegistrationDate = (DateTime)x.RegistrationDateTime,
                                        UpdateDate = (DateTime)x.UpdateDateTime,
-                                       PlanId = (int)n.PlanID,
+                                       PlanId = n.PlanID,
                                        PlanName = (from y in dbx.tbl_SubscriptionPlan
                                                    where y.PlanID == n.PlanID
                                                    select y.PlanName).FirstOrDefault(),
@@ -398,12 +398,12 @@ namespace CharitAble_current.Controllers
                                          LastName = x.LastName,
                                          Username = x.Username,
                                          Email = x.Email,
-                                         Contact = (long)x.ContactNumber,
+                                         Contact = x.ContactNumber,
                                          UserTypeId = x.UserTypeID,
                                          RegistrationDate = (DateTime)x.RegistrationDateTime,
                                          UpdateDate = (DateTime)x.UpdateDateTime,
-                                         CNIC = (long)d.CNIC,
-                                         Address = d.Address
+                                         CNIC = d.CNIC,
+                                         Address = d.Address,
                                          IsActive = d.isActive
                                      }).ToList();
 
@@ -426,7 +426,7 @@ namespace CharitAble_current.Controllers
                         LastName = x.LastName,
                         Username = x.Username,
                         Email = x.Email,
-                        Contact = (long)x.ContactNumber,
+                        Contact = x.ContactNumber,
                         UserTypeId = x.UserTypeID,
                         RegistrationDate = (DateTime)x.RegistrationDateTime,
                         UpdateDate = (DateTime)x.UpdateDateTime
