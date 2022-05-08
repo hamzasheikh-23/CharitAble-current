@@ -9,6 +9,7 @@ namespace CharitAble_current.Requests
     {
         public int DonationId { get; set; }
         public int? DonorId { get; set; }
+        public string DonorName { get; set; }
         public string Title { get; set; }
         public short? Quantity { get; set; }
         public decimal? Weight { get; set; }

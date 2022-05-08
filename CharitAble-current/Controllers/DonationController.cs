@@ -131,11 +131,14 @@ namespace CharitAble_current.Controllers
         {
             try
             {
-                var donations = dbx.tbl_Donations.Select(x =>
-                new DonationRequest()
+                var donations = (from x in dbx.tbl_Donations
+                                 join d in dbx.tbl_DonorMaster on x.DonorID equals d.DonorID
+                                 join u in dbx.tbl_Users on d.UserID equals u.UserID
+                                 select new DonationRequest()
                 {
                     DonationId = x.DonationID,
                     DonorId = x.DonorID,
+                    DonorName = u.FirstName+" "+u.LastName,
                     Title = x.DonationTitle,
                     Quantity = x.Quantity,
                     Weight = x.Weight,
