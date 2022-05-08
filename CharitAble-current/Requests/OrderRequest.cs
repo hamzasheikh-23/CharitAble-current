@@ -11,10 +11,13 @@ namespace CharitAble_current.Requests
         public int? NGOId { get; set; }
         public int? CaseId { get; set; }
         public int? ReplyId { get; set; }
+        public int? PaymentId { get; set; }
         public string NGOName { get; set; }
+        public string PickupAddress { get; set; }
         public string DeliveryAddress { get; set; }
         public int? StatusId { get; set; }
         public string Status { get; set; }
+        public decimal? Amount { get; set; }
         public DateTime? OrderDateTime { get; set; }
     }
 }

@@ -114,7 +114,13 @@ namespace CharitAble_current.Controllers
                                  join u in dbx.tbl_Users on d.UserID equals u.UserID
                                  where d.DonorID == x.DonorID
                                  select u.FirstName + " " + u.LastName).FirstOrDefault().Trim(),
+                    UnitId = (from c in dbx.tbl_Cases
+                              where c.CaseID == x.CaseID
+                              select c.UnitID).FirstOrDefault(),
                     CaseId = x.CaseID,
+                    CaseTitle = (from y in dbx.tbl_Cases
+                                 where y.CaseID == x.CaseID
+                                 select y.CaseTitle).FirstOrDefault(),
                     Quantity = x.Quantity,
                     Address = x.Address,
                     Message = x.Message,
@@ -131,6 +137,12 @@ namespace CharitAble_current.Controllers
 
                 foreach (ReplyRequest item in reply)
                 {
+                    if (item.UnitId != null || item.UnitId != 0)
+                    {
+                        item.Unit = (from x in dbx.tbl_Units
+                                     where x.UnitID == item.UnitId
+                                     select x.Unit).FirstOrDefault();
+                    }
 
                     if (!string.IsNullOrWhiteSpace(item.Image1))
                     {
@@ -188,6 +200,9 @@ namespace CharitAble_current.Controllers
                                  CaseId = d.CaseID,
                                  CaseTitle = c.CaseTitle,
                                  Quantity = d.Quantity,
+                                 UnitId = (from c in dbx.tbl_Cases
+                                           where c.CaseID == d.CaseID
+                                           select c.UnitID).FirstOrDefault(),
                                  Address = d.Address,
                                  Message = d.Message,
                                  StatusId = d.StatusID,
@@ -203,6 +218,12 @@ namespace CharitAble_current.Controllers
 
                 foreach (ReplyRequest item in reply)
                 {
+                    if (item.UnitId != null || item.UnitId != 0)
+                    {
+                        item.Unit = (from x in dbx.tbl_Units
+                                     where x.UnitID == item.UnitId
+                                     select x.Unit).FirstOrDefault();
+                    }
                     if (!string.IsNullOrWhiteSpace(item.Image1))
                     {
                         string imagePath1 = item.Image1;
@@ -261,6 +282,9 @@ namespace CharitAble_current.Controllers
                                  where y.CaseID == caseId
                                  select y.CaseTitle).FirstOrDefault(),
                     Quantity = x.Quantity,
+                    UnitId = (from c in dbx.tbl_Cases
+                              where c.CaseID == x.CaseID
+                              select c.UnitID).FirstOrDefault(),
                     Address = x.Address,
                     Message = x.Message,
                     StatusId = x.StatusID,
@@ -276,6 +300,96 @@ namespace CharitAble_current.Controllers
 
                 foreach (ReplyRequest item in reply)
                 {
+                    if (item.UnitId != null || item.UnitId != 0)
+                    {
+                        item.Unit = (from x in dbx.tbl_Units
+                                     where x.UnitID == item.UnitId
+                                     select x.Unit).FirstOrDefault();
+                    }
+                    if (!string.IsNullOrWhiteSpace(item.Image1))
+                    {
+                        string imagePath1 = item.Image1;
+                        FileInfo fi = new FileInfo(imagePath1);
+                        item.Image1Name = fi.Name;
+                    }
+                    if (!string.IsNullOrWhiteSpace(item.Image2))
+                    {
+                        string image2Path = item.Image2;
+                        FileInfo fi = new FileInfo(image2Path);
+                        item.Image2Name = fi.Name;
+                    }
+                    if (!string.IsNullOrWhiteSpace(item.Image3))
+                    {
+                        string imagePath3 = item.Image3;
+                        FileInfo fi = new FileInfo(imagePath3);
+                        item.Image3Name = fi.Name;
+                    }
+                }
+
+                if (reply.Any())
+                {
+                    ret = new { reply, noData = false };
+                    return Ok(ret);
+                }
+                return Json(ret);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("'" + ex + ": " + ex.Message + "'");
+            }
+        }
+
+        // GET: reply/get?{ngoId}&{status}
+        [HttpGet]
+        [Route("get")]
+        public IHttpActionResult GetR(int ngoId, string status)
+        {
+            try
+            {
+                object ret = new { noData = true, status = "unsuccesfull request" };
+
+                var statusId = (from x in dbx.tbl_Status
+                                where x.Status == status
+                                select x.StatusID).FirstOrDefault();
+
+                var reply = (from d in dbx.tbl_DonorReplies
+                             join c in dbx.tbl_Cases on d.CaseID equals c.CaseID
+                             where c.NGO_ID == ngoId && d.StatusID == statusId
+                             select new ReplyRequest()
+                             {
+                                 ReplyId = d.ReplyID,
+                                 DonorId = d.DonorID,
+                                 DonorName = (from dm in dbx.tbl_DonorMaster
+                                              join u in dbx.tbl_Users on dm.UserID equals u.UserID
+                                              where dm.DonorID == d.DonorID
+                                              select u.FirstName + " " + u.LastName).FirstOrDefault().Trim(),
+                                 CaseId = d.CaseID,
+                                 CaseTitle = c.CaseTitle,
+                                 Quantity = d.Quantity,
+                                 UnitId = (from c in dbx.tbl_Cases
+                                           where c.CaseID == d.CaseID
+                                           select c.UnitID).FirstOrDefault(),
+                                 Address = d.Address,
+                                 Message = d.Message,
+                                 StatusId = d.StatusID,
+                                 Status = (from y in dbx.tbl_Status
+                                           where y.StatusID == d.StatusID
+                                           select y.Status).FirstOrDefault().Trim(),
+                                 IsActive = d.isActive,
+                                 PostedDateTime = d.PostedDateTime,
+                                 Image1 = d.Image1,
+                                 Image2 = d.Image2,
+                                 Image3 = d.Image3
+                             }).ToList();
+
+                foreach (ReplyRequest item in reply)
+                {
+                    if (item.UnitId != null || item.UnitId != 0)
+                    {
+                        item.Unit = (from x in dbx.tbl_Units
+                                     where x.UnitID == item.UnitId
+                                     select x.Unit).FirstOrDefault();
+                    }
                     if (!string.IsNullOrWhiteSpace(item.Image1))
                     {
                         string imagePath1 = item.Image1;
@@ -332,6 +446,9 @@ namespace CharitAble_current.Controllers
                                  CaseId = d.CaseID,
                                  CaseTitle = c.CaseTitle,
                                  Quantity = d.Quantity,
+                                 UnitId = (from c in dbx.tbl_Cases
+                                           where c.CaseID == d.CaseID
+                                           select c.UnitID).FirstOrDefault(),
                                  Address = d.Address,
                                  Message = d.Message,
                                  StatusId = d.StatusID,
@@ -347,6 +464,12 @@ namespace CharitAble_current.Controllers
 
                 foreach (ReplyRequest item in reply)
                 {
+                    if (item.UnitId != null || item.UnitId != 0)
+                    {
+                        item.Unit = (from x in dbx.tbl_Units
+                                     where x.UnitID == item.UnitId
+                                     select x.Unit).FirstOrDefault();
+                    }
                     if (!string.IsNullOrWhiteSpace(item.Image1))
                     {
                         string imagePath1 = item.Image1;
@@ -407,6 +530,9 @@ namespace CharitAble_current.Controllers
                                  where y.CaseID == caseId
                                  select y.CaseTitle).FirstOrDefault(),
                     Quantity = x.Quantity,
+                    UnitId = (from c in dbx.tbl_Cases
+                              where c.CaseID == x.CaseID
+                              select c.UnitID).FirstOrDefault(),
                     Address = x.Address,
                     Message = x.Message,
                     StatusId = x.StatusID,
@@ -422,6 +548,12 @@ namespace CharitAble_current.Controllers
 
                 foreach (ReplyRequest item in reply)
                 {
+                    if (item.UnitId != null || item.UnitId != 0)
+                    {
+                        item.Unit = (from x in dbx.tbl_Units
+                                     where x.UnitID == item.UnitId
+                                     select x.Unit).FirstOrDefault();
+                    }
                     if (!string.IsNullOrWhiteSpace(item.Image1))
                     {
                         string imagePath1 = item.Image1;
@@ -458,7 +590,7 @@ namespace CharitAble_current.Controllers
         // GET: reply/get?{caseId}&&{isActive}
         [HttpGet]
         [Route("get")]
-        public IHttpActionResult GetR(int caseId, string isActive)
+        public IHttpActionResult GetReply(int caseId, string isActive)
         {
             try
             {
@@ -478,6 +610,9 @@ namespace CharitAble_current.Controllers
                                  where y.CaseID == caseId
                                  select y.CaseTitle).FirstOrDefault(),
                     Quantity = x.Quantity,
+                    UnitId = (from c in dbx.tbl_Cases
+                              where c.CaseID == x.CaseID
+                              select c.UnitID).FirstOrDefault(),
                     Address = x.Address,
                     Message = x.Message,
                     StatusId = x.StatusID,
@@ -493,6 +628,12 @@ namespace CharitAble_current.Controllers
 
                 foreach (ReplyRequest item in reply)
                 {
+                    if (item.UnitId != null || item.UnitId != 0)
+                    {
+                        item.Unit = (from x in dbx.tbl_Units
+                                     where x.UnitID == item.UnitId
+                                     select x.Unit).FirstOrDefault();
+                    }
                     if (!string.IsNullOrWhiteSpace(item.Image1))
                     {
                         string imagePath1 = item.Image1;
@@ -553,6 +694,9 @@ namespace CharitAble_current.Controllers
                                  where y.CaseID == caseId
                                  select y.CaseTitle).FirstOrDefault(),
                     Quantity = x.Quantity,
+                    UnitId = (from c in dbx.tbl_Cases
+                              where c.CaseID == x.CaseID
+                              select c.UnitID).FirstOrDefault(),
                     Address = x.Address,
                     Message = x.Message,
                     StatusId = x.StatusID,
@@ -568,6 +712,12 @@ namespace CharitAble_current.Controllers
 
                 foreach (ReplyRequest item in reply)
                 {
+                    if (item.UnitId != null || item.UnitId != 0)
+                    {
+                        item.Unit = (from x in dbx.tbl_Units
+                                     where x.UnitID == item.UnitId
+                                     select x.Unit).FirstOrDefault();
+                    }
                     if (!string.IsNullOrWhiteSpace(item.Image1))
                     {
                         string imagePath1 = item.Image1;
@@ -617,10 +767,11 @@ namespace CharitAble_current.Controllers
                                     where x.Status == "Deleted" || x.Status == "deleted"
                                     select x.StatusID).SingleOrDefault();
 
-                    ReplyRequest reply = new ReplyRequest();
-
-                    reply.StatusId = statusId;
-                    reply.IsActive = "false";
+                    ReplyRequest reply = new ReplyRequest
+                    {
+                        StatusId = statusId,
+                        IsActive = "false"
+                    };
 
                     var existingReply = dbx.tbl_DonorReplies.Where(x => x.ReplyID == id).FirstOrDefault();
 

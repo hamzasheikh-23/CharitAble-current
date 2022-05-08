@@ -22,8 +22,6 @@
         <AssociationConnector Association="charitable_dbModel.FK__tbl_Mater__Admin__4AB81AF0" ManuallyRouted="false" />
         <AssociationConnector Association="charitable_dbModel.FK__tbl_Cases__NGO_I__35BCFE0A" ManuallyRouted="false" />
         <AssociationConnector Association="charitable_dbModel.FK__DonorMast__UserI__267ABA7A" ManuallyRouted="false" />
-        <AssociationConnector Association="charitable_dbModel.FK__tbl_Invoi__Donor__3F466844" ManuallyRouted="false" />
-        <AssociationConnector Association="charitable_dbModel.FK__tbl_Invoi__NGO_I__403A8C7D" ManuallyRouted="false" />
         <AssociationConnector Association="charitable_dbModel.FK__tbl_Invoi__Order__3E52440B" ManuallyRouted="false" />
         <AssociationConnector Association="charitable_dbModel.FK__tbl_Mater__Mater__4CA06362" ManuallyRouted="false" />
         <AssociationConnector Association="charitable_dbModel.FK__tbl_Mater__Mater__4BAC3F29" ManuallyRouted="false" />
@@ -50,6 +48,10 @@
         <AssociationConnector Association="charitable_dbModel.FK__tbl_Order__Reply__0A688BB1" />
         <AssociationConnector Association="charitable_dbModel.FK__tbl_Succe__Statu__11158940" />
         <AssociationConnector Association="charitable_dbModel.FK__tbl_Subsc__Admin__13F1F5EB" />
+        <AssociationConnector Association="charitable_dbModel.FK__tbl_Order__CaseI__2334397B" />
+        <AssociationConnector Association="charitable_dbModel.FK__tbl_Payme__NGO_I__2610A626" />
+        <AssociationConnector Association="charitable_dbModel.FK__tbl_Order__NGO_I__336AA144" />
+        <AssociationConnector Association="charitable_dbModel.FK__tbl_Order__Payme__39237A9A" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

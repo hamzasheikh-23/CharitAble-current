@@ -18,9 +18,10 @@ namespace CharitAble_current.Models
         public tbl_NGOMaster()
         {
             this.tbl_Cases = new HashSet<tbl_Cases>();
-            this.tbl_Invoices = new HashSet<tbl_Invoices>();
             this.tbl_Orders = new HashSet<tbl_Orders>();
             this.tbl_SuccessStories = new HashSet<tbl_SuccessStories>();
+            this.tbl_PaymentInfo = new HashSet<tbl_PaymentInfo>();
+            this.tbl_Orders1 = new HashSet<tbl_Orders>();
         }
     
         public int NGO_ID { get; set; }
@@ -37,12 +38,14 @@ namespace CharitAble_current.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_Cases> tbl_Cases { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbl_Invoices> tbl_Invoices { get; set; }
         public virtual tbl_Users tbl_Users { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_Orders> tbl_Orders { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_SuccessStories> tbl_SuccessStories { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbl_PaymentInfo> tbl_PaymentInfo { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbl_Orders> tbl_Orders1 { get; set; }
     }
 }

@@ -352,18 +352,71 @@ namespace CharitAble_current.Controllers
         {
             try
             {
-                var userList = dbx.tbl_Users.Select(x =>
+                object ret = new { noData = true };
+
+                if (userTypeId == 3)
+                {
+                    var ngoList = (from x in dbx.tbl_Users
+                                   join n in dbx.tbl_NGOMaster on x.UserID equals n.UserID
+                                   where x.UserTypeID == userTypeId
+                                   select new UserRequest()
+                                   {
+                                       UserId = x.UserID,
+                                       NgoId = (from n in dbx.tbl_NGOMaster
+                                                join u in dbx.tbl_Users on n.UserID equals u.UserID
+                                                where n.UserID == x.UserID
+                                                select n.NGO_ID).FirstOrDefault(),
+                                       FirstName = x.FirstName,
+                                       LastName = x.LastName,
+                                       Username = x.Username,
+                                       Email = x.Email,
+                                       Contact = (long)x.ContactNumber,
+                                       UserTypeId = x.UserTypeID,
+                                       RegistrationDate = (DateTime)x.RegistrationDateTime,
+                                       UpdateDate = (DateTime)x.UpdateDateTime,
+                                       PlanId = (int)n.PlanID,
+                                       PlanName = (from y in dbx.tbl_SubscriptionPlan
+                                                   where y.PlanID == n.PlanID
+                                                   select y.PlanName).FirstOrDefault(),
+                                       SubscriptionEndDate = n.SubscriptionEndDate
+                                   }).ToList();
+                    ret = new { ngoList, noData = false };
+
+                    return Ok(ret);
+                }
+                if (userTypeId == 2)
+                {
+                    var donorList = (from x in dbx.tbl_Users
+                                     join d in dbx.tbl_DonorMaster on x.UserID equals d.UserID
+                                     where x.UserTypeID == userTypeId
+                                     select new UserRequest()
+                                     {
+                                         UserId = x.UserID,
+                                         DonorId = d.DonorID,
+                                         FirstName = x.FirstName,
+                                         LastName = x.LastName,
+                                         Username = x.Username,
+                                         Email = x.Email,
+                                         Contact = (long)x.ContactNumber,
+                                         UserTypeId = x.UserTypeID,
+                                         RegistrationDate = (DateTime)x.RegistrationDateTime,
+                                         UpdateDate = (DateTime)x.UpdateDateTime,
+                                         CNIC = (long)d.CNIC,
+                                         Address = d.Address
+                                     
+                                     }).ToList();
+
+                    ret = new {donorList, noData = false };
+
+                    return Ok(ret);
+                }
+
+                if (userTypeId == 1)
+                {
+                    var adminList = dbx.tbl_Users.Select(x =>
                     new UserRequest()
                     {
                         UserId = x.UserID,
-                        NgoId = (from n in dbx.tbl_NGOMaster
-                                 join u in dbx.tbl_Users on n.UserID equals u.UserID
-                                 where n.UserID == x.UserID
-                                 select n.NGO_ID).FirstOrDefault(),
-                        DonorId = (from d in dbx.tbl_DonorMaster
-                                   join u in dbx.tbl_Users on d.UserID equals u.UserID
-                                   where d.UserID == x.UserID
-                                   select d.DonorID).FirstOrDefault(),
                         AdminId = (from a in dbx.tbl_Admin
                                    join u in dbx.tbl_Users on a.UserID equals u.UserID
                                    where a.UserID == x.UserID
@@ -378,12 +431,18 @@ namespace CharitAble_current.Controllers
                         UpdateDate = (DateTime)x.UpdateDateTime
                     }).Where(x => x.UserTypeId == userTypeId);
 
-                return Json(userList);
+                    ret = new { adminList, noData = false};
 
+                    return Ok(ret);
+                }
+                else
+                {
+                    return Ok(ret);
+                }
             }
             catch (Exception ex)
             {
-                return Json(ex.Message);
+                return BadRequest(ex.Message);
             }
         }
 
@@ -421,7 +480,7 @@ namespace CharitAble_current.Controllers
             }
         }
 
-        //PUT: user/edit/ngo?{id}&{isActive}
+        //PUT: user/edit/donor?{id}&{isActive}
         [HttpPut]
         [Route("edit/donor")]
         public IHttpActionResult UpdateDonor(int id, string isActive)
@@ -455,9 +514,9 @@ namespace CharitAble_current.Controllers
             }
         }
 
-        //PUT: user/edit/ngo?{id}&{isActive}
+        //PUT: user/edit/admin?{id}&{isActive}
         [HttpPut]
-        [Route("edit/ngo")]
+        [Route("edit/admin")]
         public IHttpActionResult UpdateAdmin(int id, string isActive)
         {
             try

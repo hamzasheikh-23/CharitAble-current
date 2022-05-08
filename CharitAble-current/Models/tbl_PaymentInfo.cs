@@ -14,9 +14,22 @@ namespace CharitAble_current.Models
     
     public partial class tbl_PaymentInfo
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public tbl_PaymentInfo()
+        {
+            this.tbl_Orders = new HashSet<tbl_Orders>();
+        }
+    
         public int PaymentInfoID { get; set; }
         public Nullable<long> CardNumber { get; set; }
         public Nullable<byte> CurrentExpiryMonth { get; set; }
         public Nullable<short> CurretnExpiryYear { get; set; }
+        public Nullable<int> NGO_ID { get; set; }
+        public string CardholderName { get; set; }
+        public Nullable<int> CVV { get; set; }
+    
+        public virtual tbl_NGOMaster tbl_NGOMaster { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbl_Orders> tbl_Orders { get; set; }
     }
 }

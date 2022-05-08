@@ -163,6 +163,28 @@ namespace CharitAble_current.Controllers
                     Image3 = x.Image3,
                 }).ToList();
 
+                foreach (DonationRequest item in donations)
+                {
+                    if (!string.IsNullOrWhiteSpace(item.Image1))
+                    {
+                        string imagePath1 = item.Image1;
+                        FileInfo fi = new FileInfo(imagePath1);
+                        item.Image1Name = fi.Name;
+                    }
+                    if (!string.IsNullOrWhiteSpace(item.Image2))
+                    {
+                        string imagePath2 = item.Image2;
+                        FileInfo fi = new FileInfo(imagePath2);
+                        item.Image2Name = fi.Name;
+                    }
+                    if (!string.IsNullOrWhiteSpace(item.Image3))
+                    {
+                        string imagePath3 = item.Image3;
+                        FileInfo fi = new FileInfo(imagePath3);
+                        item.Image3Name = fi.Name;
+                    }
+                }
+
                 if (donations.Count > 0)
                 {
                     return Ok(donations);
@@ -782,5 +804,40 @@ namespace CharitAble_current.Controllers
                 return BadRequest(ex + " : '" + ex.Message + "'");
             }
         }
+
+        //GET:donation/category/count/get
+        //[HttpGet]
+        //[Route("category/count/get")]
+        //public IHttpActionResult GetCategoryCount()
+        //{
+        //    try
+        //    {
+        //        var categoryArray = (from x in dbx.tbl_DonationCategory
+        //                             select x.DonationCategory).ToList();
+
+        //        int[] count;
+
+        //        foreach (var item in categoryArray)
+        //        {
+        //            var c = from x in dbx.tbl_Donations where x.Category == item select x
+        //        }
+
+        //        var countArray = totalDonationsList.Sum(x => x.Quantity);
+
+        //        var quantity = (from x in dbx.tbl_Cases
+        //                        where x.CaseID == caseId
+        //                        select x.Quantity).SingleOrDefault();
+
+        //        var RemainingQuantity = quantity - sum;
+
+        //        object ret = new { RemainingQuantity };
+
+        //        return Ok(ret);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(ex + ": " + ex.Message + "");
+        //    }
+        //}
     }
 }

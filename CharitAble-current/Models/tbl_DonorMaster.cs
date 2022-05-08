@@ -17,7 +17,6 @@ namespace CharitAble_current.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public tbl_DonorMaster()
         {
-            this.tbl_Invoices = new HashSet<tbl_Invoices>();
             this.tbl_Donations = new HashSet<tbl_Donations>();
             this.tbl_DonorReplies = new HashSet<tbl_DonorReplies>();
         }
@@ -33,8 +32,6 @@ namespace CharitAble_current.Models
         public string isActive { get; set; }
     
         public virtual tbl_Users tbl_Users { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbl_Invoices> tbl_Invoices { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_Donations> tbl_Donations { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

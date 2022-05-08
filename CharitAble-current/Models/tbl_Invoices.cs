@@ -16,13 +16,8 @@ namespace CharitAble_current.Models
     {
         public int InvoiceID { get; set; }
         public Nullable<int> OrderID { get; set; }
-        public Nullable<int> DonorID { get; set; }
-        public Nullable<int> NGO_ID { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
-        public Nullable<decimal> Amount { get; set; }
     
-        public virtual tbl_DonorMaster tbl_DonorMaster { get; set; }
-        public virtual tbl_NGOMaster tbl_NGOMaster { get; set; }
         public virtual tbl_Orders tbl_Orders { get; set; }
     }
 }

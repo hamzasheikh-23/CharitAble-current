@@ -21,16 +21,20 @@ namespace CharitAble_current.Models
         }
     
         public int OrderID { get; set; }
-        public Nullable<int> NGO_ID { get; set; }
         public string DeliveryAddress { get; set; }
         public Nullable<int> CaseID { get; set; }
         public Nullable<System.DateTime> OrderDateTime { get; set; }
         public Nullable<int> StatusID { get; set; }
         public Nullable<int> ReplyID { get; set; }
+        public Nullable<int> NGO_ID { get; set; }
+        public Nullable<decimal> Amount { get; set; }
+        public Nullable<int> PaymentID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_Invoices> tbl_Invoices { get; set; }
-        public virtual tbl_NGOMaster tbl_NGOMaster { get; set; }
         public virtual tbl_DonorReplies tbl_DonorReplies { get; set; }
+        public virtual tbl_Cases tbl_Cases { get; set; }
+        public virtual tbl_NGOMaster tbl_NGOMaster { get; set; }
+        public virtual tbl_PaymentInfo tbl_PaymentInfo { get; set; }
     }
 }

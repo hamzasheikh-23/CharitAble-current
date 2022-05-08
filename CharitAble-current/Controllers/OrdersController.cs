@@ -32,13 +32,17 @@ namespace CharitAble_current.Controllers
 
                 //var isActive = "true";
 
-                tbl_Orders order = new tbl_Orders();
-                order.NGO_ID = value.NGOId;
-                order.CaseID = value.CaseId;
-                order.ReplyID = value.ReplyId;
-                order.DeliveryAddress = value.DeliveryAddress;
-                order.OrderDateTime = value.OrderDateTime = DateTime.Now;
-                order.StatusID = value.StatusId = statusId;
+                tbl_Orders order = new tbl_Orders
+                {
+                    NGO_ID = value.NGOId,
+                    CaseID = value.CaseId,
+                    ReplyID = value.ReplyId,
+                    PaymentID = value.PaymentId,
+                    DeliveryAddress = value.DeliveryAddress,
+                    Amount = value.Amount,
+                    OrderDateTime = value.OrderDateTime = DateTime.Now,
+                    StatusID = value.StatusId = statusId
+                };
 
 
                 dbx.tbl_Orders.AddOrUpdate(order);
@@ -69,6 +73,52 @@ namespace CharitAble_current.Controllers
             {
                 object ret = new { code = 0, status = "unsuccesfull request" };
 
+                var order = (from x in dbx.tbl_Orders
+                             join r in dbx.tbl_DonorReplies on x.ReplyID equals r.ReplyID
+                             select new OrderRequest()
+                             {
+                                 OrderId = x.OrderID,
+                                 NGOId = x.NGO_ID,
+                                 NGOName = (from n in dbx.tbl_NGOMaster
+                                            join u in dbx.tbl_Users on n.UserID equals u.UserID
+                                            where n.NGO_ID == x.NGO_ID
+                                            select u.FirstName + " " + u.LastName).FirstOrDefault().Trim(),
+                                 CaseId = x.CaseID,
+                                 ReplyId = x.ReplyID,
+                                 PaymentId = x.PaymentID,
+                                 PickupAddress = r.Address,
+                                 DeliveryAddress = x.DeliveryAddress,
+                                 Amount = x.Amount,
+                                 StatusId = x.StatusID,
+                                 Status = (from y in dbx.tbl_Status
+                                           where y.StatusID == x.StatusID
+                                           select y.Status).FirstOrDefault().Trim(),
+                                 OrderDateTime = x.OrderDateTime
+                             }).ToList();
+
+
+                if (order.Any())
+                {
+                    ret = new { order, noData = false };
+                    return Ok(ret);
+                }
+                return Ok(ret);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("'" + ex + ": " + ex.Message + "'");
+            }
+        }
+
+        // GET: order/get?{ngoId}
+        [HttpGet]
+        [Route("get")]
+        public IHttpActionResult GetO(int ngoId)
+        {
+            try
+            {
+                object ret = new { noData = true, status = "unsuccesfull request" };
+
                 var order = dbx.tbl_Orders.Select(x =>
                 new OrderRequest()
                 {
@@ -80,20 +130,23 @@ namespace CharitAble_current.Controllers
                                select u.FirstName + " " + u.LastName).FirstOrDefault().Trim(),
                     CaseId = x.CaseID,
                     ReplyId = x.ReplyID,
+                    PaymentId = x.PaymentID,
                     DeliveryAddress = x.DeliveryAddress,
+                    Amount = x.Amount,
                     StatusId = x.StatusID,
                     Status = (from y in dbx.tbl_Status
                               where y.StatusID == x.StatusID
                               select y.Status).FirstOrDefault().Trim(),
                     OrderDateTime = x.OrderDateTime
-                }).ToList();
+                }).Where(x => x.NGOId == ngoId).ToList();
 
 
                 if (order.Any())
                 {
-                    return Ok(order);
+                    ret = new { order, noData = false };
+                    return Ok(ret);
                 }
-                return BadRequest();
+                return Ok(ret);
             }
             catch (Exception ex)
             {
@@ -121,7 +174,9 @@ namespace CharitAble_current.Controllers
                                select u.FirstName + " " + u.LastName).FirstOrDefault().Trim(),
                     CaseId = x.CaseID,
                     ReplyId = x.ReplyID,
+                    PaymentId = x.PaymentID,
                     DeliveryAddress = x.DeliveryAddress,
+                    Amount = x.Amount,
                     StatusId = x.StatusID,
                     Status = (from y in dbx.tbl_Status
                               where y.StatusID == x.StatusID
@@ -132,9 +187,11 @@ namespace CharitAble_current.Controllers
 
                 if (order.Any())
                 {
-                    return Ok(order);
+                    ret = new { order, noData = false };
+                    return Ok(ret);
                 }
-                return BadRequest();
+
+                return Ok(ret);
             }
             catch (Exception ex)
             {
@@ -166,7 +223,9 @@ namespace CharitAble_current.Controllers
                                select u.FirstName + " " + u.LastName).FirstOrDefault().Trim(),
                     CaseId = x.CaseID,
                     ReplyId = x.ReplyID,
+                    PaymentId = x.PaymentID,
                     DeliveryAddress = x.DeliveryAddress,
+                    Amount = x.Amount,
                     StatusId = x.StatusID,
                     Status = (from y in dbx.tbl_Status
                               where y.StatusID == x.StatusID
@@ -177,9 +236,10 @@ namespace CharitAble_current.Controllers
 
                 if (order.Any())
                 {
-                    return Ok(order);
+                    ret = new { order, noData = false };
+                    return Ok(ret);
                 }
-                return BadRequest();
+                return Ok(ret);
             }
             catch (Exception ex)
             {
@@ -287,6 +347,50 @@ namespace CharitAble_current.Controllers
             catch (Exception ex)
             {
                 return BadRequest("'" + ex + ": " + ex.Message + "'");
+            }
+        }
+
+        [HttpPut]
+        [Route("edit")]
+        public IHttpActionResult UpdateOrderStatus(int id, string status)
+        {
+            try
+            {
+                var orderIds = (from x in dbx.tbl_Orders select x.OrderID).ToList();
+
+                if (orderIds.Contains(id))
+                {
+                    var statusId = (from x in dbx.tbl_Status
+                                    where x.Status == status
+                                    select x.StatusID).SingleOrDefault();
+
+                    //var conditionId = (from x in dbx.tbl_DonationCondition
+                    //                   where x.Condition == value.Condition
+                    //                   select x.ConditionID).SingleOrDefault();
+
+                    //var categoryId = (from x in dbx.tbl_DonationCategory
+                    //                  where x.DonationCategory == value.Category
+                    //                  select x.CategoryID).SingleOrDefault();
+
+                    OrderRequest value = new OrderRequest();
+
+                    var existingOrder = dbx.tbl_Orders.Where(x => x.OrderID == id).FirstOrDefault();
+
+                    existingOrder.StatusID = value.StatusId = statusId;
+
+                    dbx.tbl_Orders.AddOrUpdate(existingOrder);
+                    dbx.SaveChanges();
+
+                    return Ok("record updated successfully");
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex + " : '" + ex.Message + "'");
             }
         }
     }
