@@ -135,36 +135,36 @@ namespace CharitAble_current.Controllers
                                  join d in dbx.tbl_DonorMaster on x.DonorID equals d.DonorID
                                  join u in dbx.tbl_Users on d.UserID equals u.UserID
                                  select new DonationRequest()
-                {
-                    DonationId = x.DonationID,
-                    DonorId = x.DonorID,
-                    DonorName = u.FirstName+" "+u.LastName,
-                    Title = x.DonationTitle,
-                    Quantity = x.Quantity,
-                    Weight = x.Weight,
-                    QuantityPerUnit = x.QuantityPerUnit,
-                    ExpiryDate = x.ExpiryDate,
-                    PostedDate = x.PostedDateTime,
-                    StatusId = x.Status,
-                    Status = (from y in dbx.tbl_Status
-                              where y.StatusID == x.Status
-                              select y.Status).FirstOrDefault().Trim(),
-                    IsActive = x.isActive,
-                    Description = x.Description,
-                    Rating = x.Rating,
-                    ConditionId = x.Condition,
-                    Condition = (from y in dbx.tbl_DonationCondition
-                                 where y.ConditionID == x.Condition
-                                 select y.Condition).FirstOrDefault().Trim(),
-                    CategoryId = x.Category,
-                    Category = (from y in dbx.tbl_DonationCategory
-                                where y.CategoryID == x.Category
-                                select y.DonationCategory).FirstOrDefault().Trim(),
-                    Address = x.Address,
-                    Image1 = x.Image1,
-                    Image2 = x.Image2,
-                    Image3 = x.Image3,
-                }).ToList();
+                                 {
+                                     DonationId = x.DonationID,
+                                     DonorId = x.DonorID,
+                                     DonorName = u.FirstName + " " + u.LastName,
+                                     Title = x.DonationTitle,
+                                     Quantity = x.Quantity,
+                                     Weight = x.Weight,
+                                     QuantityPerUnit = x.QuantityPerUnit,
+                                     ExpiryDate = x.ExpiryDate,
+                                     PostedDate = x.PostedDateTime,
+                                     StatusId = x.Status,
+                                     Status = (from y in dbx.tbl_Status
+                                               where y.StatusID == x.Status
+                                               select y.Status).FirstOrDefault().Trim(),
+                                     IsActive = x.isActive,
+                                     Description = x.Description,
+                                     Rating = x.Rating,
+                                     ConditionId = x.Condition,
+                                     Condition = (from y in dbx.tbl_DonationCondition
+                                                  where y.ConditionID == x.Condition
+                                                  select y.Condition).FirstOrDefault().Trim(),
+                                     CategoryId = x.Category,
+                                     Category = (from y in dbx.tbl_DonationCategory
+                                                 where y.CategoryID == x.Category
+                                                 select y.DonationCategory).FirstOrDefault().Trim(),
+                                     Address = x.Address,
+                                     Image1 = x.Image1,
+                                     Image2 = x.Image2,
+                                     Image3 = x.Image3,
+                                 }).ToList();
 
                 foreach (DonationRequest item in donations)
                 {

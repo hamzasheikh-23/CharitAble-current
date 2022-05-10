@@ -224,6 +224,7 @@ namespace CharitAble_current.Controllers
                         tbl_Admin admin = new tbl_Admin();
 
                         admin.UserID = userID;
+                        admin.isActive = "true";
 
                         dbx.tbl_Admin.AddOrUpdate(admin);
                         dbx.SaveChanges();
@@ -237,6 +238,7 @@ namespace CharitAble_current.Controllers
                         tbl_DonorMaster donor = new tbl_DonorMaster();
 
                         donor.UserID = userID;
+                        donor.isActive = "true";
 
                         dbx.tbl_DonorMaster.AddOrUpdate(donor);
                         dbx.SaveChanges();
@@ -250,6 +252,7 @@ namespace CharitAble_current.Controllers
                         tbl_NGOMaster ngo = new tbl_NGOMaster();
 
                         ngo.UserID = userID;
+                        ngo.isActive = "true";
 
                         dbx.tbl_NGOMaster.AddOrUpdate(ngo);
                         dbx.SaveChanges();
@@ -429,7 +432,10 @@ namespace CharitAble_current.Controllers
                         Contact = x.ContactNumber,
                         UserTypeId = x.UserTypeID,
                         RegistrationDate = (DateTime)x.RegistrationDateTime,
-                        UpdateDate = (DateTime)x.UpdateDateTime
+                        UpdateDate = (DateTime)x.UpdateDateTime,
+                        IsActive = (from a in dbx.tbl_Admin
+                                    where a.UserID == x.UserID
+                                    select a.isActive).FirstOrDefault(),
                     }).Where(x => x.UserTypeId == userTypeId);
 
                     ret = new { adminList, noData = false };
