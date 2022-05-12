@@ -265,8 +265,9 @@ namespace CharitAble_current.Controllers
             {
                 ret = new
                 {
+                    isSuccess = false,
                     code = 2,
-                    status = "You are subscribed right now"
+                    status = "Subscription expired"
                 };
 
                 return Ok(ret);

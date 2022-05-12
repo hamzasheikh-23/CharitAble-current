@@ -52,6 +52,7 @@ namespace CharitAble_current.Controllers
 
                     var userTypeId = result.UserTypeID;
 
+
                     isSuccess = true;
 
                     switch (result.UserTypeID)
@@ -62,12 +63,17 @@ namespace CharitAble_current.Controllers
                                                where x.UserID == userID
                                                select x.AdminID).SingleOrDefault();
 
+                                var isActive = (from x in dbx.tbl_Admin
+                                                where x.UserID == userID
+                                                select x.isActive).SingleOrDefault();
+
                                 ret = new
                                 {
                                     isSuccess,
                                     userTypeId,
                                     adminID,
                                     userID,
+                                    isActive,
                                     code = "1",
                                     msg = "Login Successful as Admin"
                                 };
@@ -81,12 +87,17 @@ namespace CharitAble_current.Controllers
                                      where x.UserID == userID
                                      select x.DonorID).SingleOrDefault();
 
+                                var isActive = (from x in dbx.tbl_DonorMaster
+                                                where x.UserID == userID
+                                                select x.isActive).SingleOrDefault();
+
                                 ret = new
                                 {
                                     isSuccess,
                                     userTypeId,
                                     donorID,
                                     userID,
+                                    isActive,
                                     code = "2",
                                     msg = "Login Successful as Donor"
                                 };
@@ -105,11 +116,16 @@ namespace CharitAble_current.Controllers
                                      where x.UserID == userID
                                      select x.PlanID).SingleOrDefault();
 
+                                var isActive = (from x in dbx.tbl_NGOMaster
+                                                where x.UserID == userID
+                                                select x.isActive).SingleOrDefault();
+
                                 ret = new
                                 {
                                     isSuccess,
                                     userTypeId,
                                     ngoID,
+                                    isActive,
                                     planID,
                                     userID,
                                     code = "3",

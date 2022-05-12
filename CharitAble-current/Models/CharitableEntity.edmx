@@ -262,7 +262,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tbl_Admin__UserI__123EB7A3">
+        <Association Name="FK__tbl_Admin__UserI__17036CC0">
           <End Role="tbl_Users" Type="Self.tbl_Users" Multiplicity="0..1" />
           <End Role="tbl_Admin" Type="Self.tbl_Admin" Multiplicity="*" />
           <ReferentialConstraint>
@@ -346,7 +346,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tbl_Donor__UserI__1332DBDC">
+        <Association Name="FK__tbl_Donor__UserI__1CBC4616">
           <End Role="tbl_Users" Type="Self.tbl_Users" Multiplicity="0..1" />
           <End Role="tbl_DonorMaster" Type="Self.tbl_DonorMaster" Multiplicity="*" />
           <ReferentialConstraint>
@@ -382,7 +382,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tbl_Mater__Admin__4AB81AF0">
+        <Association Name="FK__tbl_Mater__Admin__2180FB33">
           <End Role="tbl_Admin" Type="Self.tbl_Admin" Multiplicity="0..1" />
           <End Role="tbl_MaterialMaster" Type="Self.tbl_MaterialMaster" Multiplicity="*" />
           <ReferentialConstraint>
@@ -394,7 +394,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tbl_Mater__Mater__4BAC3F29">
+        <Association Name="FK__tbl_Mater__Mater__22751F6C">
           <End Role="tbl_MaterialType" Type="Self.tbl_MaterialType" Multiplicity="0..1" />
           <End Role="tbl_MaterialMaster" Type="Self.tbl_MaterialMaster" Multiplicity="*" />
           <ReferentialConstraint>
@@ -406,7 +406,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tbl_Mater__Mater__4CA06362">
+        <Association Name="FK__tbl_Mater__Mater__236943A5">
           <End Role="tbl_MaterialGroup" Type="Self.tbl_MaterialGroup" Multiplicity="0..1" />
           <End Role="tbl_MaterialMaster" Type="Self.tbl_MaterialMaster" Multiplicity="*" />
           <ReferentialConstraint>
@@ -442,7 +442,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tbl_Order__Payme__39237A9A">
+        <Association Name="FK__tbl_Order__Payme__25518C17">
           <End Role="tbl_PaymentInfo" Type="Self.tbl_PaymentInfo" Multiplicity="0..1" />
           <End Role="tbl_Orders" Type="Self.tbl_Orders" Multiplicity="*" />
           <ReferentialConstraint>
@@ -466,7 +466,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tbl_Payme__NGO_I__2610A626">
+        <Association Name="FK__tbl_Payme__NGO_I__282DF8C2">
           <End Role="tbl_NGOMaster" Type="Self.tbl_NGOMaster" Multiplicity="0..1" />
           <End Role="tbl_PaymentInfo" Type="Self.tbl_PaymentInfo" Multiplicity="*" />
           <ReferentialConstraint>
@@ -478,7 +478,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tbl_Subsc__Admin__13F1F5EB">
+        <Association Name="FK__tbl_Subsc__Admin__29221CFB">
           <End Role="tbl_Admin" Type="Self.tbl_Admin" Multiplicity="0..1" />
           <End Role="tbl_SubscriptionPlan" Type="Self.tbl_SubscriptionPlan" Multiplicity="*" />
           <ReferentialConstraint>
@@ -502,7 +502,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tbl_Succe__Statu__11158940">
+        <Association Name="FK__tbl_Succe__Statu__2A164134">
           <End Role="tbl_Status" Type="Self.tbl_Status" Multiplicity="0..1" />
           <End Role="tbl_SuccessStories" Type="Self.tbl_SuccessStories" Multiplicity="*" />
           <ReferentialConstraint>
@@ -514,7 +514,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tbl_Users__UserT__160F4887">
+        <Association Name="FK__tbl_Users__UserT__2BFE89A6">
           <End Role="tbl_UserType" Type="Self.tbl_UserType" Multiplicity="1" />
           <End Role="tbl_Users" Type="Self.tbl_Users" Multiplicity="*" />
           <ReferentialConstraint>
@@ -622,7 +622,7 @@
             <End Role="tbl_DonorMaster" EntitySet="tbl_DonorMaster" />
             <End Role="tbl_Donations" EntitySet="tbl_Donations" />
           </AssociationSet>
-          <AssociationSet Name="FK__tbl_Admin__UserI__123EB7A3" Association="Self.FK__tbl_Admin__UserI__123EB7A3">
+          <AssociationSet Name="FK__tbl_Admin__UserI__17036CC0" Association="Self.FK__tbl_Admin__UserI__17036CC0">
             <End Role="tbl_Users" EntitySet="tbl_Users" />
             <End Role="tbl_Admin" EntitySet="tbl_Admin" />
           </AssociationSet>
@@ -650,7 +650,7 @@
             <End Role="tbl_DonorMaster" EntitySet="tbl_DonorMaster" />
             <End Role="tbl_DonorReplies" EntitySet="tbl_DonorReplies" />
           </AssociationSet>
-          <AssociationSet Name="FK__tbl_Donor__UserI__1332DBDC" Association="Self.FK__tbl_Donor__UserI__1332DBDC">
+          <AssociationSet Name="FK__tbl_Donor__UserI__1CBC4616" Association="Self.FK__tbl_Donor__UserI__1CBC4616">
             <End Role="tbl_Users" EntitySet="tbl_Users" />
             <End Role="tbl_DonorMaster" EntitySet="tbl_DonorMaster" />
           </AssociationSet>
@@ -662,15 +662,15 @@
             <End Role="tbl_Orders" EntitySet="tbl_Orders" />
             <End Role="tbl_Invoices" EntitySet="tbl_Invoices" />
           </AssociationSet>
-          <AssociationSet Name="FK__tbl_Mater__Admin__4AB81AF0" Association="Self.FK__tbl_Mater__Admin__4AB81AF0">
+          <AssociationSet Name="FK__tbl_Mater__Admin__2180FB33" Association="Self.FK__tbl_Mater__Admin__2180FB33">
             <End Role="tbl_Admin" EntitySet="tbl_Admin" />
             <End Role="tbl_MaterialMaster" EntitySet="tbl_MaterialMaster" />
           </AssociationSet>
-          <AssociationSet Name="FK__tbl_Mater__Mater__4BAC3F29" Association="Self.FK__tbl_Mater__Mater__4BAC3F29">
+          <AssociationSet Name="FK__tbl_Mater__Mater__22751F6C" Association="Self.FK__tbl_Mater__Mater__22751F6C">
             <End Role="tbl_MaterialType" EntitySet="tbl_MaterialType" />
             <End Role="tbl_MaterialMaster" EntitySet="tbl_MaterialMaster" />
           </AssociationSet>
-          <AssociationSet Name="FK__tbl_Mater__Mater__4CA06362" Association="Self.FK__tbl_Mater__Mater__4CA06362">
+          <AssociationSet Name="FK__tbl_Mater__Mater__236943A5" Association="Self.FK__tbl_Mater__Mater__236943A5">
             <End Role="tbl_MaterialGroup" EntitySet="tbl_MaterialGroup" />
             <End Role="tbl_MaterialMaster" EntitySet="tbl_MaterialMaster" />
           </AssociationSet>
@@ -682,7 +682,7 @@
             <End Role="tbl_Cases" EntitySet="tbl_Cases" />
             <End Role="tbl_Orders" EntitySet="tbl_Orders" />
           </AssociationSet>
-          <AssociationSet Name="FK__tbl_Order__Payme__39237A9A" Association="Self.FK__tbl_Order__Payme__39237A9A">
+          <AssociationSet Name="FK__tbl_Order__Payme__25518C17" Association="Self.FK__tbl_Order__Payme__25518C17">
             <End Role="tbl_PaymentInfo" EntitySet="tbl_PaymentInfo" />
             <End Role="tbl_Orders" EntitySet="tbl_Orders" />
           </AssociationSet>
@@ -690,11 +690,11 @@
             <End Role="tbl_DonorReplies" EntitySet="tbl_DonorReplies" />
             <End Role="tbl_Orders" EntitySet="tbl_Orders" />
           </AssociationSet>
-          <AssociationSet Name="FK__tbl_Payme__NGO_I__2610A626" Association="Self.FK__tbl_Payme__NGO_I__2610A626">
+          <AssociationSet Name="FK__tbl_Payme__NGO_I__282DF8C2" Association="Self.FK__tbl_Payme__NGO_I__282DF8C2">
             <End Role="tbl_NGOMaster" EntitySet="tbl_NGOMaster" />
             <End Role="tbl_PaymentInfo" EntitySet="tbl_PaymentInfo" />
           </AssociationSet>
-          <AssociationSet Name="FK__tbl_Subsc__Admin__13F1F5EB" Association="Self.FK__tbl_Subsc__Admin__13F1F5EB">
+          <AssociationSet Name="FK__tbl_Subsc__Admin__29221CFB" Association="Self.FK__tbl_Subsc__Admin__29221CFB">
             <End Role="tbl_Admin" EntitySet="tbl_Admin" />
             <End Role="tbl_SubscriptionPlan" EntitySet="tbl_SubscriptionPlan" />
           </AssociationSet>
@@ -702,11 +702,11 @@
             <End Role="tbl_NGOMaster" EntitySet="tbl_NGOMaster" />
             <End Role="tbl_SuccessStories" EntitySet="tbl_SuccessStories" />
           </AssociationSet>
-          <AssociationSet Name="FK__tbl_Succe__Statu__11158940" Association="Self.FK__tbl_Succe__Statu__11158940">
+          <AssociationSet Name="FK__tbl_Succe__Statu__2A164134" Association="Self.FK__tbl_Succe__Statu__2A164134">
             <End Role="tbl_Status" EntitySet="tbl_Status" />
             <End Role="tbl_SuccessStories" EntitySet="tbl_SuccessStories" />
           </AssociationSet>
-          <AssociationSet Name="FK__tbl_Users__UserT__160F4887" Association="Self.FK__tbl_Users__UserT__160F4887">
+          <AssociationSet Name="FK__tbl_Users__UserT__2BFE89A6" Association="Self.FK__tbl_Users__UserT__2BFE89A6">
             <End Role="tbl_UserType" EntitySet="tbl_UserType" />
             <End Role="tbl_Users" EntitySet="tbl_Users" />
           </AssociationSet>
