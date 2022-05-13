@@ -465,6 +465,7 @@ namespace CharitAble_current.Controllers
                                  DonationCategory = (from x in dbx.tbl_DonationCategory
                                                      where x.CategoryID == c.Category
                                                      select x.DonationCategory).FirstOrDefault().Trim(),
+                                 Description = c.Description,
                                  Message = d.Message,
                                  StatusId = d.StatusID,
                                  Status = (from y in dbx.tbl_Status
