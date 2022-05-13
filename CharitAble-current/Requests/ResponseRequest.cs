@@ -20,6 +20,7 @@ namespace CharitAble_current.Requests
         public int? Quantity { get; set; }
         public int? DonationCategoryId { get; set; }
         public string DonationCategory { get; set; }
+        public string Description { get; set; }
         public string Message { get; set; }
         public DateTime? PostedDateTime { get; set; }
         public int? StatusId { get; set; }
