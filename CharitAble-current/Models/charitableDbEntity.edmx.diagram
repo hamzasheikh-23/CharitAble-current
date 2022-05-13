@@ -51,6 +51,7 @@
         <AssociationConnector Association="charitable_dbModel.FK__tbl_Users__UserT__2BFE89A6" ManuallyRouted="false" />
         <EntityTypeShape EntityType="charitable_dbModel.database_firewall_rules" Width="1.5" PointX="0.75" PointY="3.75" />
         <EntityTypeShape EntityType="charitable_dbModel.ipv6_database_firewall_rules" Width="1.5" PointX="2.75" PointY="3.75" />
+        <EntityTypeShape EntityType="charitable_dbModel.NGOResponse" Width="1.5" PointX="0.75" PointY="6.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

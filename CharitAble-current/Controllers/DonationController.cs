@@ -808,39 +808,5 @@ namespace CharitAble_current.Controllers
             }
         }
 
-        //GET:donation/category/count/get
-        //[HttpGet]
-        //[Route("category/count/get")]
-        //public IHttpActionResult GetCategoryCount()
-        //{
-        //    try
-        //    {
-        //        var categoryArray = (from x in dbx.tbl_DonationCategory
-        //                             select x.DonationCategory).ToList();
-
-        //        int[] count;
-
-        //        foreach (var item in categoryArray)
-        //        {
-
-        //        }
-
-        //        var countArray = totalDonationsList.Sum(x => x.Quantity);
-
-        //        var quantity = (from x in dbx.tbl_Cases
-        //                        where x.CaseID == caseId
-        //                        select x.Quantity).SingleOrDefault();
-
-        //        var RemainingQuantity = quantity - sum;
-
-        //        object ret = new { RemainingQuantity };
-
-        //        return Ok(ret);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest(ex + ": " + ex.Message + "");
-        //    }
-        //}
     }
 }

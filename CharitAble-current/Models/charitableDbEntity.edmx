@@ -5,6 +5,19 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="charitable_dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="NGOResponse">
+          <Key>
+            <PropertyRef Name="ResponseID" />
+          </Key>
+          <Property Name="ResponseID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NGO_ID" Type="int" Nullable="false" />
+          <Property Name="DonationID" Type="int" Nullable="false" />
+          <Property Name="Address" Type="varchar" MaxLength="500" />
+          <Property Name="Message" Type="varchar" MaxLength="500" />
+          <Property Name="PostedDateTime" Type="smalldatetime" />
+          <Property Name="StatusID" Type="int" />
+          <Property Name="isActive" Type="varchar" MaxLength="10" />
+        </EntityType>
         <EntityType Name="tbl_Admin">
           <Key>
             <PropertyRef Name="AdminID" />
@@ -633,6 +646,7 @@ warning 6002: The table/view 'charitable_db.sys.ipv6_database_firewall_rules' do
           <Parameter Name="Picture" Type="image" Mode="In" />
         </Function>
         <EntityContainer Name="charitable_dbModelStoreContainer">
+          <EntitySet Name="NGOResponse" EntityType="Self.NGOResponse" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Admin" EntityType="Self.tbl_Admin" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Cases" EntityType="Self.tbl_Cases" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_DonationCategory" EntityType="Self.tbl_DonationCategory" Schema="dbo" store:Type="Tables" />
@@ -1524,6 +1538,7 @@ warning 6002: The table/view 'charitable_db.sys.ipv6_database_firewall_rules' do
           </FunctionImport>
           <EntitySet Name="database_firewall_rules" EntityType="charitable_dbModel.database_firewall_rules" />
           <EntitySet Name="ipv6_database_firewall_rules" EntityType="charitable_dbModel.ipv6_database_firewall_rules" />
+          <EntitySet Name="NGOResponses" EntityType="charitable_dbModel.NGOResponse" />
         </EntityContainer>
         <ComplexType Name="SP_SelectAllAdmins_Result">
           <Property Type="Int32" Name="AdminID" Nullable="false" />
@@ -1702,6 +1717,19 @@ warning 6002: The table/view 'charitable_db.sys.ipv6_database_firewall_rules' do
           <Property Name="end_ipv6_address" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
           <Property Name="create_date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="modify_date" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="NGOResponse">
+          <Key>
+            <PropertyRef Name="ResponseID" />
+          </Key>
+          <Property Name="ResponseID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NGO_ID" Type="Int32" Nullable="false" />
+          <Property Name="DonationID" Type="Int32" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Message" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="PostedDateTime" Type="DateTime" Precision="0" />
+          <Property Name="StatusID" Type="Int32" />
+          <Property Name="isActive" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -2208,6 +2236,20 @@ warning 6002: The table/view 'charitable_db.sys.ipv6_database_firewall_rules' do
                 <ScalarProperty Name="start_ipv6_address" ColumnName="start_ipv6_address" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NGOResponses">
+            <EntityTypeMapping TypeName="charitable_dbModel.NGOResponse">
+              <MappingFragment StoreEntitySet="NGOResponse">
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="PostedDateTime" ColumnName="PostedDateTime" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="DonationID" ColumnName="DonationID" />
+                <ScalarProperty Name="NGO_ID" ColumnName="NGO_ID" />
+                <ScalarProperty Name="ResponseID" ColumnName="ResponseID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

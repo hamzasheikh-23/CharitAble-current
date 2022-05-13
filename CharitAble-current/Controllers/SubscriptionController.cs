@@ -214,7 +214,7 @@ namespace CharitAble_current.Controllers
 
         [HttpPut]
         [Route("assign")]
-        public IHttpActionResult Assign(int ngoId, SubscriptionRequest value)
+        public IHttpActionResult Assign(int ngoId, int planId, SubscriptionRequest value)
         {
             try
             {
@@ -225,7 +225,7 @@ namespace CharitAble_current.Controllers
 
                     var existingNGO = dbx.tbl_NGOMaster.Where(x => x.NGO_ID == ngoId).FirstOrDefault();
 
-                    existingNGO.PlanID = value.PlanId;
+                    existingNGO.PlanID = value.PlanId = planId;
                     existingNGO.SubscriptionStartDate = DateTime.Now.Date;
                     existingNGO.SubscriptionEndDate = DateTime.Now.Date.AddMonths(1);
 

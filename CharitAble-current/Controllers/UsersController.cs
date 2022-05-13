@@ -607,5 +607,39 @@ namespace CharitAble_current.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("users/count")]
+        public IHttpActionResult Get()
+        {
+            try
+            {
+                object ret = new
+                {
+                    isSuccess = false,
+                    msg = "no user found"
+                };
+
+                var userList = (from x in dbx.tbl_Users
+                                select x).ToList();
+
+                if (userList.Any())
+                {
+                    var count = userList.Count;
+                    ret = new
+                    {
+                        isSuccess = true,
+                        msg = "users found",
+                        count
+                    };
+                    return Ok(ret);
+                }
+
+                return Ok(ret);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

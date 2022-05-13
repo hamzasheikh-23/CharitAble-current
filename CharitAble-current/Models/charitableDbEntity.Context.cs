@@ -50,6 +50,7 @@ namespace CharitAble_current.Models
         public virtual DbSet<tbl_UserType> tbl_UserType { get; set; }
         public virtual DbSet<database_firewall_rules> database_firewall_rules { get; set; }
         public virtual DbSet<ipv6_database_firewall_rules> ipv6_database_firewall_rules { get; set; }
+        public virtual DbSet<NGOResponse> NGOResponses { get; set; }
     
         public virtual int SP_AddCase(string caseTitle, Nullable<System.DateTime> postedDate, string description, byte[] picture)
         {

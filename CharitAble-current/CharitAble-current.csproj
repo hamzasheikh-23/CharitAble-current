@@ -298,6 +298,7 @@
     <Compile Include="Controllers\DonationController.cs" />
     <Compile Include="Controllers\FeedbackController.cs" />
     <Compile Include="Controllers\InvoiceController.cs" />
+    <Compile Include="Controllers\NGO_ResponseController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\RepliesController.cs" />
@@ -328,6 +329,9 @@
       <DependentUpon>charitableDbEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ipv6_database_firewall_rules.cs">
+      <DependentUpon>charitableDbEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NGOResponse.cs">
       <DependentUpon>charitableDbEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SP_SelectAllAdmins_Result.cs">
@@ -447,6 +451,7 @@
     <Compile Include="Requests\OrderRequest.cs" />
     <Compile Include="Requests\PaymentInfoRequest.cs" />
     <Compile Include="Requests\ReplyRequest.cs" />
+    <Compile Include="Requests\ResponseRequest.cs" />
     <Compile Include="Requests\StoryRequest.cs" />
     <Compile Include="Requests\SubscriptionRequest.cs" />
     <Compile Include="Requests\UnitRequest.cs" />
@@ -532,6 +537,7 @@
     <Folder Include="Views\Employee_Login\" />
     <Folder Include="Views\Feedback\" />
     <Folder Include="Views\Invoice\" />
+    <Folder Include="Views\NGO_Response\" />
     <Folder Include="Views\Orders\" />
     <Folder Include="Views\Payment\" />
     <Folder Include="Views\Story\" />
