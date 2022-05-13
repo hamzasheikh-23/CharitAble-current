@@ -257,27 +257,35 @@ namespace CharitAble_current.Controllers
             //                        where x.NGO_ID == ngoId
             //                        select x.SubscriptionEndDate).SingleOrDefault();
 
-            object ret = new
+            try
             {
-                isSuccess = false,
-                code = 1,
-                status = "subscription end, please pay bill to continue"
-            };
-            var subscriptionEndDate = (from x in dbx.tbl_NGOMaster
-                                       where x.NGO_ID == ngoId
-                                       select x.SubscriptionEndDate).SingleOrDefault();
-
-            if (subscriptionEndDate >= DateTime.Today.Date)
-            {
-                ret = new
+                object ret = new
                 {
-                    isSuccess = true,
-                    code = 2,
-                    status = "You are currently subscribed"
+                    isSuccess = false,
+                    code = 1,
+                    status = "subscription end, please pay bill to continue"
                 };
-                return Ok(ret);
+                var subscriptionEndDate = (from x in dbx.tbl_NGOMaster
+                                           where x.NGO_ID == ngoId
+                                           select x.SubscriptionEndDate).SingleOrDefault();
+
+                if (subscriptionEndDate >= DateTime.Today.Date)
+                {
+                    ret = new
+                    {
+                        isSuccess = true,
+                        code = 2,
+                        status = "You are currently subscribed"
+                    };
+                    return Ok(ret);
+                }
+                return Json(ret);
             }
-            return Json(ret);
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
         }
     }
 }

@@ -560,6 +560,77 @@ namespace CharitAble_current.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("get")]
+        public IHttpActionResult GetDonation(string status, string isActive)
+        {
+            try
+            {
+                var donations = dbx.tbl_Donations.Select(x =>
+                new DonationRequest()
+                {
+                    DonationId = x.DonationID,
+                    DonorId = x.DonorID,
+                    DonorName = (from d in dbx.tbl_DonorMaster
+                                 join u in dbx.tbl_Users on d.UserID equals u.UserID
+                                 where d.DonorID == x.DonorID
+                                 select u.FirstName + " " + u.LastName).FirstOrDefault(),
+                    Title = x.DonationTitle,
+                    Quantity = x.Quantity,
+                    Weight = x.Weight,
+                    QuantityPerUnit = x.QuantityPerUnit,
+                    ExpiryDate = x.ExpiryDate,
+                    PostedDate = x.PostedDateTime,
+                    StatusId = x.Status,
+                    Status = (from y in dbx.tbl_Status
+                              where y.StatusID == x.Status
+                              select y.Status).FirstOrDefault().Trim(),
+                    IsActive = x.isActive,
+                    Description = x.Description,
+                    Rating = x.Rating,
+                    ConditionId = x.Condition,
+                    Condition = (from y in dbx.tbl_DonationCondition
+                                 where y.ConditionID == x.Condition
+                                 select y.Condition).FirstOrDefault().Trim(),
+                    CategoryId = x.Category,
+                    Category = (from y in dbx.tbl_DonationCategory
+                                where y.CategoryID == x.Category
+                                select y.DonationCategory).FirstOrDefault().Trim(),
+                    Address = x.Address,
+                    Image1 = x.Image1,
+                    Image2 = x.Image2,
+                    Image3 = x.Image3,
+                }).Where(x => x.Status == status && x.IsActive == isActive).ToList();
+
+                foreach (DonationRequest item in donations)
+                {
+                    if (!string.IsNullOrWhiteSpace(item.Image1))
+                    {
+                        string imagePath1 = item.Image1;
+                        FileInfo fi = new FileInfo(imagePath1);
+                        item.Image1Name = fi.Name;
+                    }
+                    if (!string.IsNullOrWhiteSpace(item.Image2))
+                    {
+                        string imagePath2 = item.Image2;
+                        FileInfo fi = new FileInfo(imagePath2);
+                        item.Image2Name = fi.Name;
+                    }
+                    if (!string.IsNullOrWhiteSpace(item.Image3))
+                    {
+                        string imagePath3 = item.Image3;
+                        FileInfo fi = new FileInfo(imagePath3);
+                        item.Image3Name = fi.Name;
+                    }
+                }
+                return Ok(donations);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Unable to process your request, check URL or user input\n" +
+                    "ErrorMessage: '" + ex.Message + "'");
+            }
+        }
 
         //GET donation/category/get
 
