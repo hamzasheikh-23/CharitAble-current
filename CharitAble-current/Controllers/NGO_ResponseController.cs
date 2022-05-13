@@ -429,6 +429,64 @@ namespace CharitAble_current.Controllers
             }
         }
 
+        // GET: reply/get?{ngoId}
+        [HttpGet]
+        [Route("get")]
+        public IHttpActionResult GetD(int ngoId, string status)
+        {
+            try
+            {
+                var statusId = (from x in dbx.tbl_Status
+                                where x.Status == status
+                                select x.StatusID).SingleOrDefault();
+
+                object ret = new { noData = true, status = "unsuccesfull request" };
+
+                var reply = (from d in dbx.NGOResponses
+                             join c in dbx.tbl_Donations on d.DonationID equals c.DonationID
+                             where d.NGO_ID == ngoId && d.StatusID == statusId
+                             select new ResponseRequest()
+                             {
+                                 ResponseId = d.ResponseID,
+                                 NgoId = d.NGO_ID,
+                                 NgoName = (from dm in dbx.tbl_NGOMaster
+                                            join u in dbx.tbl_Users on dm.UserID equals u.UserID
+                                            where dm.NGO_ID == d.NGO_ID
+                                            select u.FirstName + " " + u.LastName).FirstOrDefault().Trim(),
+                                 DonationId = d.DonationID,
+                                 DonationTitle = c.DonationTitle,
+                                 DonationImage1 = c.Image1,
+                                 DonationImage2 = c.Image2,
+                                 DonationImage3 = c.Image3,
+                                 Address = d.Address,
+                                 PickupAddress = c.Address,
+                                 Quantity = c.Quantity,
+                                 DonationCategoryId = c.Category,
+                                 DonationCategory = (from x in dbx.tbl_DonationCategory
+                                                     where x.CategoryID == c.Category
+                                                     select x.DonationCategory).SingleOrDefault(),
+                                 Message = d.Message,
+                                 StatusId = d.StatusID,
+                                 Status = (from y in dbx.tbl_Status
+                                           where y.StatusID == d.StatusID
+                                           select y.Status).FirstOrDefault().Trim(),
+                                 isActive = d.isActive,
+                                 PostedDateTime = d.PostedDateTime,
+                             }).ToList();
+
+                if (reply.Any())
+                {
+                    ret = new { reply, noData = false };
+                    return Ok(ret);
+                }
+                return Json(ret);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("'" + ex + ": " + ex.Message + "'");
+            }
+        }
+
         //PUT: reply/delete/{id}
         [HttpPut]
         [Route("delete/{id}")]
