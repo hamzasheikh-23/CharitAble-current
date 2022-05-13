@@ -22,6 +22,8 @@ namespace CharitAble_current.Models
         public string City { get; set; }
         public string Address { get; set; }
         public Nullable<long> LocationCoordinates { get; set; }
-        public byte[] MemorandumOfNGO { get; set; }
+        public Nullable<System.DateTime> SubscriptionEndDate { get; set; }
+        public Nullable<System.DateTime> SubscriptionStartDate { get; set; }
+        public string isActive { get; set; }
     }
 }

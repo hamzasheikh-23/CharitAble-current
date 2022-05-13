@@ -19,7 +19,7 @@ namespace CharitAble_current.Controllers
     public class DonationController : ApiController
     {
 
-        private charitable_dbEntities1 dbx = new charitable_dbEntities1();
+        private charitable_dbEntities2 dbx = new charitable_dbEntities2();
 
         // POST donation/post
         [HttpPost]
@@ -68,13 +68,13 @@ namespace CharitAble_current.Controllers
 
                 if (!string.IsNullOrEmpty(value.Image1Name))
                 {
-                    string imagePath1 = @"D:\fyp-frontend\src\serverImages\donations" + value.Image1Name;
-                    FileInfo fi = new FileInfo(imagePath1);
-                    Guid obj = Guid.NewGuid();
-                    imagePath1 = @"D:\fyp-frontend\src\serverImages\donations" + obj.ToString() + fi.Extension;
+                    //string imagePath1 = @"D:\fyp-frontend\src\serverImages\donations" + value.Image1Name;
+                    //FileInfo fi = new FileInfo(imagePath1);
+                    //Guid obj = Guid.NewGuid();
+                    //imagePath1 = @"D:\fyp-frontend\src\serverImages\donations" + obj.ToString() + fi.Extension;
                     var cleanerBase1 = value.Image1base64.Substring(value.Image1base64.LastIndexOf(',') + 1);
-                    File.WriteAllBytes(imagePath1, Convert.FromBase64String(cleanerBase1));
-                    donation.Image1 = imagePath1;
+                    //File.WriteAllBytes(imagePath1, Convert.FromBase64String(cleanerBase1));
+                    donation.Image1 = cleanerBase1;
                 }
 
                 if (!string.IsNullOrEmpty(value.Image2Name))

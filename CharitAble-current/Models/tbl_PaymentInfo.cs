@@ -21,10 +21,10 @@ namespace CharitAble_current.Models
         }
     
         public int PaymentInfoID { get; set; }
+        public Nullable<int> NGO_ID { get; set; }
         public Nullable<long> CardNumber { get; set; }
         public Nullable<byte> CurrentExpiryMonth { get; set; }
         public Nullable<short> CurretnExpiryYear { get; set; }
-        public Nullable<int> NGO_ID { get; set; }
         public string CardholderName { get; set; }
         public Nullable<int> CVV { get; set; }
     

@@ -16,8 +16,14 @@ namespace CharitAble_current.Models
         public int CaseID { get; set; }
         public Nullable<int> NGO_ID { get; set; }
         public string CaseTitle { get; set; }
+        public Nullable<int> CategoryID { get; set; }
         public Nullable<System.DateTime> PostedDate { get; set; }
+        public Nullable<int> StatusID { get; set; }
+        public string isActive { get; set; }
         public string Description { get; set; }
-        public byte[] Picture { get; set; }
+        public Nullable<short> Quantity { get; set; }
+        public Nullable<short> RemainingQuantity { get; set; }
+        public Nullable<int> UnitID { get; set; }
+        public string CoverImage { get; set; }
     }
 }

@@ -13,7 +13,7 @@ namespace CharitAble_current.Controllers
     public class SubscriptionController : ApiController
     {
 
-        private charitable_dbEntities1 dbx = new charitable_dbEntities1();
+        private charitable_dbEntities2 dbx = new charitable_dbEntities2();
 
         [HttpPost]
         [Route("post")]
@@ -34,6 +34,7 @@ namespace CharitAble_current.Controllers
                 {
                     PlanName = value.PlanName,
                     Amount = value.Amount,
+                    AdminID = value.AdminId,
                     Description = value.Description,
                     isActive = value.IsActive = isActive
                 };
@@ -112,6 +113,7 @@ namespace CharitAble_current.Controllers
                     var existingPlan = dbx.tbl_SubscriptionPlan.Where(x => x.PlanID == id).FirstOrDefault();
 
                     existingPlan.isActive = subs.IsActive;
+                    existingPlan.AdminID = subs.AdminId;
 
                     dbx.tbl_SubscriptionPlan.AddOrUpdate(existingPlan);
                     var result = dbx.SaveChanges();
@@ -153,6 +155,7 @@ namespace CharitAble_current.Controllers
 
                     var existingPlan = dbx.tbl_SubscriptionPlan.Where(x => x.PlanID == id).FirstOrDefault();
 
+                    existingPlan.AdminID = value.AdminId;
                     existingPlan.PlanName = value.PlanName;
                     existingPlan.Amount = value.Amount;
                     existingPlan.Description = value.Description;
@@ -189,6 +192,7 @@ namespace CharitAble_current.Controllers
                     var existingPlan = dbx.tbl_SubscriptionPlan.Where(x => x.PlanID == id).FirstOrDefault();
 
                     existingPlan.isActive = value.IsActive = isActive;
+                    existingPlan.AdminID = value.AdminId;
 
                     dbx.tbl_SubscriptionPlan.AddOrUpdate(existingPlan);
                     dbx.SaveChanges();

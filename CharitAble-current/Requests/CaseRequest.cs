@@ -13,7 +13,7 @@ namespace CharitAble_current.Requests
         public int? UserId { get; set; }
         public string NGOName { get; set; }
         public string CaseTitle { get; set; }
-        public string Category { get; set; }
+        public string DonationCategory { get; set; }
         public int? CategoryId { get; set; }
         public short? Quantity { get; set; }
         public int? StatusId { get; set; }

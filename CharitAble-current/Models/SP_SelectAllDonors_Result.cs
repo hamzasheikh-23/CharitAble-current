@@ -21,5 +21,6 @@ namespace CharitAble_current.Models
         public string Address { get; set; }
         public Nullable<System.DateTime> DOB { get; set; }
         public Nullable<long> CNIC { get; set; }
+        public string isActive { get; set; }
     }
 }

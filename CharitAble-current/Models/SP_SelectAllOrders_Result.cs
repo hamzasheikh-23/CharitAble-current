@@ -15,10 +15,12 @@ namespace CharitAble_current.Models
     {
         public int OrderID { get; set; }
         public Nullable<int> NGO_ID { get; set; }
-        public string StoryTitle { get; set; }
-        public Nullable<System.DateTime> OrderDate { get; set; }
-        public Nullable<System.TimeSpan> OrderTime { get; set; }
+        public Nullable<int> CaseID { get; set; }
+        public Nullable<int> ReplyID { get; set; }
+        public Nullable<int> PaymentID { get; set; }
+        public Nullable<System.DateTime> OrderDateTime { get; set; }
         public string DeliveryAddress { get; set; }
-        public string OrderStatus { get; set; }
+        public Nullable<int> StatusID { get; set; }
+        public Nullable<decimal> Amount { get; set; }
     }
 }

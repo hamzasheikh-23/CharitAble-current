@@ -15,10 +15,10 @@ namespace CharitAble_current.Models
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class charitable_dbEntities1 : DbContext
+    public partial class charitable_dbEntities2 : DbContext
     {
-        public charitable_dbEntities1()
-            : base("name=charitable_dbEntities1")
+        public charitable_dbEntities2()
+            : base("name=charitable_dbEntities2")
         {
         }
     
@@ -29,7 +29,12 @@ namespace CharitAble_current.Models
     
         public virtual DbSet<tbl_Admin> tbl_Admin { get; set; }
         public virtual DbSet<tbl_Cases> tbl_Cases { get; set; }
+        public virtual DbSet<tbl_DonationCategory> tbl_DonationCategory { get; set; }
+        public virtual DbSet<tbl_DonationCondition> tbl_DonationCondition { get; set; }
+        public virtual DbSet<tbl_Donations> tbl_Donations { get; set; }
         public virtual DbSet<tbl_DonorMaster> tbl_DonorMaster { get; set; }
+        public virtual DbSet<tbl_DonorReplies> tbl_DonorReplies { get; set; }
+        public virtual DbSet<tbl_Feedback> tbl_Feedback { get; set; }
         public virtual DbSet<tbl_Invoices> tbl_Invoices { get; set; }
         public virtual DbSet<tbl_MaterialGroup> tbl_MaterialGroup { get; set; }
         public virtual DbSet<tbl_MaterialMaster> tbl_MaterialMaster { get; set; }
@@ -37,17 +42,14 @@ namespace CharitAble_current.Models
         public virtual DbSet<tbl_NGOMaster> tbl_NGOMaster { get; set; }
         public virtual DbSet<tbl_Orders> tbl_Orders { get; set; }
         public virtual DbSet<tbl_PaymentInfo> tbl_PaymentInfo { get; set; }
+        public virtual DbSet<tbl_Status> tbl_Status { get; set; }
         public virtual DbSet<tbl_SubscriptionPlan> tbl_SubscriptionPlan { get; set; }
         public virtual DbSet<tbl_SuccessStories> tbl_SuccessStories { get; set; }
+        public virtual DbSet<tbl_Units> tbl_Units { get; set; }
         public virtual DbSet<tbl_Users> tbl_Users { get; set; }
         public virtual DbSet<tbl_UserType> tbl_UserType { get; set; }
-        public virtual DbSet<tbl_DonationCategory> tbl_DonationCategory { get; set; }
-        public virtual DbSet<tbl_DonationCondition> tbl_DonationCondition { get; set; }
-        public virtual DbSet<tbl_Donations> tbl_Donations { get; set; }
-        public virtual DbSet<tbl_Units> tbl_Units { get; set; }
-        public virtual DbSet<tbl_DonorReplies> tbl_DonorReplies { get; set; }
-        public virtual DbSet<tbl_Status> tbl_Status { get; set; }
-        public virtual DbSet<tbl_Feedback> tbl_Feedback { get; set; }
+        public virtual DbSet<database_firewall_rules> database_firewall_rules { get; set; }
+        public virtual DbSet<ipv6_database_firewall_rules> ipv6_database_firewall_rules { get; set; }
     
         public virtual int SP_AddCase(string caseTitle, Nullable<System.DateTime> postedDate, string description, byte[] picture)
         {

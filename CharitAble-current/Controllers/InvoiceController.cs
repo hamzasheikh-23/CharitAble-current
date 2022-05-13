@@ -12,7 +12,7 @@ namespace CharitAble_current.Controllers
     [RoutePrefix("invoice")]
     public class InvoiceController : ApiController
     {
-        charitable_dbEntities1 dbx = new charitable_dbEntities1();
+        charitable_dbEntities2 dbx = new charitable_dbEntities2();
 
         //POST: invoice/post
         [HttpPost]

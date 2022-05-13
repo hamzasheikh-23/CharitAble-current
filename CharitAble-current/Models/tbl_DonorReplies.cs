@@ -23,6 +23,7 @@ namespace CharitAble_current.Models
         public int ReplyID { get; set; }
         public int DonorID { get; set; }
         public int CaseID { get; set; }
+        public byte Quantity { get; set; }
         public string Address { get; set; }
         public string Message { get; set; }
         public System.DateTime PostedDateTime { get; set; }
@@ -31,11 +32,9 @@ namespace CharitAble_current.Models
         public string Image2 { get; set; }
         public string Image3 { get; set; }
         public string isActive { get; set; }
-        public byte Quantity { get; set; }
     
         public virtual tbl_Cases tbl_Cases { get; set; }
         public virtual tbl_DonorMaster tbl_DonorMaster { get; set; }
-        public virtual tbl_Status tbl_Status { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_Orders> tbl_Orders { get; set; }
     }

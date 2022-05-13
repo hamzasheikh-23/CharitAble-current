@@ -46,6 +46,77 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Azure.Core, Version=1.0.2.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
+      <HintPath>..\packages\Azure.Core.1.0.2\lib\netstandard2.0\Azure.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Azure.Identity, Version=1.1.1.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
+      <HintPath>..\packages\Azure.Identity.1.1.1\lib\netstandard2.0\Azure.Identity.dll</HintPath>
+    </Reference>
+    <Reference Include="Azure.Security.KeyVault.Keys, Version=4.0.0.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
+      <HintPath>..\packages\Azure.Security.KeyVault.Keys.4.0.0\lib\netstandard2.0\Azure.Security.KeyVault.Keys.dll</HintPath>
+    </Reference>
+    <Reference Include="Azure.Security.KeyVault.Secrets, Version=4.0.0.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
+      <HintPath>..\packages\Azure.Security.KeyVault.Secrets.4.0.0\lib\netstandard2.0\Azure.Security.KeyVault.Secrets.dll</HintPath>
+    </Reference>
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.Engine.13.0.4001\lib\net40\CrystalDecisions.CrystalReports.Engine.dll</HintPath>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.ClientDoc, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.ReportAppServer.ClientDoc.13.0.4001\lib\net40\CrystalDecisions.ReportAppServer.ClientDoc.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.CommLayer, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.ReportAppServer.CommLayer.13.0.4001\lib\net40\CrystalDecisions.ReportAppServer.CommLayer.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.CommonControls, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.ReportAppServer.CommonControls.13.0.4001\lib\net40\CrystalDecisions.ReportAppServer.CommonControls.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.CommonObjectModel, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.ReportAppServer.CommonObjectModel.13.0.4001\lib\net40\CrystalDecisions.ReportAppServer.CommonObjectModel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.Controllers, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.ReportAppServer.Controllers.13.0.4001\lib\net40\CrystalDecisions.ReportAppServer.Controllers.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.CubeDefModel, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.ReportAppServer.CubeDefModel.13.0.4001\lib\net40\CrystalDecisions.ReportAppServer.CubeDefModel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.DataDefModel, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.ReportAppServer.DataDefModel.13.0.4001\lib\net40\CrystalDecisions.ReportAppServer.DataDefModel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.DataSetConversion, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.ReportAppServer.DataSetConversion.13.0.4001\lib\net40\CrystalDecisions.ReportAppServer.DataSetConversion.dll</HintPath>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.ObjectFactory, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.ReportAppServer.ObjectFactory.13.0.4001\lib\net40\CrystalDecisions.ReportAppServer.ObjectFactory.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.Prompting, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.ReportAppServer.Prompting.13.0.4001\lib\net40\CrystalDecisions.ReportAppServer.Prompting.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.ReportDefModel, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.ReportAppServer.ReportDefModel.13.0.4001\lib\net40\CrystalDecisions.ReportAppServer.ReportDefModel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.XmlSerialize, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.ReportAppServer.XmlSerialize.13.0.4001\lib\net40\CrystalDecisions.ReportAppServer.XmlSerialize.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.ReportSource.13.0.4001\lib\net40\CrystalDecisions.ReportSource.dll</HintPath>
+    </Reference>
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.Shared.13.0.4001\lib\net40\CrystalDecisions.Shared.dll</HintPath>
+    </Reference>
+    <Reference Include="CrystalDecisions.Web, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.Web.13.0.4001\lib\net40\CrystalDecisions.Web.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -55,11 +126,61 @@
     <Reference Include="Json.Net, Version=1.0.33.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Json.Net.1.0.33\lib\netstandard2.0\Json.Net.dll</HintPath>
     </Reference>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.1.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Configuration.ConfigurationBuilders.Azure, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Configuration.ConfigurationBuilders.Azure.2.0.0\lib\Net471\Microsoft.Configuration.ConfigurationBuilders.Azure.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Configuration.ConfigurationBuilders.Base, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Configuration.ConfigurationBuilders.Base.2.0.0\lib\Net471\Microsoft.Configuration.ConfigurationBuilders.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Configuration.ConfigurationBuilders.UserSecrets, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Configuration.ConfigurationBuilders.UserSecrets.2.0.0\lib\Net471\Microsoft.Configuration.ConfigurationBuilders.UserSecrets.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Identity.Client, Version=4.1.0.0, Culture=neutral, PublicKeyToken=0a613f4dd989e8ae, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Identity.Client.4.1.0\lib\net45\Microsoft.Identity.Client.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.4.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.6.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.3\lib\netstandard2.0\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.5.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.6.0\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
     <Reference Include="System.Security" />
+    <Reference Include="System.Security.Cryptography.ProtectedData, Version=4.0.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.ProtectedData.4.5.0\lib\net461\System.Security.Cryptography.ProtectedData.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Encodings.Web, Version=4.0.4.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encodings.Web.4.6.0\lib\netstandard2.0\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Json, Version=4.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Json.4.6.0\lib\net461\System.Text.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.2\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.Cors, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.7\lib\net45\System.Web.Cors.dll</HintPath>
     </Reference>
@@ -71,6 +192,7 @@
     <Reference Include="System.Web.Http.Cors, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Cors.5.2.7\lib\net45\System.Web.Http.Cors.dll</HintPath>
     </Reference>
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
@@ -187,128 +309,134 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\CharitableEntity.Context.cs">
+    <Compile Include="Models\charitableDbEntity.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CharitableEntity.Context.tt</DependentUpon>
+      <DependentUpon>charitableDbEntity.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\CharitableEntity.cs">
+    <Compile Include="Models\charitableDbEntity.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CharitableEntity.tt</DependentUpon>
+      <DependentUpon>charitableDbEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\CharitableEntity.Designer.cs">
+    <Compile Include="Models\charitableDbEntity.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CharitableEntity.edmx</DependentUpon>
+      <DependentUpon>charitableDbEntity.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\database_firewall_rules.cs">
+      <DependentUpon>charitableDbEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ipv6_database_firewall_rules.cs">
+      <DependentUpon>charitableDbEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SP_SelectAllAdmins_Result.cs">
-      <DependentUpon>CharitableEntity.tt</DependentUpon>
+      <DependentUpon>charitableDbEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SP_SelectAllCases_Result.cs">
-      <DependentUpon>CharitableEntity.tt</DependentUpon>
+      <DependentUpon>charitableDbEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SP_SelectAllDonations_Result.cs">
-      <DependentUpon>CharitableEntity.tt</DependentUpon>
+      <DependentUpon>charitableDbEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SP_SelectAllDonors_Result.cs">
-      <DependentUpon>CharitableEntity.tt</DependentUpon>
+      <DependentUpon>charitableDbEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SP_SelectAllInvoices_Result.cs">
-      <DependentUpon>CharitableEntity.tt</DependentUpon>
+      <DependentUpon>charitableDbEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SP_SelectAllMaterialGroup_Result.cs">
-      <DependentUpon>CharitableEntity.tt</DependentUpon>
+      <DependentUpon>charitableDbEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SP_SelectAllMaterials_Result.cs">
-      <DependentUpon>CharitableEntity.tt</DependentUpon>
+      <DependentUpon>charitableDbEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SP_SelectAllMaterialType_Result.cs">
-      <DependentUpon>CharitableEntity.tt</DependentUpon>
+      <DependentUpon>charitableDbEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SP_SelectAllNgos_Result.cs">
-      <DependentUpon>CharitableEntity.tt</DependentUpon>
+      <DependentUpon>charitableDbEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SP_SelectAllOrders_Result.cs">
-      <DependentUpon>CharitableEntity.tt</DependentUpon>
+      <DependentUpon>charitableDbEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SP_SelectAllSubscriptionPlans_Result.cs">
-      <DependentUpon>CharitableEntity.tt</DependentUpon>
+      <DependentUpon>charitableDbEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SP_SelectAllSuccessStories_Result.cs">
-      <DependentUpon>CharitableEntity.tt</DependentUpon>
+      <DependentUpon>charitableDbEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SP_SelectAllUsers_Result.cs">
-      <DependentUpon>CharitableEntity.tt</DependentUpon>
+      <DependentUpon>charitableDbEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SP_SelectAllUserType_Result.cs">
-      <DependentUpon>CharitableEntity.tt</DependentUpon>
+      <DependentUpon>charitableDbEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SP_SelectPaymentInfo_Result.cs">
-      <DependentUpon>CharitableEntity.tt</DependentUpon>
+      <DependentUpon>charitableDbEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_Admin.cs">
-      <DependentUpon>CharitableEntity.tt</DependentUpon>
+      <DependentUpon>charitableDbEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_Cases.cs">
-      <DependentUpon>CharitableEntity.tt</DependentUpon>
+      <DependentUpon>charitableDbEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_DonationCategory.cs">
-      <DependentUpon>CharitableEntity.tt</DependentUpon>
+      <DependentUpon>charitableDbEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_DonationCondition.cs">
-      <DependentUpon>CharitableEntity.tt</DependentUpon>
+      <DependentUpon>charitableDbEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_Donations.cs">
-      <DependentUpon>CharitableEntity.tt</DependentUpon>
+      <DependentUpon>charitableDbEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_DonorMaster.cs">
-      <DependentUpon>CharitableEntity.tt</DependentUpon>
+      <DependentUpon>charitableDbEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_DonorReplies.cs">
-      <DependentUpon>CharitableEntity.tt</DependentUpon>
+      <DependentUpon>charitableDbEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_Feedback.cs">
-      <DependentUpon>CharitableEntity.tt</DependentUpon>
+      <DependentUpon>charitableDbEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_Invoices.cs">
-      <DependentUpon>CharitableEntity.tt</DependentUpon>
+      <DependentUpon>charitableDbEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_MaterialGroup.cs">
-      <DependentUpon>CharitableEntity.tt</DependentUpon>
+      <DependentUpon>charitableDbEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_MaterialMaster.cs">
-      <DependentUpon>CharitableEntity.tt</DependentUpon>
+      <DependentUpon>charitableDbEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_MaterialType.cs">
-      <DependentUpon>CharitableEntity.tt</DependentUpon>
+      <DependentUpon>charitableDbEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_NGOMaster.cs">
-      <DependentUpon>CharitableEntity.tt</DependentUpon>
+      <DependentUpon>charitableDbEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_Orders.cs">
-      <DependentUpon>CharitableEntity.tt</DependentUpon>
+      <DependentUpon>charitableDbEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_PaymentInfo.cs">
-      <DependentUpon>CharitableEntity.tt</DependentUpon>
+      <DependentUpon>charitableDbEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_Status.cs">
-      <DependentUpon>CharitableEntity.tt</DependentUpon>
+      <DependentUpon>charitableDbEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_SubscriptionPlan.cs">
-      <DependentUpon>CharitableEntity.tt</DependentUpon>
+      <DependentUpon>charitableDbEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_SuccessStories.cs">
-      <DependentUpon>CharitableEntity.tt</DependentUpon>
+      <DependentUpon>charitableDbEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_Units.cs">
-      <DependentUpon>CharitableEntity.tt</DependentUpon>
+      <DependentUpon>charitableDbEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_Users.cs">
-      <DependentUpon>CharitableEntity.tt</DependentUpon>
+      <DependentUpon>charitableDbEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_UserType.cs">
-      <DependentUpon>CharitableEntity.tt</DependentUpon>
+      <DependentUpon>charitableDbEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Requests\CaseRequest.cs" />
@@ -333,15 +461,15 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Models\CharitableEntity.Context.tt">
+    <Content Include="Models\charitableDbEntity.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>CharitableEntity.edmx</DependentUpon>
-      <LastGenOutput>CharitableEntity.Context.cs</LastGenOutput>
+      <DependentUpon>charitableDbEntity.edmx</DependentUpon>
+      <LastGenOutput>charitableDbEntity.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\CharitableEntity.tt">
+    <Content Include="Models\charitableDbEntity.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>CharitableEntity.edmx</DependentUpon>
-      <LastGenOutput>CharitableEntity.cs</LastGenOutput>
+      <DependentUpon>charitableDbEntity.edmx</DependentUpon>
+      <LastGenOutput>charitableDbEntity.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -364,12 +492,12 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\CollectionModelDescription.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
-    <EntityDeploy Include="Models\CharitableEntity.edmx">
+    <EntityDeploy Include="Models\charitableDbEntity.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>CharitableEntity.Designer.cs</LastGenOutput>
+      <LastGenOutput>charitableDbEntity.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\CharitableEntity.edmx.diagram">
-      <DependentUpon>CharitableEntity.edmx</DependentUpon>
+    <Content Include="Models\charitableDbEntity.edmx.diagram">
+      <DependentUpon>charitableDbEntity.edmx</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\charitableapis - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
@@ -396,6 +524,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Reports\" />
     <Folder Include="Views\Cases\" />
     <Folder Include="Views\Donation\" />
     <Folder Include="Views\DonorReplies\" />
@@ -476,8 +605,10 @@
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
     <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
     <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Web.WebJobs.Publish.17.1.361\build\Microsoft.Web.WebJobs.Publish.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Web.WebJobs.Publish.17.1.361\build\Microsoft.Web.WebJobs.Publish.targets'))" />
   </Target>
   <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
+  <Import Project="..\packages\Microsoft.Web.WebJobs.Publish.17.1.361\build\Microsoft.Web.WebJobs.Publish.targets" Condition="Exists('..\packages\Microsoft.Web.WebJobs.Publish.17.1.361\build\Microsoft.Web.WebJobs.Publish.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
 	   Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

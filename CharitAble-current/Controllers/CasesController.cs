@@ -13,7 +13,7 @@ namespace CharitAble_current.Controllers
     [RoutePrefix("case")]
     public class CasesController : ApiController
     {
-        charitable_dbEntities1 dbx = new charitable_dbEntities1();
+        charitable_dbEntities2 dbx = new charitable_dbEntities2();
 
         //POST: case/post
         [HttpPost]
@@ -35,7 +35,7 @@ namespace CharitAble_current.Controllers
                 var isActive = "true";
 
                 var categoryId = (from x in dbx.tbl_DonationCategory
-                                  where x.DonationCategory == value.Category
+                                  where x.DonationCategory == value.DonationCategory
                                   select x.CategoryID).SingleOrDefault();
 
                 var unitId = (from x in dbx.tbl_Units
@@ -47,21 +47,21 @@ namespace CharitAble_current.Controllers
                 cases.CaseTitle = value.CaseTitle;
                 cases.PostedDate = value.PostedDate = DateTime.Now;
                 cases.Description = value.Description;
-                cases.CategoryID = value.CategoryId = categoryId;
+                cases.CategoryID = value.CategoryId = 1;
                 cases.isActive = value.IsActive = isActive;
                 cases.Quantity = value.Quantity;
                 cases.StatusID = value.StatusId = statusId;
-                cases.UnitID = value.UnitId = unitId;
+                cases.UnitID = value.UnitId = 2;
 
                 if (!string.IsNullOrEmpty(value.ImageName))
                 {
-                    string imagePath = @"D:\fyp-frontend\src\serverImages\cases\" + value.ImageName;
-                    FileInfo fi = new FileInfo(imagePath);
-                    Guid obj = Guid.NewGuid();
-                    imagePath = @"D:\fyp-frontend\src\serverImages\cases\" + obj.ToString() + fi.Extension;
+                    //string imagePath = @"D:\fyp-frontend\src\serverImages\cases\" + value.ImageName;
+                    //FileInfo fi = new FileInfo(imagePath);
+                    //Guid obj = Guid.NewGuid();
+                    //imagePath = @"D:\fyp-frontend\src\serverImages\cases\" + obj.ToString() + fi.Extension;
                     var cleanerBase = value.ImageBase64.Substring(value.ImageBase64.LastIndexOf(',') + 1);
-                    File.WriteAllBytes(imagePath, Convert.FromBase64String(cleanerBase));
-                    cases.CoverImage = imagePath;
+                    //File.WriteAllBytes(imagePath, Convert.FromBase64String(cleanerBase));
+                    cases.CoverImage = cleanerBase;
                 }
 
 
@@ -105,9 +105,9 @@ namespace CharitAble_current.Controllers
                                select u.FirstName + " " + u.LastName).FirstOrDefault(),
                     CaseTitle = x.CaseTitle,
                     CategoryId = x.CategoryID,
-                    Category = (from y in dbx.tbl_DonationCategory
-                                where y.CategoryID == x.CategoryID
-                                select y.DonationCategory).FirstOrDefault(),
+                    DonationCategory = (from y in dbx.tbl_DonationCategory
+                                        where y.CategoryID == x.CategoryID
+                                        select y.DonationCategory).FirstOrDefault(),
                     Quantity = x.Quantity,
                     StatusId = x.StatusID,
                     Status = (from y in dbx.tbl_Status
@@ -124,15 +124,15 @@ namespace CharitAble_current.Controllers
                     CoverImage = x.CoverImage
                 }).ToList();
 
-                foreach (CaseRequest item in cases)
-                {
-                    if (!string.IsNullOrWhiteSpace(item.CoverImage))
-                    {
-                        string imagePath = item.CoverImage;
-                        FileInfo fi = new FileInfo(imagePath);
-                        item.ImageName = fi.Name;
-                    }
-                }
+                //foreach (CaseRequest item in cases)
+                //{
+                //    if (!string.IsNullOrWhiteSpace(item.CoverImage))
+                //    {
+                //        string imagePath = item.CoverImage;
+                //        FileInfo fi = new FileInfo(imagePath);
+                //        item.ImageName = fi.Name;
+                //    }
+                //}
 
                 if (cases.Any())
                 {
@@ -168,9 +168,9 @@ namespace CharitAble_current.Controllers
                                select u.FirstName + " " + u.LastName).FirstOrDefault(),
                     CaseTitle = x.CaseTitle,
                     CategoryId = x.CategoryID,
-                    Category = (from y in dbx.tbl_DonationCategory
-                                where y.CategoryID == x.CategoryID
-                                select y.DonationCategory).FirstOrDefault(),
+                    DonationCategory = (from y in dbx.tbl_DonationCategory
+                                        where y.CategoryID == x.CategoryID
+                                        select y.DonationCategory).FirstOrDefault(),
                     Quantity = x.Quantity,
                     StatusId = x.StatusID,
                     Status = (from y in dbx.tbl_Status
@@ -187,15 +187,15 @@ namespace CharitAble_current.Controllers
                     CoverImage = x.CoverImage
                 }).Where(x => x.NGOId == ngoId).ToList();
 
-                foreach (CaseRequest item in cases)
-                {
-                    if (!string.IsNullOrWhiteSpace(item.CoverImage))
-                    {
-                        string imagePath = item.CoverImage;
-                        FileInfo fi = new FileInfo(imagePath);
-                        item.ImageName = fi.Name;
-                    }
-                }
+                //foreach (CaseRequest item in cases)
+                //{
+                //    if (!string.IsNullOrWhiteSpace(item.CoverImage))
+                //    {
+                //        string imagePath = item.CoverImage;
+                //        FileInfo fi = new FileInfo(imagePath);
+                //        item.ImageName = fi.Name;
+                //    }
+                //}
 
                 if (cases.Any())
                 {
@@ -231,9 +231,9 @@ namespace CharitAble_current.Controllers
                                select u.FirstName + " " + u.LastName).FirstOrDefault(),
                     CaseTitle = x.CaseTitle,
                     CategoryId = x.CategoryID,
-                    Category = (from y in dbx.tbl_DonationCategory
-                                where y.CategoryID == x.CategoryID
-                                select y.DonationCategory).FirstOrDefault(),
+                    DonationCategory = (from y in dbx.tbl_DonationCategory
+                                        where y.CategoryID == x.CategoryID
+                                        select y.DonationCategory).FirstOrDefault(),
                     Quantity = x.Quantity,
                     StatusId = x.StatusID,
                     Status = (from y in dbx.tbl_Status
@@ -250,15 +250,15 @@ namespace CharitAble_current.Controllers
                     CoverImage = x.CoverImage
                 }).Where(x => x.NGOId == ngoId && x.IsActive == isActive).ToList();
 
-                foreach (CaseRequest item in cases)
-                {
-                    if (!string.IsNullOrWhiteSpace(item.CoverImage))
-                    {
-                        string imagePath = item.CoverImage;
-                        FileInfo fi = new FileInfo(imagePath);
-                        item.ImageName = fi.Name;
-                    }
-                }
+                //foreach (CaseRequest item in cases)
+                //{
+                //    if (!string.IsNullOrWhiteSpace(item.CoverImage))
+                //    {
+                //        string imagePath = item.CoverImage;
+                //        FileInfo fi = new FileInfo(imagePath);
+                //        item.ImageName = fi.Name;
+                //    }
+                //}
 
                 if (cases.Any())
                 {
@@ -294,9 +294,9 @@ namespace CharitAble_current.Controllers
                                select u.FirstName + " " + u.LastName).FirstOrDefault(),
                     CaseTitle = x.CaseTitle,
                     CategoryId = x.CategoryID,
-                    Category = (from y in dbx.tbl_DonationCategory
-                                where y.CategoryID == x.CategoryID
-                                select y.DonationCategory).FirstOrDefault(),
+                    DonationCategory = (from y in dbx.tbl_DonationCategory
+                                        where y.CategoryID == x.CategoryID
+                                        select y.DonationCategory).FirstOrDefault(),
                     Quantity = x.Quantity,
                     StatusId = x.StatusID,
                     Status = (from y in dbx.tbl_Status
@@ -313,15 +313,15 @@ namespace CharitAble_current.Controllers
                     CoverImage = x.CoverImage
                 }).Where(x => x.NGOId == ngoId && x.Status == status).ToList();
 
-                foreach (CaseRequest item in cases)
-                {
-                    if (!string.IsNullOrWhiteSpace(item.CoverImage))
-                    {
-                        string imagePath = item.CoverImage;
-                        FileInfo fi = new FileInfo(imagePath);
-                        item.ImageName = fi.Name;
-                    }
-                }
+                //foreach (CaseRequest item in cases)
+                //{
+                //    if (!string.IsNullOrWhiteSpace(item.CoverImage))
+                //    {
+                //        string imagePath = item.CoverImage;
+                //        FileInfo fi = new FileInfo(imagePath);
+                //        item.ImageName = fi.Name;
+                //    }
+                //}
 
                 if (cases.Any())
                 {
@@ -361,9 +361,9 @@ namespace CharitAble_current.Controllers
                                select u.FirstName + " " + u.LastName).FirstOrDefault(),
                     CaseTitle = x.CaseTitle,
                     CategoryId = x.CategoryID,
-                    Category = (from y in dbx.tbl_DonationCategory
-                                where y.CategoryID == x.CategoryID
-                                select y.DonationCategory).FirstOrDefault(),
+                    DonationCategory = (from y in dbx.tbl_DonationCategory
+                                        where y.CategoryID == x.CategoryID
+                                        select y.DonationCategory).FirstOrDefault(),
                     Quantity = x.Quantity,
                     StatusId = x.StatusID,
                     Status = (from y in dbx.tbl_Status
@@ -380,15 +380,15 @@ namespace CharitAble_current.Controllers
                     CoverImage = x.CoverImage
                 }).Where(x => x.NGOId == ngoId && x.StatusId == statusId && x.IsActive == isActive).ToList();
 
-                foreach (CaseRequest item in cases)
-                {
-                    if (!string.IsNullOrWhiteSpace(item.CoverImage))
-                    {
-                        string imagePath = item.CoverImage;
-                        FileInfo fi = new FileInfo(imagePath);
-                        item.ImageName = fi.Name;
-                    }
-                }
+                //foreach (CaseRequest item in cases)
+                //{
+                //    if (!string.IsNullOrWhiteSpace(item.CoverImage))
+                //    {
+                //        string imagePath = item.CoverImage;
+                //        FileInfo fi = new FileInfo(imagePath);
+                //        item.ImageName = fi.Name;
+                //    }
+                //}
 
                 if (cases.Any())
                 {
@@ -433,9 +433,9 @@ namespace CharitAble_current.Controllers
                                select u.FirstName + " " + u.LastName).FirstOrDefault(),
                     CaseTitle = x.CaseTitle,
                     CategoryId = x.CategoryID,
-                    Category = (from y in dbx.tbl_DonationCategory
-                                where y.CategoryID == x.CategoryID
-                                select y.DonationCategory).FirstOrDefault(),
+                    DonationCategory = (from y in dbx.tbl_DonationCategory
+                                        where y.CategoryID == x.CategoryID
+                                        select y.DonationCategory).FirstOrDefault(),
                     Quantity = x.Quantity,
                     StatusId = x.StatusID,
                     Status = (from y in dbx.tbl_Status
@@ -452,15 +452,15 @@ namespace CharitAble_current.Controllers
                     CoverImage = x.CoverImage
                 }).Where(x => x.NGOId == ngoId && x.StatusId == statusId && x.IsActive == isActive && x.CategoryId == categoryId).ToList();
 
-                foreach (CaseRequest item in cases)
-                {
-                    if (!string.IsNullOrWhiteSpace(item.CoverImage))
-                    {
-                        string imagePath = item.CoverImage;
-                        FileInfo fi = new FileInfo(imagePath);
-                        item.ImageName = fi.Name;
-                    }
-                }
+                //foreach (CaseRequest item in cases)
+                //{
+                //    if (!string.IsNullOrWhiteSpace(item.CoverImage))
+                //    {
+                //        string imagePath = item.CoverImage;
+                //        FileInfo fi = new FileInfo(imagePath);
+                //        item.ImageName = fi.Name;
+                //    }
+                //}
 
                 if (cases.Any())
                 {
@@ -501,9 +501,9 @@ namespace CharitAble_current.Controllers
                                select u.FirstName + " " + u.LastName).FirstOrDefault(),
                     CaseTitle = x.CaseTitle,
                     CategoryId = x.CategoryID,
-                    Category = (from y in dbx.tbl_DonationCategory
-                                where y.CategoryID == x.CategoryID
-                                select y.DonationCategory).FirstOrDefault(),
+                    DonationCategory = (from y in dbx.tbl_DonationCategory
+                                        where y.CategoryID == x.CategoryID
+                                        select y.DonationCategory).FirstOrDefault(),
                     Quantity = x.Quantity,
                     StatusId = x.StatusID,
                     Status = (from y in dbx.tbl_Status
@@ -614,7 +614,7 @@ namespace CharitAble_current.Controllers
                     existingCase.CaseTitle = value.CaseTitle;
                     existingCase.Description = value.Description;
                     existingCase.CategoryID = (from x in dbx.tbl_DonationCategory
-                                               where x.DonationCategory == value.Category
+                                               where x.DonationCategory == value.DonationCategory
                                                select x.CategoryID).FirstOrDefault();
                     existingCase.isActive = value.IsActive;
                     existingCase.Quantity = value.Quantity;

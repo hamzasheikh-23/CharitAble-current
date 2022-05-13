@@ -18,6 +18,8 @@ namespace CharitAble_current.Models
         public string StoryTitle { get; set; }
         public Nullable<System.DateTime> PostedDate { get; set; }
         public string Description { get; set; }
-        public byte[] Picture { get; set; }
+        public Nullable<int> StatusID { get; set; }
+        public string CoverImage { get; set; }
+        public string isActive { get; set; }
     }
 }

@@ -21,7 +21,7 @@ namespace CharitAble_current.Controllers
         // POST user/login
 
 
-        charitable_dbEntities1 dbx = new charitable_dbEntities1();
+        charitable_dbEntities2 dbx = new charitable_dbEntities2();
 
         [HttpPost]
         [Route("login")]
@@ -570,6 +570,42 @@ namespace CharitAble_current.Controllers
                 return BadRequest(ex + " : '" + ex.Message + "'");
             }
         }
-    }
 
+        [HttpGet]
+        [Route("users/count")]
+        public IHttpActionResult Get(int userType)
+        {
+            try
+            {
+                object ret = new
+                {
+                    isSuccess = false,
+                    msg = "no user found"
+                };
+
+                var userList = (from x in dbx.tbl_Users
+                                where x.UserTypeID == userType
+                                select x).ToList();
+
+                if (userList.Any())
+                {
+                    var count = userList.Count;
+                    ret = new
+                    {
+                        isSuccess = true,
+                        msg = "users found",
+                        count
+                    };
+                    return Ok(ret);
+                }
+
+                return Ok(ret);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+    }
 }

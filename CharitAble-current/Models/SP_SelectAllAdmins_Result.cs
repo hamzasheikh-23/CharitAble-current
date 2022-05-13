@@ -15,5 +15,6 @@ namespace CharitAble_current.Models
     {
         public int AdminID { get; set; }
         public Nullable<int> UserID { get; set; }
+        public string isActive { get; set; }
     }
 }

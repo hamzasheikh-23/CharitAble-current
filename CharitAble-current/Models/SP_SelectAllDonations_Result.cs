@@ -14,14 +14,23 @@ namespace CharitAble_current.Models
     public partial class SP_SelectAllDonations_Result
     {
         public int DonationID { get; set; }
+        public Nullable<int> CaseID { get; set; }
         public Nullable<int> DonorID { get; set; }
         public string DonationTitle { get; set; }
+        public Nullable<int> Condition { get; set; }
         public Nullable<short> Quantity { get; set; }
         public Nullable<decimal> Weight { get; set; }
-        public Nullable<byte> QuantityPerUnit { get; set; }
+        public Nullable<short> QuantityPerUnit { get; set; }
+        public Nullable<int> Rating { get; set; }
+        public Nullable<int> Category { get; set; }
         public Nullable<System.DateTime> ExpiryDate { get; set; }
         public string Description { get; set; }
-        public Nullable<long> LocationCoordinates { get; set; }
-        public byte[] Picture { get; set; }
+        public string Address { get; set; }
+        public Nullable<int> Status { get; set; }
+        public Nullable<System.DateTime> PostedDateTime { get; set; }
+        public string isActive { get; set; }
+        public string Image1 { get; set; }
+        public string Image2 { get; set; }
+        public string Image3 { get; set; }
     }
 }

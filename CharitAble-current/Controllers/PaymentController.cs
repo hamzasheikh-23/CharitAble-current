@@ -13,7 +13,7 @@ namespace CharitAble_current.Controllers
     [RoutePrefix("paymentInfo")]
     public class PaymentController : ApiController
     {
-        charitable_dbEntities1 dbx = new charitable_dbEntities1();
+        charitable_dbEntities2 dbx = new charitable_dbEntities2();
 
         //POST: paymentInfo/post
         [HttpPost]
