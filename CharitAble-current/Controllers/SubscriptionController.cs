@@ -214,7 +214,7 @@ namespace CharitAble_current.Controllers
 
         [HttpPut]
         [Route("assign")]
-        public IHttpActionResult Assign(int ngoId, int planId, SubscriptionRequest value)
+        public IHttpActionResult Assign(int ngoId, int planId, int paymentId, SubscriptionRequest value)
         {
             try
             {
@@ -226,6 +226,7 @@ namespace CharitAble_current.Controllers
                     var existingNGO = dbx.tbl_NGOMaster.Where(x => x.NGO_ID == ngoId).FirstOrDefault();
 
                     existingNGO.PlanID = value.PlanId = planId;
+                    existingNGO.PaymentInfoID = value.PaymentId = paymentId;
                     existingNGO.SubscriptionStartDate = DateTime.Now.Date;
                     existingNGO.SubscriptionEndDate = DateTime.Now.Date.AddMonths(1);
 
@@ -258,6 +259,7 @@ namespace CharitAble_current.Controllers
 
             object ret = new
             {
+                isSuccess = false,
                 code = 1,
                 status = "subscription end, please pay bill to continue"
             };
@@ -265,15 +267,14 @@ namespace CharitAble_current.Controllers
                                        where x.NGO_ID == ngoId
                                        select x.SubscriptionEndDate).SingleOrDefault();
 
-            if (!(subscriptionEndDate < DateTime.Today.Date))
+            if (subscriptionEndDate >= DateTime.Today.Date)
             {
                 ret = new
                 {
-                    isSuccess = false,
+                    isSuccess = true,
                     code = 2,
-                    status = "Subscription expired"
+                    status = "You are currently subscribed"
                 };
-
                 return Ok(ret);
             }
             return Json(ret);
