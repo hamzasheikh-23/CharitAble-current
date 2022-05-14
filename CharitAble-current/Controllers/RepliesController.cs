@@ -46,35 +46,35 @@ namespace CharitAble_current.Controllers
 
                 if (!string.IsNullOrEmpty(value.Image1Name))
                 {
-                    string imagePath1 = @"D:\fyp-frontend\src\serverImages\donorReplies\" + value.Image1Name;
-                    FileInfo fi = new FileInfo(imagePath1);
-                    Guid obj = Guid.NewGuid();
-                    imagePath1 = @"D:\fyp-frontend\src\serverImages\donorReplies\" + obj.ToString() + fi.Extension;
+                    //string imagePath1 = @"D:\fyp-frontend\src\serverImages\donorReplies\" + value.Image1Name;
+                    //FileInfo fi = new FileInfo(imagePath1);
+                    //Guid obj = Guid.NewGuid();
+                    //imagePath1 = @"D:\fyp-frontend\src\serverImages\donorReplies\" + obj.ToString() + fi.Extension;
                     var cleanerBase1 = value.Image1Base64.Substring(value.Image1Base64.LastIndexOf(',') + 1);
-                    File.WriteAllBytes(imagePath1, Convert.FromBase64String(cleanerBase1));
-                    reply.Image1 = imagePath1;
+                    //File.WriteAllBytes(imagePath1, Convert.FromBase64String(cleanerBase1));
+                    reply.Image1 = cleanerBase1;
                 }
 
                 if (!string.IsNullOrEmpty(value.Image2Name))
                 {
-                    string imagePath2 = @"D:\fyp-frontend\src\serverImages\donorReplies\" + value.Image2Name;
-                    FileInfo fi = new FileInfo(imagePath2);
-                    Guid obj = Guid.NewGuid();
-                    imagePath2 = @"D:\fyp-frontend\src\serverImages\donorReplies\" + obj.ToString() + fi.Extension;
+                    //string imagePath2 = @"D:\fyp-frontend\src\serverImages\donorReplies\" + value.Image2Name;
+                    //FileInfo fi = new FileInfo(imagePath2);
+                    //Guid obj = Guid.NewGuid();
+                    //imagePath2 = @"D:\fyp-frontend\src\serverImages\donorReplies\" + obj.ToString() + fi.Extension;
                     var cleanerBase2 = value.Image2Base64.Substring(value.Image2Base64.LastIndexOf(',') + 1);
-                    File.WriteAllBytes(imagePath2, Convert.FromBase64String(cleanerBase2));
-                    reply.Image2 = imagePath2;
+                    //File.WriteAllBytes(imagePath2, Convert.FromBase64String(cleanerBase2));
+                    reply.Image2 = cleanerBase2;
                 }
 
                 if (!string.IsNullOrEmpty(value.Image3Name))
                 {
-                    string imagePath3 = @"D:\fyp-frontend\src\serverImages\donorReplies\" + value.Image3Name;
-                    FileInfo fi = new FileInfo(imagePath3);
-                    Guid obj = Guid.NewGuid();
-                    imagePath3 = @"D:\fyp-frontend\src\serverImages\donorReplies\" + obj.ToString() + fi.Extension;
+                    //string imagePath3 = @"D:\fyp-frontend\src\serverImages\donorReplies\" + value.Image3Name;
+                    //FileInfo fi = new FileInfo(imagePath3);
+                    //Guid obj = Guid.NewGuid();
+                    //imagePath3 = @"D:\fyp-frontend\src\serverImages\donorReplies\" + obj.ToString() + fi.Extension;
                     var cleanerBase3 = value.Image3Base64.Substring(value.Image3Base64.LastIndexOf(',') + 1);
-                    File.WriteAllBytes(imagePath3, Convert.FromBase64String(cleanerBase3));
-                    reply.Image3 = imagePath3;
+                    //File.WriteAllBytes(imagePath3, Convert.FromBase64String(cleanerBase3));
+                    reply.Image3 = cleanerBase3;
                 }
 
                 dbx.tbl_DonorReplies.AddOrUpdate(reply);
@@ -144,24 +144,24 @@ namespace CharitAble_current.Controllers
                                      select x.Unit).FirstOrDefault();
                     }
 
-                    if (!string.IsNullOrWhiteSpace(item.Image1))
-                    {
-                        string imagePath1 = item.Image1;
-                        FileInfo fi = new FileInfo(imagePath1);
-                        item.Image1Name = fi.Name;
-                    }
-                    if (!string.IsNullOrWhiteSpace(item.Image2))
-                    {
-                        string image2Path = item.Image2;
-                        FileInfo fi = new FileInfo(image2Path);
-                        item.Image2Name = fi.Name;
-                    }
-                    if (!string.IsNullOrWhiteSpace(item.Image3))
-                    {
-                        string imagePath3 = item.Image3;
-                        FileInfo fi = new FileInfo(imagePath3);
-                        item.Image3Name = fi.Name;
-                    }
+                    //if (!string.IsNullOrWhiteSpace(item.Image1))
+                    //{
+                    //    string imagePath1 = item.Image1;
+                    //    FileInfo fi = new FileInfo(imagePath1);
+                    //    item.Image1Name = fi.Name;
+                    //}
+                    //if (!string.IsNullOrWhiteSpace(item.Image2))
+                    //{
+                    //    string image2Path = item.Image2;
+                    //    FileInfo fi = new FileInfo(image2Path);
+                    //    item.Image2Name = fi.Name;
+                    //}
+                    //if (!string.IsNullOrWhiteSpace(item.Image3))
+                    //{
+                    //    string imagePath3 = item.Image3;
+                    //    FileInfo fi = new FileInfo(imagePath3);
+                    //    item.Image3Name = fi.Name;
+                    //}
                 }
 
                 if (reply.Any())
@@ -224,24 +224,24 @@ namespace CharitAble_current.Controllers
                                      where x.UnitID == item.UnitId
                                      select x.Unit).FirstOrDefault();
                     }
-                    if (!string.IsNullOrWhiteSpace(item.Image1))
-                    {
-                        string imagePath1 = item.Image1;
-                        FileInfo fi = new FileInfo(imagePath1);
-                        item.Image1Name = fi.Name;
-                    }
-                    if (!string.IsNullOrWhiteSpace(item.Image2))
-                    {
-                        string image2Path = item.Image2;
-                        FileInfo fi = new FileInfo(image2Path);
-                        item.Image2Name = fi.Name;
-                    }
-                    if (!string.IsNullOrWhiteSpace(item.Image3))
-                    {
-                        string imagePath3 = item.Image3;
-                        FileInfo fi = new FileInfo(imagePath3);
-                        item.Image3Name = fi.Name;
-                    }
+                    //if (!string.IsNullOrWhiteSpace(item.Image1))
+                    //{
+                    //    string imagePath1 = item.Image1;
+                    //    FileInfo fi = new FileInfo(imagePath1);
+                    //    item.Image1Name = fi.Name;
+                    //}
+                    //if (!string.IsNullOrWhiteSpace(item.Image2))
+                    //{
+                    //    string image2Path = item.Image2;
+                    //    FileInfo fi = new FileInfo(image2Path);
+                    //    item.Image2Name = fi.Name;
+                    //}
+                    //if (!string.IsNullOrWhiteSpace(item.Image3))
+                    //{
+                    //    string imagePath3 = item.Image3;
+                    //    FileInfo fi = new FileInfo(imagePath3);
+                    //    item.Image3Name = fi.Name;
+                    //}
                 }
 
                 if (reply.Any())
@@ -306,24 +306,24 @@ namespace CharitAble_current.Controllers
                                      where x.UnitID == item.UnitId
                                      select x.Unit).FirstOrDefault();
                     }
-                    if (!string.IsNullOrWhiteSpace(item.Image1))
-                    {
-                        string imagePath1 = item.Image1;
-                        FileInfo fi = new FileInfo(imagePath1);
-                        item.Image1Name = fi.Name;
-                    }
-                    if (!string.IsNullOrWhiteSpace(item.Image2))
-                    {
-                        string image2Path = item.Image2;
-                        FileInfo fi = new FileInfo(image2Path);
-                        item.Image2Name = fi.Name;
-                    }
-                    if (!string.IsNullOrWhiteSpace(item.Image3))
-                    {
-                        string imagePath3 = item.Image3;
-                        FileInfo fi = new FileInfo(imagePath3);
-                        item.Image3Name = fi.Name;
-                    }
+                    //if (!string.IsNullOrWhiteSpace(item.Image1))
+                    //{
+                    //    string imagePath1 = item.Image1;
+                    //    FileInfo fi = new FileInfo(imagePath1);
+                    //    item.Image1Name = fi.Name;
+                    //}
+                    //if (!string.IsNullOrWhiteSpace(item.Image2))
+                    //{
+                    //    string image2Path = item.Image2;
+                    //    FileInfo fi = new FileInfo(image2Path);
+                    //    item.Image2Name = fi.Name;
+                    //}
+                    //if (!string.IsNullOrWhiteSpace(item.Image3))
+                    //{
+                    //    string imagePath3 = item.Image3;
+                    //    FileInfo fi = new FileInfo(imagePath3);
+                    //    item.Image3Name = fi.Name;
+                    //}
                 }
 
                 if (reply.Any())
@@ -390,24 +390,24 @@ namespace CharitAble_current.Controllers
                                      where x.UnitID == item.UnitId
                                      select x.Unit).FirstOrDefault();
                     }
-                    if (!string.IsNullOrWhiteSpace(item.Image1))
-                    {
-                        string imagePath1 = item.Image1;
-                        FileInfo fi = new FileInfo(imagePath1);
-                        item.Image1Name = fi.Name;
-                    }
-                    if (!string.IsNullOrWhiteSpace(item.Image2))
-                    {
-                        string image2Path = item.Image2;
-                        FileInfo fi = new FileInfo(image2Path);
-                        item.Image2Name = fi.Name;
-                    }
-                    if (!string.IsNullOrWhiteSpace(item.Image3))
-                    {
-                        string imagePath3 = item.Image3;
-                        FileInfo fi = new FileInfo(imagePath3);
-                        item.Image3Name = fi.Name;
-                    }
+                    //if (!string.IsNullOrWhiteSpace(item.Image1))
+                    //{
+                    //    string imagePath1 = item.Image1;
+                    //    FileInfo fi = new FileInfo(imagePath1);
+                    //    item.Image1Name = fi.Name;
+                    //}
+                    //if (!string.IsNullOrWhiteSpace(item.Image2))
+                    //{
+                    //    string image2Path = item.Image2;
+                    //    FileInfo fi = new FileInfo(image2Path);
+                    //    item.Image2Name = fi.Name;
+                    //}
+                    //if (!string.IsNullOrWhiteSpace(item.Image3))
+                    //{
+                    //    string imagePath3 = item.Image3;
+                    //    FileInfo fi = new FileInfo(imagePath3);
+                    //    item.Image3Name = fi.Name;
+                    //}
                 }
 
                 if (reply.Any())
@@ -470,24 +470,24 @@ namespace CharitAble_current.Controllers
                                      where x.UnitID == item.UnitId
                                      select x.Unit).FirstOrDefault();
                     }
-                    if (!string.IsNullOrWhiteSpace(item.Image1))
-                    {
-                        string imagePath1 = item.Image1;
-                        FileInfo fi = new FileInfo(imagePath1);
-                        item.Image1Name = fi.Name;
-                    }
-                    if (!string.IsNullOrWhiteSpace(item.Image2))
-                    {
-                        string image2Path = item.Image2;
-                        FileInfo fi = new FileInfo(image2Path);
-                        item.Image2Name = fi.Name;
-                    }
-                    if (!string.IsNullOrWhiteSpace(item.Image3))
-                    {
-                        string imagePath3 = item.Image3;
-                        FileInfo fi = new FileInfo(imagePath3);
-                        item.Image3Name = fi.Name;
-                    }
+                    //if (!string.IsNullOrWhiteSpace(item.Image1))
+                    //{
+                    //    string imagePath1 = item.Image1;
+                    //    FileInfo fi = new FileInfo(imagePath1);
+                    //    item.Image1Name = fi.Name;
+                    //}
+                    //if (!string.IsNullOrWhiteSpace(item.Image2))
+                    //{
+                    //    string image2Path = item.Image2;
+                    //    FileInfo fi = new FileInfo(image2Path);
+                    //    item.Image2Name = fi.Name;
+                    //}
+                    //if (!string.IsNullOrWhiteSpace(item.Image3))
+                    //{
+                    //    string imagePath3 = item.Image3;
+                    //    FileInfo fi = new FileInfo(imagePath3);
+                    //    item.Image3Name = fi.Name;
+                    //}
                 }
 
                 if (reply.Any())
@@ -554,24 +554,24 @@ namespace CharitAble_current.Controllers
                                      where x.UnitID == item.UnitId
                                      select x.Unit).FirstOrDefault();
                     }
-                    if (!string.IsNullOrWhiteSpace(item.Image1))
-                    {
-                        string imagePath1 = item.Image1;
-                        FileInfo fi = new FileInfo(imagePath1);
-                        item.Image1Name = fi.Name;
-                    }
-                    if (!string.IsNullOrWhiteSpace(item.Image2))
-                    {
-                        string image2Path = item.Image2;
-                        FileInfo fi = new FileInfo(image2Path);
-                        item.Image2Name = fi.Name;
-                    }
-                    if (!string.IsNullOrWhiteSpace(item.Image3))
-                    {
-                        string imagePath3 = item.Image3;
-                        FileInfo fi = new FileInfo(imagePath3);
-                        item.Image3Name = fi.Name;
-                    }
+                    //if (!string.IsNullOrWhiteSpace(item.Image1))
+                    //{
+                    //    string imagePath1 = item.Image1;
+                    //    FileInfo fi = new FileInfo(imagePath1);
+                    //    item.Image1Name = fi.Name;
+                    //}
+                    //if (!string.IsNullOrWhiteSpace(item.Image2))
+                    //{
+                    //    string image2Path = item.Image2;
+                    //    FileInfo fi = new FileInfo(image2Path);
+                    //    item.Image2Name = fi.Name;
+                    //}
+                    //if (!string.IsNullOrWhiteSpace(item.Image3))
+                    //{
+                    //    string imagePath3 = item.Image3;
+                    //    FileInfo fi = new FileInfo(imagePath3);
+                    //    item.Image3Name = fi.Name;
+                    //}
                 }
 
                 if (reply.Any())
@@ -634,24 +634,24 @@ namespace CharitAble_current.Controllers
                                      where x.UnitID == item.UnitId
                                      select x.Unit).FirstOrDefault();
                     }
-                    if (!string.IsNullOrWhiteSpace(item.Image1))
-                    {
-                        string imagePath1 = item.Image1;
-                        FileInfo fi = new FileInfo(imagePath1);
-                        item.Image1Name = fi.Name;
-                    }
-                    if (!string.IsNullOrWhiteSpace(item.Image2))
-                    {
-                        string image2Path = item.Image2;
-                        FileInfo fi = new FileInfo(image2Path);
-                        item.Image2Name = fi.Name;
-                    }
-                    if (!string.IsNullOrWhiteSpace(item.Image3))
-                    {
-                        string imagePath3 = item.Image3;
-                        FileInfo fi = new FileInfo(imagePath3);
-                        item.Image3Name = fi.Name;
-                    }
+                    //if (!string.IsNullOrWhiteSpace(item.Image1))
+                    //{
+                    //    string imagePath1 = item.Image1;
+                    //    FileInfo fi = new FileInfo(imagePath1);
+                    //    item.Image1Name = fi.Name;
+                    //}
+                    //if (!string.IsNullOrWhiteSpace(item.Image2))
+                    //{
+                    //    string image2Path = item.Image2;
+                    //    FileInfo fi = new FileInfo(image2Path);
+                    //    item.Image2Name = fi.Name;
+                    //}
+                    //if (!string.IsNullOrWhiteSpace(item.Image3))
+                    //{
+                    //    string imagePath3 = item.Image3;
+                    //    FileInfo fi = new FileInfo(imagePath3);
+                    //    item.Image3Name = fi.Name;
+                    //}
                 }
 
                 if (reply.Any())
@@ -718,24 +718,24 @@ namespace CharitAble_current.Controllers
                                      where x.UnitID == item.UnitId
                                      select x.Unit).FirstOrDefault();
                     }
-                    if (!string.IsNullOrWhiteSpace(item.Image1))
-                    {
-                        string imagePath1 = item.Image1;
-                        FileInfo fi = new FileInfo(imagePath1);
-                        item.Image1Name = fi.Name;
-                    }
-                    if (!string.IsNullOrWhiteSpace(item.Image2))
-                    {
-                        string image2Path = item.Image2;
-                        FileInfo fi = new FileInfo(image2Path);
-                        item.Image2Name = fi.Name;
-                    }
-                    if (!string.IsNullOrWhiteSpace(item.Image3))
-                    {
-                        string imagePath3 = item.Image3;
-                        FileInfo fi = new FileInfo(imagePath3);
-                        item.Image3Name = fi.Name;
-                    }
+                    //if (!string.IsNullOrWhiteSpace(item.Image1))
+                    //{
+                    //    string imagePath1 = item.Image1;
+                    //    FileInfo fi = new FileInfo(imagePath1);
+                    //    item.Image1Name = fi.Name;
+                    //}
+                    //if (!string.IsNullOrWhiteSpace(item.Image2))
+                    //{
+                    //    string image2Path = item.Image2;
+                    //    FileInfo fi = new FileInfo(image2Path);
+                    //    item.Image2Name = fi.Name;
+                    //}
+                    //if (!string.IsNullOrWhiteSpace(item.Image3))
+                    //{
+                    //    string imagePath3 = item.Image3;
+                    //    FileInfo fi = new FileInfo(imagePath3);
+                    //    item.Image3Name = fi.Name;
+                    //}
                 }
 
                 if (reply.Any())

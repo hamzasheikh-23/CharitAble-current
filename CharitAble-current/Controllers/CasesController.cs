@@ -520,15 +520,15 @@ namespace CharitAble_current.Controllers
                     CoverImage = x.CoverImage
                 }).Where(x => x.CategoryId == categoryId).ToList();
 
-                foreach (CaseRequest item in cases)
-                {
-                    if (!string.IsNullOrWhiteSpace(item.CoverImage))
-                    {
-                        string imagePath = item.CoverImage;
-                        FileInfo fi = new FileInfo(imagePath);
-                        item.ImageName = fi.Name;
-                    }
-                }
+                //foreach (CaseRequest item in cases)
+                //{
+                //    if (!string.IsNullOrWhiteSpace(item.CoverImage))
+                //    {
+                //        string imagePath = item.CoverImage;
+                //        FileInfo fi = new FileInfo(imagePath);
+                //        item.ImageName = fi.Name;
+                //    }
+                //}
 
                 if (cases.Any())
                 {

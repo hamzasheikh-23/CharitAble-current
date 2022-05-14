@@ -64,6 +64,56 @@ namespace CharitAble_current.Controllers
             }
         }
 
+        [HttpPost]
+        [Route("response/post")]
+        public IHttpActionResult ResponsePost(OrderRequest value)
+        {
+            try
+            {
+                object ret = new
+                {
+                    code = "0",
+                    status = "Posting order failed"
+                };
+
+                var statusId = (from x in dbx.tbl_Status
+                                where x.Status == "Pending" || x.Status == "pending"
+                                select x.StatusID).SingleOrDefault();
+
+                //var isActive = "true";
+
+                tbl_Orders order = new tbl_Orders
+                {
+                    DonorID = value.NGOId,
+                    DonationID = value.DonationId,
+                    ResponseID = value.ResponseId,
+                    PaymentID = value.PaymentId,
+                    DeliveryAddress = value.DeliveryAddress,
+                    Amount = value.Amount,
+                    OrderDateTime = value.OrderDateTime = DateTime.Now,
+                    StatusID = value.StatusId = statusId
+                };
+
+
+                dbx.tbl_Orders.AddOrUpdate(order);
+                var result = dbx.SaveChanges();
+
+                if (result != 0)
+                {
+                    ret = new
+                    {
+                        code = "1",
+                        status = "order posted successfully"
+                    };
+                }
+                return Ok(ret);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("'" + ex + ": " + ex.Message + "'");
+            }
+        }
+
         // GET: order/get
         [HttpGet]
         [Route("get")]
@@ -83,9 +133,19 @@ namespace CharitAble_current.Controllers
                                             join u in dbx.tbl_Users on n.UserID equals u.UserID
                                             where n.NGO_ID == x.NGO_ID
                                             select u.FirstName + " " + u.LastName).FirstOrDefault().Trim(),
+                                 DonorId = x.DonorID,
+                                 DonorName = (from d in dbx.tbl_DonorMaster
+                                              join u in dbx.tbl_Users on d.UserID equals u.UserID
+                                              where d.DonorID == x.DonorID
+                                              select u.FirstName + " " + u.LastName).FirstOrDefault().Trim(),
                                  CaseId = x.CaseID,
+                                 DonationId = x.DonationID,
                                  ReplyId = x.ReplyID,
+                                 ResponseId = x.ResponseID,
                                  PaymentId = x.PaymentID,
+                                 DropOffAddress = (from dr in dbx.NGOResponses
+                                                   where dr.ResponseID == x.ResponseID
+                                                   select dr.Address).FirstOrDefault().Trim(),
                                  PickupAddress = r.Address,
                                  DeliveryAddress = x.DeliveryAddress,
                                  Amount = x.Amount,
@@ -130,9 +190,19 @@ namespace CharitAble_current.Controllers
                                             join u in dbx.tbl_Users on n.UserID equals u.UserID
                                             where n.NGO_ID == x.NGO_ID
                                             select u.FirstName + " " + u.LastName).FirstOrDefault().Trim(),
+                                 DonorId = x.DonorID,
+                                 DonorName = (from d in dbx.tbl_DonorMaster
+                                              join u in dbx.tbl_Users on d.UserID equals u.UserID
+                                              where d.DonorID == x.DonorID
+                                              select u.FirstName + " " + u.LastName).FirstOrDefault().Trim(),
                                  CaseId = x.CaseID,
+                                 DonationId = x.DonationID,
                                  ReplyId = x.ReplyID,
+                                 ResponseId = x.ResponseID,
                                  PaymentId = x.PaymentID,
+                                 DropOffAddress = (from dr in dbx.NGOResponses
+                                                   where dr.ResponseID == x.ResponseID
+                                                   select dr.Address).FirstOrDefault().Trim(),
                                  PickupAddress = r.Address,
                                  DeliveryAddress = x.DeliveryAddress,
                                  Amount = x.Amount,
@@ -142,7 +212,6 @@ namespace CharitAble_current.Controllers
                                            select y.Status).FirstOrDefault().Trim(),
                                  OrderDateTime = x.OrderDateTime
                              }).ToList();
-
 
                 if (order.Any())
                 {
@@ -177,9 +246,19 @@ namespace CharitAble_current.Controllers
                                             join u in dbx.tbl_Users on n.UserID equals u.UserID
                                             where n.NGO_ID == x.NGO_ID
                                             select u.FirstName + " " + u.LastName).FirstOrDefault().Trim(),
+                                 DonorId = x.DonorID,
+                                 DonorName = (from d in dbx.tbl_DonorMaster
+                                              join u in dbx.tbl_Users on d.UserID equals u.UserID
+                                              where d.DonorID == x.DonorID
+                                              select u.FirstName + " " + u.LastName).FirstOrDefault().Trim(),
                                  CaseId = x.CaseID,
+                                 DonationId = x.DonationID,
                                  ReplyId = x.ReplyID,
+                                 ResponseId = x.ResponseID,
                                  PaymentId = x.PaymentID,
+                                 DropOffAddress = (from dr in dbx.NGOResponses
+                                                   where dr.ResponseID == x.ResponseID
+                                                   select dr.Address).FirstOrDefault().Trim(),
                                  PickupAddress = r.Address,
                                  DeliveryAddress = x.DeliveryAddress,
                                  Amount = x.Amount,
@@ -228,9 +307,19 @@ namespace CharitAble_current.Controllers
                                             join u in dbx.tbl_Users on n.UserID equals u.UserID
                                             where n.NGO_ID == x.NGO_ID
                                             select u.FirstName + " " + u.LastName).FirstOrDefault().Trim(),
+                                 DonorId = x.DonorID,
+                                 DonorName = (from d in dbx.tbl_DonorMaster
+                                              join u in dbx.tbl_Users on d.UserID equals u.UserID
+                                              where d.DonorID == x.DonorID
+                                              select u.FirstName + " " + u.LastName).FirstOrDefault().Trim(),
                                  CaseId = x.CaseID,
+                                 DonationId = x.DonationID,
                                  ReplyId = x.ReplyID,
+                                 ResponseId = x.ResponseID,
                                  PaymentId = x.PaymentID,
+                                 DropOffAddress = (from dr in dbx.NGOResponses
+                                                   where dr.ResponseID == x.ResponseID
+                                                   select dr.Address).FirstOrDefault().Trim(),
                                  PickupAddress = r.Address,
                                  DeliveryAddress = x.DeliveryAddress,
                                  Amount = x.Amount,

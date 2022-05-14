@@ -14,6 +14,12 @@ namespace CharitAble_current.Models
     
     public partial class NGOResponse
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public NGOResponse()
+        {
+            this.tbl_Orders = new HashSet<tbl_Orders>();
+        }
+    
         public int ResponseID { get; set; }
         public int NGO_ID { get; set; }
         public int DonationID { get; set; }
@@ -22,5 +28,11 @@ namespace CharitAble_current.Models
         public Nullable<System.DateTime> PostedDateTime { get; set; }
         public Nullable<int> StatusID { get; set; }
         public string isActive { get; set; }
+    
+        public virtual tbl_Donations tbl_Donations { get; set; }
+        public virtual tbl_NGOMaster tbl_NGOMaster { get; set; }
+        public virtual tbl_Status tbl_Status { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbl_Orders> tbl_Orders { get; set; }
     }
 }

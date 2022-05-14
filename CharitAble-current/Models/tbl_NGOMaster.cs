@@ -20,6 +20,7 @@ namespace CharitAble_current.Models
             this.tbl_Cases = new HashSet<tbl_Cases>();
             this.tbl_PaymentInfo = new HashSet<tbl_PaymentInfo>();
             this.tbl_SuccessStories = new HashSet<tbl_SuccessStories>();
+            this.NGOResponses = new HashSet<NGOResponse>();
         }
     
         public int NGO_ID { get; set; }
@@ -42,5 +43,7 @@ namespace CharitAble_current.Models
         public virtual ICollection<tbl_PaymentInfo> tbl_PaymentInfo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_SuccessStories> tbl_SuccessStories { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<NGOResponse> NGOResponses { get; set; }
     }
 }

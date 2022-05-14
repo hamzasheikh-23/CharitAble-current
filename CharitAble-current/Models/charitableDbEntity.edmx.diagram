@@ -52,6 +52,12 @@
         <EntityTypeShape EntityType="charitable_dbModel.database_firewall_rules" Width="1.5" PointX="0.75" PointY="3.75" />
         <EntityTypeShape EntityType="charitable_dbModel.ipv6_database_firewall_rules" Width="1.5" PointX="2.75" PointY="3.75" />
         <EntityTypeShape EntityType="charitable_dbModel.NGOResponse" Width="1.5" PointX="0.75" PointY="6.75" />
+        <AssociationConnector Association="charitable_dbModel.FK_NGOResponse_tbl_Donations" />
+        <AssociationConnector Association="charitable_dbModel.FK_NGOResponse_tbl_NGOMaster" />
+        <AssociationConnector Association="charitable_dbModel.FK_NGOResponse_tbl_Status" />
+        <AssociationConnector Association="charitable_dbModel.FK_tbl_Orders_NGOResponse" />
+        <AssociationConnector Association="charitable_dbModel.FK_tbl_Orders_tbl_DonorMaster" />
+        <AssociationConnector Association="charitable_dbModel.FK_tbl_Orders_tbl_Donations" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

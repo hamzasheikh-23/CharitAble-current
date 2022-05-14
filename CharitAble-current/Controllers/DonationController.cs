@@ -79,24 +79,24 @@ namespace CharitAble_current.Controllers
 
                 if (!string.IsNullOrEmpty(value.Image2Name))
                 {
-                    string imagePath2 = @"D:\fyp-frontend\src\serverImages\donations" + value.Image2Name;
-                    FileInfo fi = new FileInfo(imagePath2);
-                    Guid obj = Guid.NewGuid();
-                    imagePath2 = @"D:\fyp-frontend\src\serverImages\donations" + obj.ToString() + fi.Extension;
+                    //string imagePath2 = @"D:\fyp-frontend\src\serverImages\donations" + value.Image2Name;
+                    //FileInfo fi = new FileInfo(imagePath2);
+                    //Guid obj = Guid.NewGuid();
+                    //imagePath2 = @"D:\fyp-frontend\src\serverImages\donations" + obj.ToString() + fi.Extension;
                     var cleanerBase2 = value.Image2base64.Substring(value.Image2base64.LastIndexOf(',') + 1);
-                    File.WriteAllBytes(imagePath2, Convert.FromBase64String(cleanerBase2));
-                    donation.Image2 = imagePath2;
+                    //File.WriteAllBytes(imagePath2, Convert.FromBase64String(cleanerBase2));
+                    donation.Image2 = cleanerBase2;
                 }
 
                 if (!string.IsNullOrEmpty(value.Image3Name))
                 {
-                    string imagePath3 = @"D:\fyp-frontend\src\serverImages\donations" + value.Image3Name;
-                    FileInfo fi = new FileInfo(imagePath3);
-                    Guid obj = Guid.NewGuid();
-                    imagePath3 = @"D:\fyp-frontend\src\serverImages\donations" + obj.ToString() + fi.Extension;
+                    //string imagePath3 = @"D:\fyp-frontend\src\serverImages\donations" + value.Image3Name;
+                    //FileInfo fi = new FileInfo(imagePath3);
+                    //Guid obj = Guid.NewGuid();
+                    //imagePath3 = @"D:\fyp-frontend\src\serverImages\donations" + obj.ToString() + fi.Extension;
                     var cleanerBase3 = value.Image3base64.Substring(value.Image3base64.LastIndexOf(',') + 1);
-                    File.WriteAllBytes(imagePath3, Convert.FromBase64String(cleanerBase3));
-                    donation.Image3 = imagePath3;
+                    //File.WriteAllBytes(imagePath3, Convert.FromBase64String(cleanerBase3));
+                    donation.Image3 = cleanerBase3;
                 }
 
 
@@ -166,28 +166,6 @@ namespace CharitAble_current.Controllers
                                      Image3 = x.Image3,
                                  }).ToList();
 
-                foreach (DonationRequest item in donations)
-                {
-                    if (!string.IsNullOrWhiteSpace(item.Image1))
-                    {
-                        string imagePath1 = item.Image1;
-                        FileInfo fi = new FileInfo(imagePath1);
-                        item.Image1Name = fi.Name;
-                    }
-                    if (!string.IsNullOrWhiteSpace(item.Image2))
-                    {
-                        string imagePath2 = item.Image2;
-                        FileInfo fi = new FileInfo(imagePath2);
-                        item.Image2Name = fi.Name;
-                    }
-                    if (!string.IsNullOrWhiteSpace(item.Image3))
-                    {
-                        string imagePath3 = item.Image3;
-                        FileInfo fi = new FileInfo(imagePath3);
-                        item.Image3Name = fi.Name;
-                    }
-                }
-
                 if (donations.Count > 0)
                 {
                     return Ok(donations);
@@ -245,36 +223,18 @@ namespace CharitAble_current.Controllers
                     Image3 = x.Image3,
                 }).Where(x => x.DonorId == donorId).ToList();
 
-                foreach (DonationRequest item in donations)
+                if (donations.Count > 0)
                 {
-                    if (!string.IsNullOrWhiteSpace(item.Image1))
-                    {
-                        string imagePath1 = item.Image1;
-                        FileInfo fi = new FileInfo(imagePath1);
-                        item.Image1Name = fi.Name;
-                    }
-                    if (!string.IsNullOrWhiteSpace(item.Image2))
-                    {
-                        string imagePath2 = item.Image2;
-                        FileInfo fi = new FileInfo(imagePath2);
-                        item.Image2Name = fi.Name;
-                    }
-                    if (!string.IsNullOrWhiteSpace(item.Image3))
-                    {
-                        string imagePath3 = item.Image3;
-                        FileInfo fi = new FileInfo(imagePath3);
-                        item.Image3Name = fi.Name;
-                    }
-
-                    //item.Image1 = string.IsNullOrWhiteSpace(item.Image1) ? item.Image1 : Convert.ToBase64String(File.ReadAllBytes(item.Image1));
-                    //item.Image2 = string.IsNullOrWhiteSpace(item.Image2) ? item.Image2 : Convert.ToBase64String(File.ReadAllBytes(item.Image2));
-                    //item.Image3 = string.IsNullOrWhiteSpace(item.Image3) ? item.Image3 : Convert.ToBase64String(File.ReadAllBytes(item.Image3));
+                    return Ok(donations);
                 }
-                return Ok(donations);
+                else
+                {
+                    return BadRequest("Unable to retrieve data from database, check URL or other user input");
+                }
             }
             catch (Exception ex)
             {
-                return BadRequest("Unable to process your request. " +
+                return BadRequest("Unable to process your request, check URL or user input\n" +
                    "ErrorMessage: '" + ex.Message + "'");
             }
         }
@@ -319,32 +279,19 @@ namespace CharitAble_current.Controllers
                     Image3 = x.Image3,
                 }).Where(x => x.Status == status).ToList();
 
-                foreach (DonationRequest item in donations)
+                if (donations.Count > 0)
                 {
-                    if (!string.IsNullOrWhiteSpace(item.Image1))
-                    {
-                        string imagePath1 = item.Image1;
-                        FileInfo fi = new FileInfo(imagePath1);
-                        item.Image1Name = fi.Name;
-                    }
-                    if (!string.IsNullOrWhiteSpace(item.Image2))
-                    {
-                        string imagePath2 = item.Image2;
-                        FileInfo fi = new FileInfo(imagePath2);
-                        item.Image2Name = fi.Name;
-                    }
-                    if (!string.IsNullOrWhiteSpace(item.Image3))
-                    {
-                        string imagePath3 = item.Image3;
-                        FileInfo fi = new FileInfo(imagePath3);
-                        item.Image3Name = fi.Name;
-                    }
+                    return Ok(donations);
                 }
-                return Ok(donations);
+                else
+                {
+                    return BadRequest("Unable to retrieve data from database, check URL or other user input");
+                }
             }
             catch (Exception ex)
             {
-                return BadRequest(ex + ": '" + ex.Message + "'");
+                return BadRequest("Unable to process your request, check URL or user input\n" +
+                   "ErrorMessage: '" + ex.Message + "'");
             }
         }
 
@@ -388,28 +335,14 @@ namespace CharitAble_current.Controllers
                     Image3 = x.Image3,
                 }).Where(x => x.DonorId == donorId && x.Status == status).ToList();
 
-                foreach (DonationRequest item in donations)
+                if (donations.Count > 0)
                 {
-                    if (!string.IsNullOrWhiteSpace(item.Image1))
-                    {
-                        string imagePath1 = item.Image1;
-                        FileInfo fi = new FileInfo(imagePath1);
-                        item.Image1Name = fi.Name;
-                    }
-                    if (!string.IsNullOrWhiteSpace(item.Image2))
-                    {
-                        string imagePath2 = item.Image2;
-                        FileInfo fi = new FileInfo(imagePath2);
-                        item.Image2Name = fi.Name;
-                    }
-                    if (!string.IsNullOrWhiteSpace(item.Image3))
-                    {
-                        string imagePath3 = item.Image3;
-                        FileInfo fi = new FileInfo(imagePath3);
-                        item.Image3Name = fi.Name;
-                    }
+                    return Ok(donations);
                 }
-                return Ok(donations);
+                else
+                {
+                    return BadRequest("Unable to retrieve data from database, check URL or other user input");
+                }
             }
             catch (Exception ex)
             {
@@ -459,28 +392,14 @@ namespace CharitAble_current.Controllers
                     Image3 = x.Image3,
                 }).Where(x => x.DonorId == donorId && x.IsActive == isActive).ToList();
 
-                foreach (DonationRequest item in donations)
+                if (donations.Count > 0)
                 {
-                    if (!string.IsNullOrWhiteSpace(item.Image1))
-                    {
-                        string imagePath1 = item.Image1;
-                        FileInfo fi = new FileInfo(imagePath1);
-                        item.Image1Name = fi.Name;
-                    }
-                    if (!string.IsNullOrWhiteSpace(item.Image2))
-                    {
-                        string imagePath2 = item.Image2;
-                        FileInfo fi = new FileInfo(imagePath2);
-                        item.Image2Name = fi.Name;
-                    }
-                    if (!string.IsNullOrWhiteSpace(item.Image3))
-                    {
-                        string imagePath3 = item.Image3;
-                        FileInfo fi = new FileInfo(imagePath3);
-                        item.Image3Name = fi.Name;
-                    }
+                    return Ok(donations);
                 }
-                return Ok(donations);
+                else
+                {
+                    return BadRequest("Unable to retrieve data from database, check URL or other user input");
+                }
             }
             catch (Exception ex)
             {
@@ -530,33 +449,19 @@ namespace CharitAble_current.Controllers
                     Image3 = x.Image3,
                 }).Where(x => x.DonorId == donorId && x.Status == status && x.IsActive == isActive).ToList();
 
-                foreach (DonationRequest item in donations)
+                if (donations.Count > 0)
                 {
-                    if (!string.IsNullOrWhiteSpace(item.Image1))
-                    {
-                        string imagePath1 = item.Image1;
-                        FileInfo fi = new FileInfo(imagePath1);
-                        item.Image1Name = fi.Name;
-                    }
-                    if (!string.IsNullOrWhiteSpace(item.Image2))
-                    {
-                        string imagePath2 = item.Image2;
-                        FileInfo fi = new FileInfo(imagePath2);
-                        item.Image2Name = fi.Name;
-                    }
-                    if (!string.IsNullOrWhiteSpace(item.Image3))
-                    {
-                        string imagePath3 = item.Image3;
-                        FileInfo fi = new FileInfo(imagePath3);
-                        item.Image3Name = fi.Name;
-                    }
+                    return Ok(donations);
                 }
-                return Ok(donations);
+                else
+                {
+                    return BadRequest("Unable to retrieve data from database, check URL or other user input");
+                }
             }
             catch (Exception ex)
             {
                 return BadRequest("Unable to process your request, check URL or user input\n" +
-                    "ErrorMessage: '" + ex.Message + "'");
+                   "ErrorMessage: '" + ex.Message + "'");
             }
         }
 
@@ -602,33 +507,19 @@ namespace CharitAble_current.Controllers
                     Image3 = x.Image3,
                 }).Where(x => x.Status == status && x.IsActive == isActive).ToList();
 
-                foreach (DonationRequest item in donations)
+                if (donations.Count > 0)
                 {
-                    if (!string.IsNullOrWhiteSpace(item.Image1))
-                    {
-                        string imagePath1 = item.Image1;
-                        FileInfo fi = new FileInfo(imagePath1);
-                        item.Image1Name = fi.Name;
-                    }
-                    if (!string.IsNullOrWhiteSpace(item.Image2))
-                    {
-                        string imagePath2 = item.Image2;
-                        FileInfo fi = new FileInfo(imagePath2);
-                        item.Image2Name = fi.Name;
-                    }
-                    if (!string.IsNullOrWhiteSpace(item.Image3))
-                    {
-                        string imagePath3 = item.Image3;
-                        FileInfo fi = new FileInfo(imagePath3);
-                        item.Image3Name = fi.Name;
-                    }
+                    return Ok(donations);
                 }
-                return Ok(donations);
+                else
+                {
+                    return BadRequest("Unable to retrieve data from database, check URL or other user input");
+                }
             }
             catch (Exception ex)
             {
                 return BadRequest("Unable to process your request, check URL or user input\n" +
-                    "ErrorMessage: '" + ex.Message + "'");
+                   "ErrorMessage: '" + ex.Message + "'");
             }
         }
 
