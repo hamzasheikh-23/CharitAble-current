@@ -77,9 +77,9 @@
           <Property Name="Status" Type="int" />
           <Property Name="PostedDateTime" Type="smalldatetime" />
           <Property Name="isActive" Type="varchar" MaxLength="6" />
-          <Property Name="Image1" Type="varchar" MaxLength="200" />
-          <Property Name="Image2" Type="varchar" MaxLength="200" />
-          <Property Name="Image3" Type="varchar" MaxLength="200" />
+          <Property Name="Image1" Type="varchar(max)" />
+          <Property Name="Image2" Type="varchar(max)" />
+          <Property Name="Image3" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="tbl_DonorMaster">
           <Key>
@@ -951,9 +951,9 @@ warning 6002: The table/view 'charitable_db.sys.ipv6_database_firewall_rules' do
           <Property Name="Status" Type="Int32" />
           <Property Name="PostedDateTime" Type="DateTime" Precision="0" />
           <Property Name="isActive" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
-          <Property Name="Image1" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="Image2" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="Image3" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Image1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Image2" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Image3" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="tbl_Cases" Relationship="Self.FK__tbl_Donat__CaseI__30C33EC3" FromRole="tbl_Donations" ToRole="tbl_Cases" />
           <NavigationProperty Name="tbl_DonationCondition" Relationship="Self.FK__tbl_Donat__Condi__06CD04F7" FromRole="tbl_Donations" ToRole="tbl_DonationCondition" />
           <NavigationProperty Name="tbl_DonorMaster" Relationship="Self.FK__Donations__Donor__30F848ED" FromRole="tbl_Donations" ToRole="tbl_DonorMaster" />
