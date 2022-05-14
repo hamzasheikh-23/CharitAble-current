@@ -930,8 +930,12 @@ namespace CharitAble_current.Controllers
         {
             try
             {
+                var statusId = (from x in dbx.tbl_Status
+                                where x.Status == "approved" || x.Status == "Approved"
+                                select x.StatusID).SingleOrDefault();
+
                 var totalDonationsList = (from x in dbx.tbl_DonorReplies
-                                          where x.CaseID == caseId
+                                          where x.CaseID == caseId && x.StatusID == statusId
                                           select x).ToList();
 
                 var sum = totalDonationsList.Sum(x => x.Quantity);

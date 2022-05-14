@@ -19,7 +19,6 @@ namespace CharitAble_current.Models
         {
             this.tbl_Donations = new HashSet<tbl_Donations>();
             this.tbl_DonorReplies = new HashSet<tbl_DonorReplies>();
-            this.tbl_Orders = new HashSet<tbl_Orders>();
         }
     
         public int DonorID { get; set; }
@@ -37,7 +36,5 @@ namespace CharitAble_current.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_DonorReplies> tbl_DonorReplies { get; set; }
         public virtual tbl_Users tbl_Users { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbl_Orders> tbl_Orders { get; set; }
     }
 }

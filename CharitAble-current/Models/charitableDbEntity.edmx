@@ -180,7 +180,6 @@
           </Key>
           <Property Name="OrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="NGO_ID" Type="int" />
-          <Property Name="DonorID" Type="int" />
           <Property Name="DonationID" Type="int" />
           <Property Name="CaseID" Type="int" />
           <Property Name="ReplyID" Type="int" />
@@ -638,18 +637,6 @@ warning 6002: The table/view 'charitable_db.sys.ipv6_database_firewall_rules' do
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tbl_Orders_tbl_DonorMaster">
-          <End Role="tbl_DonorMaster" Type="Self.tbl_DonorMaster" Multiplicity="0..1" />
-          <End Role="tbl_Orders" Type="Self.tbl_Orders" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_DonorMaster">
-              <PropertyRef Name="DonorID" />
-            </Principal>
-            <Dependent Role="tbl_Orders">
-              <PropertyRef Name="DonorID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Function Name="SP_AddCase" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="CaseTitle" Type="varchar" Mode="In" />
           <Parameter Name="PostedDate" Type="smalldatetime" Mode="In" />
@@ -875,10 +862,6 @@ warning 6002: The table/view 'charitable_db.sys.ipv6_database_firewall_rules' do
             <End Role="tbl_Donations" EntitySet="tbl_Donations" />
             <End Role="tbl_Orders" EntitySet="tbl_Orders" />
           </AssociationSet>
-          <AssociationSet Name="FK_tbl_Orders_tbl_DonorMaster" Association="Self.FK_tbl_Orders_tbl_DonorMaster">
-            <End Role="tbl_DonorMaster" EntitySet="tbl_DonorMaster" />
-            <End Role="tbl_Orders" EntitySet="tbl_Orders" />
-          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -977,7 +960,6 @@ warning 6002: The table/view 'charitable_db.sys.ipv6_database_firewall_rules' do
           <NavigationProperty Name="tbl_Donations" Relationship="Self.FK__Donations__Donor__30F848ED" FromRole="tbl_DonorMaster" ToRole="tbl_Donations" />
           <NavigationProperty Name="tbl_DonorReplies" Relationship="Self.FK__tbl_Donor__Donor__625A9A57" FromRole="tbl_DonorMaster" ToRole="tbl_DonorReplies" />
           <NavigationProperty Name="tbl_Users" Relationship="Self.FK__tbl_Donor__UserI__1CBC4616" FromRole="tbl_DonorMaster" ToRole="tbl_Users" />
-          <NavigationProperty Name="tbl_Orders" Relationship="charitable_dbModel.FK_tbl_Orders_tbl_DonorMaster" FromRole="tbl_DonorMaster" ToRole="tbl_Orders" />
         </EntityType>
         <EntityType Name="tbl_DonorReplies">
           <Key>
@@ -1090,10 +1072,8 @@ warning 6002: The table/view 'charitable_db.sys.ipv6_database_firewall_rules' do
           <NavigationProperty Name="tbl_DonorReplies" Relationship="Self.FK__tbl_Order__Reply__0A688BB1" FromRole="tbl_Orders" ToRole="tbl_DonorReplies" />
           <NavigationProperty Name="tbl_Invoices" Relationship="Self.FK__tbl_Invoi__Order__3E52440B" FromRole="tbl_Orders" ToRole="tbl_Invoices" />
           <NavigationProperty Name="tbl_PaymentInfo" Relationship="Self.FK__tbl_Order__Payme__25518C17" FromRole="tbl_Orders" ToRole="tbl_PaymentInfo" />
-          <Property Name="DonorID" Type="Int32" />
           <Property Name="ResponseID" Type="Int32" />
           <NavigationProperty Name="NGOResponse" Relationship="charitable_dbModel.FK_tbl_Orders_NGOResponse" FromRole="tbl_Orders" ToRole="NGOResponse" />
-          <NavigationProperty Name="tbl_DonorMaster" Relationship="charitable_dbModel.FK_tbl_Orders_tbl_DonorMaster" FromRole="tbl_Orders" ToRole="tbl_DonorMaster" />
           <Property Name="DonationID" Type="Int32" />
           <NavigationProperty Name="tbl_Donations" Relationship="charitable_dbModel.FK_tbl_Orders_tbl_Donations" FromRole="tbl_Orders" ToRole="tbl_Donations" />
         </EntityType>
@@ -1665,10 +1645,6 @@ warning 6002: The table/view 'charitable_db.sys.ipv6_database_firewall_rules' do
             <End Role="NGOResponse" EntitySet="NGOResponses" />
             <End Role="tbl_Orders" EntitySet="tbl_Orders" />
           </AssociationSet>
-          <AssociationSet Name="FK_tbl_Orders_tbl_DonorMaster" Association="charitable_dbModel.FK_tbl_Orders_tbl_DonorMaster">
-            <End Role="tbl_DonorMaster" EntitySet="tbl_DonorMaster" />
-            <End Role="tbl_Orders" EntitySet="tbl_Orders" />
-          </AssociationSet>
           <AssociationSet Name="FK_tbl_Orders_tbl_Donations" Association="charitable_dbModel.FK_tbl_Orders_tbl_Donations">
             <End Role="tbl_Donations" EntitySet="tbl_Donations" />
             <End Role="tbl_Orders" EntitySet="tbl_Orders" />
@@ -1917,18 +1893,6 @@ warning 6002: The table/view 'charitable_db.sys.ipv6_database_firewall_rules' do
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tbl_Orders_tbl_DonorMaster">
-          <End Type="charitable_dbModel.tbl_DonorMaster" Role="tbl_DonorMaster" Multiplicity="0..1" />
-          <End Type="charitable_dbModel.tbl_Orders" Role="tbl_Orders" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_DonorMaster">
-              <PropertyRef Name="DonorID" />
-            </Principal>
-            <Dependent Role="tbl_Orders">
-              <PropertyRef Name="DonorID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_tbl_Orders_tbl_Donations">
           <End Type="charitable_dbModel.tbl_Donations" Role="tbl_Donations" Multiplicity="0..1" />
           <End Type="charitable_dbModel.tbl_Orders" Role="tbl_Orders" Multiplicity="*" />
@@ -2121,7 +2085,6 @@ warning 6002: The table/view 'charitable_db.sys.ipv6_database_firewall_rules' do
               <MappingFragment StoreEntitySet="tbl_Orders">
                 <ScalarProperty Name="DonationID" ColumnName="DonationID" />
                 <ScalarProperty Name="ResponseID" ColumnName="ResponseID" />
-                <ScalarProperty Name="DonorID" ColumnName="DonorID" />
                 <ScalarProperty Name="OrderID" ColumnName="OrderID" />
                 <ScalarProperty Name="NGO_ID" ColumnName="NGO_ID" />
                 <ScalarProperty Name="CaseID" ColumnName="CaseID" />

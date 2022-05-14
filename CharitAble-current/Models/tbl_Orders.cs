@@ -29,7 +29,6 @@ namespace CharitAble_current.Models
         public string DeliveryAddress { get; set; }
         public Nullable<int> StatusID { get; set; }
         public Nullable<decimal> Amount { get; set; }
-        public Nullable<int> DonorID { get; set; }
         public Nullable<int> ResponseID { get; set; }
         public Nullable<int> DonationID { get; set; }
     
@@ -39,7 +38,6 @@ namespace CharitAble_current.Models
         public virtual ICollection<tbl_Invoices> tbl_Invoices { get; set; }
         public virtual tbl_PaymentInfo tbl_PaymentInfo { get; set; }
         public virtual NGOResponse NGOResponse { get; set; }
-        public virtual tbl_DonorMaster tbl_DonorMaster { get; set; }
         public virtual tbl_Donations tbl_Donations { get; set; }
     }
 }

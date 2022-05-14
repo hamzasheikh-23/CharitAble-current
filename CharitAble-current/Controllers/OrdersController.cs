@@ -84,7 +84,7 @@ namespace CharitAble_current.Controllers
 
                 tbl_Orders order = new tbl_Orders
                 {
-                    DonorID = value.NGOId,
+                    NGO_ID = value.NGOId,
                     DonationID = value.DonationId,
                     ResponseID = value.ResponseId,
                     PaymentID = value.PaymentId,
@@ -133,11 +133,7 @@ namespace CharitAble_current.Controllers
                                             join u in dbx.tbl_Users on n.UserID equals u.UserID
                                             where n.NGO_ID == x.NGO_ID
                                             select u.FirstName + " " + u.LastName).FirstOrDefault().Trim(),
-                                 DonorId = x.DonorID,
-                                 DonorName = (from d in dbx.tbl_DonorMaster
-                                              join u in dbx.tbl_Users on d.UserID equals u.UserID
-                                              where d.DonorID == x.DonorID
-                                              select u.FirstName + " " + u.LastName).FirstOrDefault().Trim(),
+
                                  CaseId = x.CaseID,
                                  DonationId = x.DonationID,
                                  ReplyId = x.ReplyID,
@@ -148,6 +144,59 @@ namespace CharitAble_current.Controllers
                                                    select dr.Address).FirstOrDefault().Trim(),
                                  PickupAddress = r.Address,
                                  DeliveryAddress = x.DeliveryAddress,
+                                 Amount = x.Amount,
+                                 StatusId = x.StatusID,
+                                 Status = (from y in dbx.tbl_Status
+                                           where y.StatusID == x.StatusID
+                                           select y.Status).FirstOrDefault().Trim(),
+                                 OrderDateTime = x.OrderDateTime
+                             }).ToList();
+
+
+                if (order.Any())
+                {
+                    ret = new { order, noData = false };
+                    return Ok(ret);
+                }
+                return Ok(ret);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("'" + ex + ": " + ex.Message + "'");
+            }
+        }
+
+        [HttpGet]
+        [Route("getallresponse")]
+        public IHttpActionResult GetR()
+        {
+            try
+            {
+                object ret = new { code = 0, status = "unsuccesfull request" };
+
+                var order = (from x in dbx.tbl_Orders
+                             join r in dbx.NGOResponses on x.ResponseID equals r.ResponseID
+                             select new OrderRequest()
+                             {
+                                 OrderId = x.OrderID,
+                                 NGOId = x.NGO_ID,
+                                 NGOName = (from n in dbx.tbl_NGOMaster
+                                            join u in dbx.tbl_Users on n.UserID equals u.UserID
+                                            where n.NGO_ID == x.NGO_ID
+                                            select u.FirstName + " " + u.LastName).FirstOrDefault().Trim(),
+
+                                 CaseId = x.CaseID,
+                                 DonationId = x.DonationID,
+                                 ReplyId = x.ReplyID,
+                                 ResponseId = x.ResponseID,
+                                 PaymentId = x.PaymentID,
+
+                                 PickupAddress = (from dx in dbx.tbl_Donations
+                                                  where dx.DonationID == x.DonationID
+                                                  select dx.Address).FirstOrDefault().Trim(),
+                                 DeliveryAddress = (from dr in dbx.NGOResponses
+                                                    where dr.ResponseID == x.ResponseID
+                                                    select dr.Address).FirstOrDefault().Trim(),
                                  Amount = x.Amount,
                                  StatusId = x.StatusID,
                                  Status = (from y in dbx.tbl_Status
@@ -190,11 +239,7 @@ namespace CharitAble_current.Controllers
                                             join u in dbx.tbl_Users on n.UserID equals u.UserID
                                             where n.NGO_ID == x.NGO_ID
                                             select u.FirstName + " " + u.LastName).FirstOrDefault().Trim(),
-                                 DonorId = x.DonorID,
-                                 DonorName = (from d in dbx.tbl_DonorMaster
-                                              join u in dbx.tbl_Users on d.UserID equals u.UserID
-                                              where d.DonorID == x.DonorID
-                                              select u.FirstName + " " + u.LastName).FirstOrDefault().Trim(),
+
                                  CaseId = x.CaseID,
                                  DonationId = x.DonationID,
                                  ReplyId = x.ReplyID,
@@ -205,6 +250,58 @@ namespace CharitAble_current.Controllers
                                                    select dr.Address).FirstOrDefault().Trim(),
                                  PickupAddress = r.Address,
                                  DeliveryAddress = x.DeliveryAddress,
+                                 Amount = x.Amount,
+                                 StatusId = x.StatusID,
+                                 Status = (from y in dbx.tbl_Status
+                                           where y.StatusID == x.StatusID
+                                           select y.Status).FirstOrDefault().Trim(),
+                                 OrderDateTime = x.OrderDateTime
+                             }).ToList();
+
+                if (order.Any())
+                {
+                    ret = new { order, noData = false };
+                    return Ok(ret);
+                }
+                return Ok(ret);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("'" + ex + ": " + ex.Message + "'");
+            }
+        }
+
+        [HttpGet]
+        [Route("response/get")]
+        public IHttpActionResult GetOr(int ngoId)
+        {
+            try
+            {
+                object ret = new { noData = true, status = "unsuccesfull request" };
+
+                var order = (from x in dbx.tbl_Orders
+                             join r in dbx.NGOResponses on x.ResponseID equals r.ResponseID
+                             where x.NGO_ID == ngoId
+                             select new OrderRequest()
+                             {
+                                 OrderId = x.OrderID,
+                                 NGOId = x.NGO_ID,
+                                 NGOName = (from n in dbx.tbl_NGOMaster
+                                            join u in dbx.tbl_Users on n.UserID equals u.UserID
+                                            where n.NGO_ID == x.NGO_ID
+                                            select u.FirstName + " " + u.LastName).FirstOrDefault().Trim(),
+
+                                 CaseId = x.CaseID,
+                                 DonationId = x.DonationID,
+                                 ReplyId = x.ReplyID,
+                                 ResponseId = x.ResponseID,
+                                 PaymentId = x.PaymentID,
+                                 PickupAddress = (from dx in dbx.tbl_Donations
+                                                  where dx.DonationID == x.DonationID
+                                                  select dx.Address).FirstOrDefault().Trim(),
+                                 DeliveryAddress = (from dr in dbx.NGOResponses
+                                                    where dr.ResponseID == x.ResponseID
+                                                    select dr.Address).FirstOrDefault().Trim(),
                                  Amount = x.Amount,
                                  StatusId = x.StatusID,
                                  Status = (from y in dbx.tbl_Status
@@ -246,11 +343,7 @@ namespace CharitAble_current.Controllers
                                             join u in dbx.tbl_Users on n.UserID equals u.UserID
                                             where n.NGO_ID == x.NGO_ID
                                             select u.FirstName + " " + u.LastName).FirstOrDefault().Trim(),
-                                 DonorId = x.DonorID,
-                                 DonorName = (from d in dbx.tbl_DonorMaster
-                                              join u in dbx.tbl_Users on d.UserID equals u.UserID
-                                              where d.DonorID == x.DonorID
-                                              select u.FirstName + " " + u.LastName).FirstOrDefault().Trim(),
+
                                  CaseId = x.CaseID,
                                  DonationId = x.DonationID,
                                  ReplyId = x.ReplyID,
@@ -307,11 +400,7 @@ namespace CharitAble_current.Controllers
                                             join u in dbx.tbl_Users on n.UserID equals u.UserID
                                             where n.NGO_ID == x.NGO_ID
                                             select u.FirstName + " " + u.LastName).FirstOrDefault().Trim(),
-                                 DonorId = x.DonorID,
-                                 DonorName = (from d in dbx.tbl_DonorMaster
-                                              join u in dbx.tbl_Users on d.UserID equals u.UserID
-                                              where d.DonorID == x.DonorID
-                                              select u.FirstName + " " + u.LastName).FirstOrDefault().Trim(),
+
                                  CaseId = x.CaseID,
                                  DonationId = x.DonationID,
                                  ReplyId = x.ReplyID,

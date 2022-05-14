@@ -255,6 +255,7 @@ namespace CharitAble_current.Controllers
 
                         donor.UserID = userID;
                         donor.isActive = "true";
+                        donor.CNIC = value.CNIC;
 
                         dbx.tbl_DonorMaster.AddOrUpdate(donor);
                         dbx.SaveChanges();

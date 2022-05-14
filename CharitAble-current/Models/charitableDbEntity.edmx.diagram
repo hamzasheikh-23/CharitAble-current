@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="39a95fd5239a4f5b9b7c0ca91bf0d909" Name="Diagram1">
+      <Diagram DiagramId="39a95fd5239a4f5b9b7c0ca91bf0d909" Name="Diagram1" ZoomLevel="73">
         <EntityTypeShape EntityType="charitable_dbModel.tbl_Admin" Width="1.5" PointX="5.25" PointY="9.5" IsExpanded="true" />
         <EntityTypeShape EntityType="charitable_dbModel.tbl_Cases" Width="1.5" PointX="7.5" PointY="19.25" IsExpanded="true" />
         <EntityTypeShape EntityType="charitable_dbModel.tbl_DonationCategory" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
@@ -56,7 +56,6 @@
         <AssociationConnector Association="charitable_dbModel.FK_NGOResponse_tbl_NGOMaster" />
         <AssociationConnector Association="charitable_dbModel.FK_NGOResponse_tbl_Status" />
         <AssociationConnector Association="charitable_dbModel.FK_tbl_Orders_NGOResponse" />
-        <AssociationConnector Association="charitable_dbModel.FK_tbl_Orders_tbl_DonorMaster" />
         <AssociationConnector Association="charitable_dbModel.FK_tbl_Orders_tbl_Donations" />
       </Diagram>
     </edmx:Diagrams>
