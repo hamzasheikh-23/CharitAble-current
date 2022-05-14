@@ -53,7 +53,7 @@ namespace CharitAble_current.Controllers
                 cases.StatusID = value.StatusId = statusId;
                 cases.UnitID = value.UnitId = 2;
 
-                if (!string.IsNullOrEmpty(value.ImageName))
+                if (!string.IsNullOrEmpty(value.ImageBase64))
                 {
                     //string imagePath = @"D:\fyp-frontend\src\serverImages\cases\" + value.ImageName;
                     //FileInfo fi = new FileInfo(imagePath);
@@ -625,15 +625,15 @@ namespace CharitAble_current.Controllers
                                            where x.Unit == value.Unit
                                            select x.UnitID).FirstOrDefault();
 
-                    if (!string.IsNullOrEmpty(value.ImageName))
+                    if (!string.IsNullOrEmpty(value.ImageBase64))
                     {
-                        string imagePath = @"D:\fyp-frontend\src\serverImages\cases\" + value.ImageName;
-                        FileInfo fi = new FileInfo(imagePath);
-                        Guid obj = Guid.NewGuid();
-                        imagePath = @"D:\fyp-frontend\src\serverImages\cases\" + obj.ToString() + fi.Extension;
+                        //string imagePath = @"D:\fyp-frontend\src\serverImages\cases\" + value.ImageName;
+                        //FileInfo fi = new FileInfo(imagePath);
+                        //Guid obj = Guid.NewGuid();
+                        //imagePath = @"D:\fyp-frontend\src\serverImages\cases\" + obj.ToString() + fi.Extension;
                         var cleanerBase = value.ImageBase64.Substring(value.ImageBase64.LastIndexOf(',') + 1);
-                        File.WriteAllBytes(imagePath, Convert.FromBase64String(cleanerBase));
-                        existingCase.CoverImage = imagePath;
+                        //File.WriteAllBytes(imagePath, Convert.FromBase64String(cleanerBase));
+                        existingCase.CoverImage = cleanerBase;
                     }
 
                     dbx.tbl_Cases.AddOrUpdate(existingCase);

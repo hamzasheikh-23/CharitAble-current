@@ -44,7 +44,7 @@ namespace CharitAble_current.Controllers
                 reply.PostedDateTime = value.PostedDateTime = DateTime.Now;
                 reply.StatusID = value.StatusId = statusId;
 
-                if (!string.IsNullOrEmpty(value.Image1Name))
+                if (!string.IsNullOrEmpty(value.Image1Base64))
                 {
                     //string imagePath1 = @"D:\fyp-frontend\src\serverImages\donorReplies\" + value.Image1Name;
                     //FileInfo fi = new FileInfo(imagePath1);
@@ -55,7 +55,7 @@ namespace CharitAble_current.Controllers
                     reply.Image1 = cleanerBase1;
                 }
 
-                if (!string.IsNullOrEmpty(value.Image2Name))
+                if (!string.IsNullOrEmpty(value.Image2Base64))
                 {
                     //string imagePath2 = @"D:\fyp-frontend\src\serverImages\donorReplies\" + value.Image2Name;
                     //FileInfo fi = new FileInfo(imagePath2);
@@ -66,7 +66,7 @@ namespace CharitAble_current.Controllers
                     reply.Image2 = cleanerBase2;
                 }
 
-                if (!string.IsNullOrEmpty(value.Image3Name))
+                if (!string.IsNullOrEmpty(value.Image3Base64))
                 {
                     //string imagePath3 = @"D:\fyp-frontend\src\serverImages\donorReplies\" + value.Image3Name;
                     //FileInfo fi = new FileInfo(imagePath3);
@@ -827,37 +827,37 @@ namespace CharitAble_current.Controllers
                                               select x.StatusID).FirstOrDefault();
                     existingReply.isActive = value.IsActive;
 
-                    if (!string.IsNullOrEmpty(value.Image1Name))
+                    if (!string.IsNullOrEmpty(value.Image1Base64))
                     {
-                        string imagePath1 = @"D:\fyp-frontend\src\serverImages\donorReplies\" + value.Image1Name;
-                        FileInfo fi = new FileInfo(imagePath1);
-                        Guid obj = Guid.NewGuid();
-                        imagePath1 = @"D:\fyp-frontend\src\serverImages\donorReplies\" + obj.ToString() + fi.Extension;
+                        //string imagePath1 = @"D:\fyp-frontend\src\serverImages\donorReplies\" + value.Image1Name;
+                        //FileInfo fi = new FileInfo(imagePath1);
+                        //Guid obj = Guid.NewGuid();
+                        //imagePath1 = @"D:\fyp-frontend\src\serverImages\donorReplies\" + obj.ToString() + fi.Extension;
                         var cleanerBase1 = value.Image1Base64.Substring(value.Image1Base64.LastIndexOf(',') + 1);
-                        File.WriteAllBytes(imagePath1, Convert.FromBase64String(cleanerBase1));
-                        existingReply.Image1 = imagePath1;
+                        //File.WriteAllBytes(imagePath1, Convert.FromBase64String(cleanerBase1));
+                        existingReply.Image1 = cleanerBase1;
                     }
 
-                    if (!string.IsNullOrEmpty(value.Image2Name))
+                    if (!string.IsNullOrEmpty(value.Image2Base64))
                     {
-                        string imagePath2 = @"D:\fyp-frontend\src\serverImages\donorReplies\" + value.Image2Name;
-                        FileInfo fi = new FileInfo(imagePath2);
-                        Guid obj = Guid.NewGuid();
-                        imagePath2 = @"D:\fyp-frontend\src\serverImages\donorReplies\" + obj.ToString() + fi.Extension;
+                        //string imagePath2 = @"D:\fyp-frontend\src\serverImages\donorReplies\" + value.Image2Name;
+                        //FileInfo fi = new FileInfo(imagePath2);
+                        //Guid obj = Guid.NewGuid();
+                        //imagePath2 = @"D:\fyp-frontend\src\serverImages\donorReplies\" + obj.ToString() + fi.Extension;
                         var cleanerBase2 = value.Image2Base64.Substring(value.Image2Base64.LastIndexOf(',') + 1);
-                        File.WriteAllBytes(imagePath2, Convert.FromBase64String(cleanerBase2));
-                        existingReply.Image2 = imagePath2;
+                        //File.WriteAllBytes(imagePath2, Convert.FromBase64String(cleanerBase2));
+                        existingReply.Image2 = cleanerBase2;
                     }
 
-                    if (!string.IsNullOrEmpty(value.Image3Name))
+                    if (!string.IsNullOrEmpty(value.Image3Base64))
                     {
-                        string imagePath3 = @"D:\fyp-frontend\src\serverImages\donorReplies" + value.Image3Name;
-                        FileInfo fi = new FileInfo(imagePath3);
-                        Guid obj = Guid.NewGuid();
-                        imagePath3 = @"D:\fyp-frontend\src\serverImages\donorReplies\" + obj.ToString() + fi.Extension;
+                        //string imagePath3 = @"D:\fyp-frontend\src\serverImages\donorReplies" + value.Image3Name;
+                        //FileInfo fi = new FileInfo(imagePath3);
+                        //Guid obj = Guid.NewGuid();
+                        //imagePath3 = @"D:\fyp-frontend\src\serverImages\donorReplies\" + obj.ToString() + fi.Extension;
                         var cleanerBase3 = value.Image3Base64.Substring(value.Image3Base64.LastIndexOf(',') + 1);
-                        File.WriteAllBytes(imagePath3, Convert.FromBase64String(cleanerBase3));
-                        existingReply.Image3 = imagePath3;
+                        //File.WriteAllBytes(imagePath3, Convert.FromBase64String(cleanerBase3));
+                        existingReply.Image3 = cleanerBase3;
                     }
 
                     dbx.tbl_DonorReplies.AddOrUpdate(existingReply);
